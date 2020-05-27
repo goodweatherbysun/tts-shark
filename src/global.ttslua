@@ -176,7 +176,7 @@ PLAYER_SHARE_DEPOSITS = {
 LAST_TURN_TIME = nil
 LAST_TURN_COOLDOWN = 180 -- 3 minutes
 
-UNLOCK_OBJECT_GUIDS = table.append({
+LOCK_OBJECT_GUIDS = table.append({
     '93af80',
     'c54cc2',
     '2e7035',
@@ -274,15 +274,21 @@ function onLoad()
     CONTROLLERS.graph = GraphController.new(graph_boards, COMPANIES)
     CONTROLLERS.graph:renderAll()
 
-    -- unlock cards and indicators on the board
+    -- unlock cards and indicators on the board for a brief time
 
     -- Reasoning: After loading the scene the board still needs a little time to
     -- grow to full size. Due to friction the indicators and cards are moved out
     -- of place. Therefore, these objects are initially locked and have to be
     -- unlocked.
 
+    -- lock objects
+    for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
+        getObjectFromGUID(guid).setLock(true)
+    end
+
+    -- unlock objects after a few seconds
     Wait.time(function ()
-        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
             getObjectFromGUID(guid).setLock(false)
         end
     end, 3)
@@ -393,13 +399,13 @@ function onScriptingButtonUp(index, player_color)
         print(object)
     elseif index == SCRIPTING_BUTTON_UNLOCK_OBJECTS then
         -- TODO remove
-        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
             getObjectFromGUID(guid).setLock(false)
         end
         print('unlocked')
     elseif index == SCRIPTING_BUTTON_LOCK_OBJECTS then
         -- TODO remove
-        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
             getObjectFromGUID(guid).setLock(true)
         end
         print('locked')
