@@ -1,0 +1,76 @@
+local PlayerShareCardZoneModel = {}
+
+PlayerShareCardZoneModel.__index = PlayerShareCardZoneModel
+
+function PlayerShareCardZoneModel.new(object)
+    local instance = {
+        object = object,
+        stock_options = {}
+    }
+
+    setmetatable(instance, PlayerShareCardZoneModel)
+
+    instance:reset()
+
+    return instance
+end
+
+function PlayerShareCardZoneModel:getPlayerColor()
+    return self.object.getTable('player_share_card_zone').color
+end
+
+function PlayerShareCardZoneModel:reset()
+    for _, company in ipairs(COMPANIES) do
+        self.stock_options[company] = 0
+    end
+end
+
+function PlayerShareCardZoneModel:count(enter_object)
+    local objects = self.object.getObjects()
+
+    if enter_object then
+        table.insert(objects, enter_object)
+    end
+
+    self:reset()
+
+    local share_counters = {}
+    local stock_options = self.stock_options
+
+    for object in unbaggedObjects(objects) do
+        local kind = object.getVar('kind')
+
+        if kind == 'shark_share_card' then
+            local share = object.getTable('share')
+            local company = share.company
+            local share_stock_options = share.stock_options
+
+            stock_options[company] = stock_options[company] + share_stock_options
+        elseif kind == 'shark_share_counter' and object.tag == 'Counter' then
+            local share_counter = object.getTable('share_counter')
+            local company = share_counter.company
+
+            share_counters[company] = object
+        end
+    end
+
+    for company, share_counter in pairs(share_counters) do
+        local company_stock_options = stock_options[company]
+
+        share_counter.setValue(company_stock_options)
+    end
+end
+
+function PlayerShareCardZoneModel:sum()
+    local share_prices = getSharePrices()
+
+    local sum = 0
+
+    for company, company_stock_options in pairs(self.stock_options) do
+        sum = sum + company_stock_options * share_prices[company]
+    end
+
+    return sum
+end
+
+return PlayerShareCardZoneModel
