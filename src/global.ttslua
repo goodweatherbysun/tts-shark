@@ -7,6 +7,7 @@ debug = require("shark/util/debug")
 
 MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
 PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
+HandZoneModel = require("shark/game/hand_zone_model")
 
 SEAT_COLORS = {
     'White',
@@ -268,7 +269,7 @@ function onLoad()
     discoverObjects(HAND_ZONES, HAND_ZONE_GUIDS, function (zone, color)
         zone.setVar('kind', 'hand_zone')
         zone.setTable('hand_zone', { color = color })
-        addModel(zone, HandZone.new(zone))
+        addModel(zone, HandZoneModel.new(zone))
     end)
 
     -- init graphs
@@ -864,50 +865,6 @@ function handlePlayerTakeShareCard(player_color, object)
 end
 
 -- Model Management end
-
-HandZone = {}
-HandZone.__index = HandZone
-
-function HandZone.new(object)
-    local instance = {
-        object = object,
-        money_amount = 0,
-    }
-
-    setmetatable(instance, HandZone)
-
-    return instance
-end
-
-function HandZone:getPlayerColor()
-    return self.object.getTable('hand_zone').color
-end
-
-function HandZone:count(enter_object)
-    -- We retrieve the objects from the scripting zone instead of from the hand.
-    -- Accurately tracking the objects in hand is tricky, since the enter and
-    -- leave events are triggered by the scripting zone.
-    --
-    -- Note, that it is actually possible to have objects in the scripting zone,
-    -- but not in the  hand (decks for example), which may be a downside.
-    local objects = self.object.getObjects()
-
-    if enter_object then
-        table.insert(objects, enter_object)
-    end
-
-    self.money_amount = 0
-
-    for object in unbaggedObjects(objects) do
-        local kind = object.getVar('kind')
-
-        if kind == 'shark_money' then
-            self.money_amount = self.money_amount + object.getTable('money').amount
-        end
-    end
-end
-
--- HandZone end
 
 DropZone = {}
 DropZone.__index = DropZone
