@@ -1,0 +1,65 @@
+local MoneyCounterModel = {}
+
+MoneyCounterModel.__index = MoneyCounterModel
+
+function MoneyCounterModel.new(object)
+    local instance = {
+        object = object,
+        zone = nil,
+        forced_sale_mode = false,
+    }
+
+    setmetatable(instance, MoneyCounterModel)
+
+    object.createButton({
+        click_function = 'MoneyCounterModel_onToggleForcedSalesClick',
+        position = { 0, 0.01, -0.75 },
+        rotation = { 0, 180, 0 },
+        height = 150,
+        width = 1000,
+        tooltip = 'Enabling Forced Sale will count shares at 50% of their regular price.',
+    })
+
+    instance:handleForcedSaleModeChange()
+
+    return instance
+end
+
+function MoneyCounterModel_onToggleForcedSalesClick(money_counter, player_color, alt_click)
+    local money_counter = getModel(money_counter_object)
+    local zone = money_counter.zone
+
+    money_counter:toggleForcedSaleMode()
+
+    if zone then
+        getModel(zone):countMoneyAndShares()
+    end
+end
+
+function MoneyCounterModel:toggleForcedSaleMode()
+    self.forced_sale_mode = not self.forced_sale_mode
+    self:handleForcedSaleModeChange()
+end
+
+function MoneyCounterModel:handleForcedSaleModeChange()
+    if self.forced_sale_mode then
+        self.object.setColorTint({ 0.25, 0.25, 0.25 })
+        self.object.editButton({
+            label = 'Disable Forced Sale',
+            color = { 1, 0, 0 },
+            font_color = { 1, 1, 1 },
+        })
+    else
+        -- Color tint is almost perfect white. For some reason actual white
+        -- (#FFFFFF) appears only white to the host. But for all others it is
+        -- displayed in black.
+        self.object.setColorTint({ 254/255, 254/255, 254/255 })
+        self.object.editButton({
+            label = 'Enable Forced Sale',
+            color = { 1, 1, 1 },
+            font_color = { 0, 0, 0 },
+        })
+    end
+end
+
+return MoneyCounterModel
