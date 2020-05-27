@@ -1,0 +1,19 @@
+DEFAULT_STATE = {
+    vars = {
+        kind = 'shark_share_card',
+    },
+    tables = {
+        share = {
+            company = 'yellow',
+            stock_options = 5,
+        },
+    },
+}
+
+function onLoad(save_state)
+    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+end
+
+function onSave()
+    return JSON.encode(DEFAULT_STATE)
+end

@@ -1,0 +1,18 @@
+DEFAULT_STATE = {
+    vars = {
+        kind = 'shark_money',
+    },
+    tables = {
+        money = {
+            amount = 50,
+        },
+    },
+}
+
+function onLoad(save_state)
+    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+end
+
+function onSave()
+    return JSON.encode(DEFAULT_STATE)
+end

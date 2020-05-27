@@ -1,0 +1,16 @@
+-- Green 5 Share Card
+
+DEFAULT_STATE = {
+    vars = {
+        kind = 'shark_share_counter',
+    },
+    tables = {
+        share_counter = {
+            company = 'green',
+        },
+    },
+}
+
+function onLoad(save_state)
+    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+end

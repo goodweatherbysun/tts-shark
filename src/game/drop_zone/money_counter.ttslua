@@ -1,0 +1,10 @@
+DEFAULT_STATE = {
+    vars = {
+        kind = 'shark_money_counter',
+    },
+}
+
+function onLoad(save_state)
+    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+    Global.call('registerObject', self)
+end

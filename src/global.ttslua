@@ -1,0 +1,1833 @@
+set = require("shark/util/set")
+util = require("shark/util/util")
+UiDom = require("shark/tts/ui_dom")
+UiClosable = require("shark/tts/ui_closable")
+-- DEBUG
+debug = require("shark/util/debug")
+
+SEAT_COLORS = {
+    'White',
+    'Red',
+    'Yellow',
+    'Green',
+    'Blue',
+    'Purple',
+}
+
+SEAT_COLOR_SET = set.new(SEAT_COLORS)
+
+COMPANIES = {
+    'green',
+    'red',
+    'blue',
+    'yellow',
+}
+
+-- COMPANY_COLORS = {
+--     green = '#5fab46',
+--     red = '#e4312e',
+--     blue = '#7bbebb',
+--     yellow = '#fbc133',
+-- }
+
+COMPANY_COLORS = {
+    green = Color(95 / 255, 171 / 255, 70 / 255),
+    red = Color(228 / 255, 49 / 255, 46 / 255),
+    blue = Color(123 / 255, 190 / 255, 187 / 255),
+    yellow = Color(251 / 255, 193 / 255, 51 / 255),
+}
+
+SCRIPTING_BUTTON_BUY_SHARE = 10
+SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
+SCRIPTING_BUTTON_UNLOCK_OBJECTS = 8
+SCRIPTING_BUTTON_LOCK_OBJECTS = 9
+
+SHARE_PRICE_MIN = 0
+SHARE_PRICE_MAX = 15
+SHARE_PRICE_LEVEL_REF_1 = 1
+SHARE_PRICE_LEVEL_REF_2 = 15
+SHARE_PRICE_LEVEL_REF_DELTA = SHARE_PRICE_LEVEL_REF_2 - SHARE_PRICE_LEVEL_REF_1
+-- Values below are relative to the board. Translating, scaling, or rotating
+-- the board has no effect on these values.
+SHARE_PRICE_LEVEL_REF_1_Z = 3.6954
+SHARE_PRICE_LEVEL_REF_2_Z = -7.0907
+SHARE_PRICE_LEVEL_REF_Z_DELTA = SHARE_PRICE_LEVEL_REF_2_Z - SHARE_PRICE_LEVEL_REF_1_Z
+
+-- relative to board
+SHARE_DEPOSIT_POSITIONS = {
+    green = {
+        [1] = { x = 7.1214, y = 2, z = 5.9878 },
+        [5] = { x = -7.1289, y = 2, z = -6.0329 },
+    },
+    red = {
+        [1] = { x = 5.1659, y = 2, z = 5.9924 },
+        [5] = { x = -7.1349, y = 2, z = -2.0057 },
+    },
+    blue = {
+        [1] = { x = 3.1999, y = 2, z = 5.9807 },
+        [5] = { x = -7.1220, y = 2, z = 1.9648 },
+    },
+    yellow = {
+        [1] = { x = 1.2528, y = 2, z = 5.9704 },
+        [5] = { x = -7.1191, y = 2, z = 5.9503 },
+    },
+}
+
+MONEY_DEPOSIT_MARKERS = {}
+MONEY_DEPOSIT_MARKERS_GUIDS = {
+    [1] = 'cb10ca',
+    [5] = 'c6fff2',
+    [10] = '6396b9',
+    [50] = 'd9c185',
+}
+
+BOARD = nil
+BOARD_GUID = '12bb20'
+
+BUILDING_BAGS = {}
+BUILDING_BAG_GUIDS = {
+    green = '062411',
+    red = '16b065',
+    blue = 'bd55ee',
+    yellow = 'c47da9',
+}
+
+DISCARDED_BUILDING_BAG_GUID = '47b9a5'
+DISCARDED_BUILDING_BAG = nil
+
+INDICATORS = {}
+INDICATOR_GUIDS = {
+    green = '65f72d',
+    red = 'c7426a',
+    blue = 'd4bd37',
+    yellow = 'b96f7a',
+}
+
+DROP_ZONES = {}
+DROP_ZONE_GUIDS = {
+    '558917',
+    '2dc3c1',
+}
+
+PLAYER_SHARE_CARD_ZONES = {}
+PLAYER_SHARE_CARD_ZONE_GUIDS = {
+    White = '64d891',
+    Red = '9dae36',
+    Yellow = '0356a0',
+    Green = 'a1d77d',
+    Blue = '51fa09',
+    Purple = '9d30f7',
+}
+
+-- These are actually scripting zones on top of the real hand zones.
+HAND_ZONES = {}
+HAND_ZONE_GUIDS = {
+    White = '6ce9b9',
+    Red = '980351',
+    Yellow = '008eed',
+    Green = 'f2c6f5',
+    Blue = '677e18',
+    Purple = '4053a7',
+}
+
+GRAPH_BOARD_GUIDS = {
+    'd8b4ea',
+    'a86554',
+}
+
+PLAYER_SHARE_DEPOSITS = {
+    -- obsolute deposit positions of the 5 green share for each player
+    absolute_positions = {
+        White = { x = -5.6002, y = 2, z = -14.6324 },
+        Red = { x = -29.2351, y = 2, z = -14.6183 },
+        Yellow = { x = -18.0536, y = 2, z = 14.6085 },
+        Green = { x = 5.596, y = 2, z = 14.5969 },
+        Blue = { x = 29.2419, y = 2, z = 14.6094 },
+        Purple = { x = 18.0398, y = 2, z = -14.6423 },
+    },
+    rotation_y = {
+        White = math.pi,
+        Red = math.pi,
+        Yellow = 0,
+        Green = 0,
+        Blue = 0,
+        Purple = math.pi,
+    },
+    relative_positions = {
+        green = {
+            [1] = { x = 0.0166, y = 0, z = 5.3027 },
+            [5] = { x = 0, y = 0, z = 0 },
+        },
+        red = {
+            [1] = { x = -3.7270, y = 0, z = 5.2995 },
+            [5] = { x = -3.7236, y = 0, z = 0.0077 },
+        },
+        blue = {
+            [1] = { x = -7.4423, y = 0, z = 5.3004 },
+            [5] = { x = -7.4585, y = 0, z = 0.0086 },
+        },
+        yellow = {
+            [1] = { x = -11.1645, y = 0, z = 5.3013 },
+            [5] = { x = -11.1738, y = 0, z = 0.0026 },
+        },
+    }
+}
+
+LAST_TURN_TIME = nil
+LAST_TURN_COOLDOWN = 180 -- 3 minutes
+
+UNLOCK_OBJECT_GUIDS = table.append({
+    '93af80',
+    'c54cc2',
+    '2e7035',
+    '3c57ef',
+    'b712a4',
+    '1dc0fe',
+    'd4518b',
+    'df7272',
+}, table.values(INDICATOR_GUIDS))
+
+MODELS = {}
+
+CONTROLLERS = {}
+
+NOTES = string.rep('\n', 11) .. [=[
+[b]Hotkeys[/b]
+
+Bind hotkeys via [i]Options[/i] > [i]Game Keys[/i].
+
+[b]Scripting 10[/b] (Default: [i]Keypad 0[/i]):
+Moves a Share Card into your deposit area.
+Also increases the “Bought Shares” counter.]=]
+
+-- DEBUG
+function onDebug(player_color, object, position, key_up)
+    if not key_up then
+        return
+    end
+
+    print('#################################################')
+
+    if object then
+        debug.dumpVector(object.positionToLocal(position))
+
+        -- debug.inspect('local position:', object.positionToLocal(position))
+        -- debug.inspect('object bounds: ', object.getBounds())
+        -- debug.inspect('object norm bounds: ', object.getBoundsNormalized())
+    -- else
+    --     debug.inspect('global position:', position)
+    end
+
+    CONTROLLERS.graph:push(getSharePrices())
+    CONTROLLERS.graph:renderAll()
+end
+
+function onLoad()
+    -- invoke afterLoad after all objects have called onLoad
+    Wait.frames(afterLoad, 0)
+
+    -- discover board
+    BOARD = getObjectFromGUID(BOARD_GUID)
+
+    -- discover money deposits
+    discoverObjects(MONEY_DEPOSIT_MARKERS, MONEY_DEPOSIT_MARKERS_GUIDS)
+
+    -- discover building bags
+    discoverObjects(BUILDING_BAGS, BUILDING_BAG_GUIDS, function (bag, company)
+        bag.setVar('kind', 'shark_building_bag')
+        bag.setTable('building_bag', { company = company })
+    end)
+
+    DISCARDED_BUILDING_BAG = getObjectFromGUID(DISCARDED_BUILDING_BAG_GUID)
+    DISCARDED_BUILDING_BAG.setVar('kind', 'shark_discarded_building_bag')
+
+    -- discover share price indicators
+    discoverObjects(INDICATORS, INDICATOR_GUIDS, function (indicator, company)
+        indicator.setVar('kind', 'shark_share_price_indicator')
+        indicator.setTable('share_price_indicator', { company = company })
+    end)
+
+    -- discover drop zones
+    discoverObjects(DROP_ZONES, DROP_ZONE_GUIDS, function (zone)
+        zone.setVar('kind', 'shark_drop_zone')
+        addModel(zone, DropZone.new(zone))
+    end)
+
+    -- discover player share card zones
+    discoverObjects(PLAYER_SHARE_CARD_ZONES, PLAYER_SHARE_CARD_ZONE_GUIDS, function (zone, color)
+        zone.setVar('kind', 'shark_player_share_card_zone')
+        zone.setTable('player_share_card_zone', { color = color })
+
+        addModel(zone, PlayerShareCardZone.new(zone))
+    end)
+
+    -- discover hand zones
+    discoverObjects(HAND_ZONES, HAND_ZONE_GUIDS, function (zone, color)
+        zone.setVar('kind', 'hand_zone')
+        zone.setTable('hand_zone', { color = color })
+        addModel(zone, HandZone.new(zone))
+    end)
+
+    -- init graphs
+
+    local graph_boards = table.collect(GRAPH_BOARD_GUIDS, getObjectFromGUID)
+    CONTROLLERS.graph = GraphController.new(graph_boards, COMPANIES)
+    CONTROLLERS.graph:renderAll()
+
+    -- unlock cards and indicators on the board
+
+    -- Reasoning: After loading the scene the board still needs a little time to
+    -- grow to full size. Due to friction the indicators and cards are moved out
+    -- of place. Therefore, these objects are initially locked and have to be
+    -- unlocked.
+
+    Wait.time(function ()
+        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+            getObjectFromGUID(guid).setLock(false)
+        end
+    end, 3)
+
+    -- hotkeys
+
+    addHotkey('Take Share Card', onTakeShareCardHotkey, true)
+
+    -- DEBUG
+    addHotkey('Debug', onDebug, true)
+
+    -- notes
+
+    -- Notes.setNotes(NOTES)
+
+    -- initialize UI
+
+    local xml_table = UI.getXmlTable()
+    local ui_dom = UiDom.new(xml_table)
+
+    CONTROLLERS.leaderboard = LeaderboardUiController.new(ui_dom, SEAT_COLORS)
+    CONTROLLERS.asset_counters = AssetCountersUiController.new(ui_dom, SEAT_COLORS)
+    CONTROLLERS.control_bar = ControlBarUiController.new(CONTROLLERS.asset_counters, CONTROLLERS.leaderboard)
+
+    UI.setXmlTable(ui_dom.xml_table)
+
+    -- update UI in next frame
+    Wait.frames(function ()
+        CONTROLLERS.leaderboard:render()
+        CONTROLLERS.asset_counters:updateAll()
+    end, 1)
+end
+
+function discoverObjects(table, guids, callback)
+    for key, guid in pairs(guids) do
+        local object = getObjectFromGUID(guid)
+
+        table[key] = object
+
+        if callback then
+            callback(object, key)
+        end
+    end
+end
+
+function afterLoad()
+    for _, zone in ipairs(DROP_ZONES) do
+        for _, zone_object in ipairs(zone.getObjects()) do
+            local kind = zone_object.getVar('kind')
+
+            if kind == 'shark_money_counter' then
+                getModel(zone_object).zone = zone
+            elseif kind == 'shark_drop_zone_return_button_object' then
+                getModel(zone_object).zone = zone
+            end
+        end
+    end
+end
+
+function onPlayerTurn(player)
+    CONTROLLERS.asset_counters:setBoughtShares(player.color, 0, true)
+end
+
+-- Triggers last turn only once within LAST_TURN_COOLDOWN seconds.
+--
+-- This will prevent multiple invocations of onLastTurn. The reasoning here is,
+-- that players may trigger this function more than once. For instance, by
+-- dropping the last building multiple times the last building.
+function triggerLastTurn()
+    local time = Time.time
+
+    if not LAST_TURN_TIME or time - LAST_TURN_TIME >= LAST_TURN_COOLDOWN then
+        LAST_TURN_TIME = time
+
+        onLastTurn()
+    end
+end
+
+function onLastTurn()
+    if not CONTROLLERS.control_bar.enable_leaderboard_value then
+        UI.show('Panel#lastTurnDialog')
+    end
+end
+
+function onEnableLeaderboardClick()
+    UI.hide('Panel#lastTurnDialog')
+
+    CONTROLLERS.control_bar:setEnableLeaderboardValue(true, true)
+end
+
+function onDismissLastTurnDialogClick()
+    UI.hide('Panel#lastTurnDialog')
+end
+
+function onPlayerChangeColor(player_color)
+    CONTROLLERS.leaderboard:render()
+end
+
+function onScriptingButtonUp(index, player_color)
+    if index == SCRIPTING_BUTTON_BUY_SHARE then
+        local object = Player[player_color].getHoverObject()
+
+        handlePlayerTakeShareCard(player_color, object)
+    elseif index == SCRIPTING_BUTTON_DEBUG then
+        -- DEBUG
+        local object = Player[player_color].getHoverObject()
+
+        print(object)
+    elseif index == SCRIPTING_BUTTON_UNLOCK_OBJECTS then
+        -- TODO remove
+        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+            getObjectFromGUID(guid).setLock(false)
+        end
+        print('unlocked')
+    elseif index == SCRIPTING_BUTTON_LOCK_OBJECTS then
+        -- TODO remove
+        for _, guid in ipairs(UNLOCK_OBJECT_GUIDS) do
+            getObjectFromGUID(guid).setLock(true)
+        end
+        print('locked')
+    end
+end
+
+function onTakeShareCardHotkey(player_color, object, position, key_up)
+    if key_up then
+        handlePlayerTakeShareCard(player_color, object)
+    end
+end
+
+function onObjectDestroy(object)
+    removeModel(object)
+end
+
+function onObjectDrop(color, dropped_object)
+    local kind = dropped_object.getVar('kind')
+
+    if kind == 'shark_share_price_indicator' then
+        for _, zone in pairs(DROP_ZONES) do
+            getModel(zone):countMoneyAndShares()
+        end
+
+        CONTROLLERS.leaderboard:updateAllPlayerShares()
+        CONTROLLERS.leaderboard:render()
+
+        CONTROLLERS.asset_counters:updateAllPlayerShareValues()
+
+        local properties = dropped_object.getTable('share_price_indicator')
+
+        if getSharePrice(properties.company) == SHARE_PRICE_MAX then
+            Wait.frames(triggerLastTurn, 0)
+        end
+    elseif kind == 'shark_building' then
+        local properties = dropped_object.getTable('building')
+
+        if isBuildingBagDepleted(properties.company) then
+            Wait.frames(triggerLastTurn, 0)
+        end
+    end
+
+    -- DEBUG
+    if dropped_object.guid == 'fd701d' then
+        Wait.time(function()
+            -- local position = Vector(dropped_object.getPosition())
+            local position = Vector(dropped_object.getPosition()) - Vector{ x = 5.5956, y = 1.46, z = 14.5975 }
+            -- local position = BOARD.positionToLocal(dropped_object.getPosition())
+
+            local x = math.round(position.x, 4)
+            local y = math.round(position.y, 4)
+            local z = math.round(position.z, 4)
+
+            Notes.setNotes('{ x = ' .. x .. ', y = ' .. y .. ', z = ' .. z .. ' }')
+        end, 2)
+    end
+end
+
+function onObjectEnterScriptingZone(zone, enter_object)
+    -- There seems to be a bug where a snap point preview can trigger the
+    -- ObjectEnterScriptingZone event incorrectly (v12.4.2).
+    if not enter_object then
+        return
+    end
+
+    onObjectEnterOrLeaveScriptingZone(zone, enter_object, nil)
+end
+
+function onObjectLeaveScriptingZone(zone, leave_object)
+    onObjectEnterOrLeaveScriptingZone(zone, nil, leave_object)
+end
+
+function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
+    local zone_kind = zone.getVar('kind')
+    local object_kind = getKind(enter_object or leave_object)
+
+    if zone_kind == 'shark_player_share_card_zone' then
+        if object_kind == 'shark_share_card' then
+            local zone_model = getModel(zone)
+            local player_color = zone_model:getPlayerColor()
+
+            zone_model:count(enter_object)
+
+            CONTROLLERS.leaderboard:updatePlayerShareValue(player_color)
+            CONTROLLERS.leaderboard:render()
+
+            CONTROLLERS.asset_counters:updatePlayerShareCounters(player_color)
+            CONTROLLERS.asset_counters:updatePlayerShareValue(player_color)
+        end
+    elseif zone_kind == 'shark_drop_zone' then
+        if object_kind == 'shark_money' or object_kind == 'shark_share_card' then
+            getModel(zone):countMoneyAndShares(enter_object)
+        end
+    elseif zone_kind == 'hand_zone' then
+        if object_kind == 'shark_money' then
+            local zone_model = getModel(zone)
+            local player_color = zone_model:getPlayerColor()
+
+            zone_model:count(enter_object)
+
+            CONTROLLERS.leaderboard:updatePlayerMoney(zone_model:getPlayerColor())
+            CONTROLLERS.leaderboard:render()
+
+            CONTROLLERS.asset_counters:updatePlayerMoney(player_color)
+        end
+    end
+end
+
+function filterObjectEnterContainer(container, object)
+    local container_kind = getKind(container)
+    local object_kind = getKind(object)
+
+    if container.tag == 'Bag' then
+        if container_kind == 'shark_building_bag' then
+            if object_kind ~= 'shark_building' then
+                return false
+            end
+
+            container_company = container.getTable('building_bag').company
+            object_company = object.getTable('building').company
+
+            return container_company == object_company
+        elseif container_kind == 'shark_discarded_building_bag' then
+            return object_kind == 'shark_building'
+        end
+    elseif container.tag == 'Deck' or container.tag == 'Card' then
+        return container_kind == object_kind
+    end
+
+    -- default behavior for all other containers
+    return true
+end
+
+function getSeatedPlayers()
+    local players = {}
+
+    for _, color in ipairs(SEAT_COLORS) do
+        local player = Player[color]
+
+        if player.seated then
+            table.insert(players, player)
+        end
+    end
+
+    return players
+end
+
+function getKind(object)
+    local kind = object.getVar('kind')
+
+    -- for decks determine kind by contained cards if unspecified
+    if object.tag == 'Deck' and not kind and object.getQuantity() > 0 then
+        bagged_object = wrapBaggedObject(object.getObjects()[1])
+        kind = bagged_object.getVar('kind')
+    end
+
+    return kind
+end
+
+function getSharePrice(company)
+    local indicator = INDICATORS[company];
+    local indicator_position = indicator.getPosition()
+    local local_indicator_position = BOARD.positionToLocal(indicator_position)
+    local share_price = SHARE_PRICE_LEVEL_REF_1 + SHARE_PRICE_LEVEL_REF_DELTA * (local_indicator_position.z - SHARE_PRICE_LEVEL_REF_1_Z) / SHARE_PRICE_LEVEL_REF_Z_DELTA
+
+    if share_price <= SHARE_PRICE_MIN then
+        return SHARE_PRICE_MIN
+    elseif share_price >= SHARE_PRICE_MAX then
+        return SHARE_PRICE_MAX
+    else
+        return math.round(share_price)
+    end
+end
+
+function getSharePrices()
+    local share_prices = {}
+
+    for _, company in ipairs(COMPANIES) do
+        share_prices[company] = getSharePrice(company)
+    end
+
+    return share_prices
+end
+
+function getDepositTarget(deposit_kind, deposit_properties)
+    local position, rotation_y
+
+    if deposit_kind == 'shark_share_card' then
+        local share = deposit_properties.share
+        local localPosition = SHARE_DEPOSIT_POSITIONS[share.company][share.stock_options]
+
+        position = BOARD.positionToWorld(localPosition)
+        rotation_y = BOARD.getRotation().y
+    elseif deposit_kind == 'shark_money' then
+        local marker = MONEY_DEPOSIT_MARKERS[deposit_properties.money.amount]
+
+        position = marker.getPosition()
+        rotation_y = marker.getRotation().y
+    else
+        return
+    end
+
+    position.y = 3
+
+    return {
+        position = position,
+        rotation = { x = 0, y = rotation_y, z = 0 },
+    }
+end
+
+function getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)
+    if deposit_kind ~= 'shark_share_card' then
+        return
+    end
+
+    local share = deposit_properties.share
+
+    local absolute_position = PLAYER_SHARE_DEPOSITS.absolute_positions[player_color]
+    local relative_position = PLAYER_SHARE_DEPOSITS.relative_positions[share.company][share.stock_options]
+    local rotation_y = PLAYER_SHARE_DEPOSITS.rotation_y[player_color]
+
+    local cos_theta = math.cos(rotation_y)
+    local sin_theta = math.sin(rotation_y)
+
+    return {
+        position = Vector(absolute_position) + Vector{
+            x = cos_theta * relative_position.x - sin_theta * relative_position.z,
+            y = relative_position.y,
+            z = sin_theta * relative_position.x + cos_theta * relative_position.z,
+        },
+        rotation = { x = 0, y = util.rad2deg(rotation_y), z = 0 },
+    }
+end
+
+function isBuildingBagDepleted(company)
+    return BUILDING_BAGS[company].getQuantity() == 0
+end
+
+function eachChunk(deck)
+    local chunk = nil
+    local bagged_objects = deck.getObjects()
+    local i = 0
+
+    return function ()
+        while i < #bagged_objects do
+            i = i + 1
+
+            local card = wrapBaggedObject(bagged_objects[#bagged_objects - i + 1])
+            local kind = card.getVar('kind')
+            local properties = {}
+
+            if kind == 'shark_share_card' then
+                properties.share = card.getTable('share')
+            elseif kind == 'shark_money' then
+                properties.money = card.getTable('money')
+            end
+
+            if chunk and kind == chunk.kind and util.equal(properties, chunk.properties) then
+                chunk.size = chunk.size + 1
+            else
+                local last_chunk = chunk
+                chunk = { size = 1, kind = kind, properties = properties }
+
+                if last_chunk then
+                    return last_chunk
+                end
+            end
+        end
+
+        last_chunk = chunk
+        chunk = nil
+
+        return last_chunk
+    end
+end
+
+function wrapBaggedObject(bagged_object)
+    local object = {
+        guid = bagged_object.guid,
+    }
+
+    local state = JSON.decode(bagged_object.lua_script_state)
+    local vars = {}
+    local tables = {}
+
+    if type(state) == 'table' then
+        if type(state.vars) == 'table' then
+            vars = state.vars
+        end
+
+        if type(state.tables) == 'table' then
+            tables = state.tables
+        end
+    end
+
+    function object.getVar(name)
+        return vars[name]
+    end
+
+    function object.setVar(name, value)
+        vars[name] = value
+    end
+
+    function object.getTable(name)
+        return tables[name]
+    end
+
+    function object.setTable(name, value)
+        tables[name] = value
+    end
+
+    return object
+end
+
+-- Iterates over given objects except for decks. Instead it will iterate over
+-- the deck's cards.
+function unbaggedObjects(objects)
+    -- We will track visited objects by their GUID and ensure that each one is
+    -- yielded only once.
+    --
+    -- Background: There is a weird behavior when grouping cards into a deck:
+    -- One card will appear both as a singular card but also inside the deck for
+    -- a brief time.
+    local visited_guids = set.new{}
+
+    local i = 1 -- object index
+    local j = 1 -- card index for decks
+    local bagged_objects = nil -- cache bagged objects
+
+    -- returns whether object has not been visited before
+    local function visit(object)
+        local unvisited = not set.contains(visited_guids, object.guid)
+        if unvisited then
+            set.add(visited_guids, object.guid)
+        end
+        return unvisited
+    end
+
+    return function ()
+        while i <= #objects do
+            local object = objects[i]
+
+            if object.tag == 'Deck' then
+                -- getObjects is suprisingly costly when iterating over a lot of
+                -- cards in a deck. Therefore, cache objects for the current
+                -- deck.
+                if not bagged_objects then
+                    bagged_objects = object.getObjects()
+                end
+
+                while j <= #bagged_objects do
+                    local bagged_object = bagged_objects[j]
+                    j = j + 1
+
+                    if visit(bagged_object) then
+                        return wrapBaggedObject(bagged_object)
+                    end
+                end
+
+                i = i + 1
+                j = 1
+                bagged_objects = nil
+            else
+                i = i + 1
+
+                if visit(object) then
+                    return object
+                end
+            end
+        end
+    end
+end
+
+function initObjectState(params)
+    local object = params.object
+    local state = params.state
+
+    for var_name, value in pairs(state.vars or {}) do
+        object.setVar(var_name, value)
+    end
+
+    for table_name, value in pairs(state.tables or {}) do
+        object.setTable(table_name, value)
+    end
+end
+
+function registerObject(object)
+    local kind = object.getVar('kind')
+
+    if kind == 'shark_money_counter' then
+        return addModel(object, MoneyCounter.new(object))
+    elseif kind == 'shark_drop_zone_return_button_object' then
+        return addModel(object, DropZoneReturnButtonObject.new(object))
+    end
+end
+
+-- Model Management
+
+-- Models implement the behavior of game objects in the game. I prefer to put
+-- the behavior in the global script rather than in the object scripts since I
+-- have a lot of duplicated game objects (cards, houses, counters) which share
+-- the same behavior.
+
+function getModel(object)
+    return MODELS[object.guid]
+end
+
+function removeModel(object)
+    MODELS[object.guid] = nil
+end
+
+function addModel(object, model)
+    MODELS[object.guid] = model
+end
+
+-- handlers
+
+function handlePlayerTakeShareCard(player_color, object)
+    if not set.contains(SEAT_COLOR_SET, player_color) then
+        return
+    end
+
+    if object.tag == 'Deck' then
+        if object.getQuantity() == 0 then
+            return
+        end
+
+        local card = wrapBaggedObject(object.getObjects()[1])
+        local kind = card.getVar('kind')
+        local properties = card.getTable('share')
+        local deposit = getPlayerDepositTarget(player_color, kind, { share = properties })
+
+        if deposit then
+            object.takeObject({
+                position = deposit.position,
+                rotation = deposit.rotation,
+            })
+
+            CONTROLLERS.asset_counters:increaseBoughtShares(player_color, properties.stock_options)
+        end
+    elseif object.tag == 'Card' then
+        local kind = object.getVar('kind')
+        local properties = object.getTable('share')
+        local deposit = getPlayerDepositTarget(player_color, kind, { share = properties })
+
+        if deposit then
+            object.setPositionSmooth(deposit.position, false, false)
+            object.setRotationSmooth(deposit.rotation, false, false)
+
+            CONTROLLERS.asset_counters:increaseBoughtShares(player_color, properties.stock_options)
+        end
+    end
+end
+
+-- Model Management end
+
+MoneyCounter = {}
+MoneyCounter.__index = MoneyCounter
+
+function MoneyCounter.new(object)
+    local instance = {
+        object = object,
+        zone = nil,
+        forced_sale_mode = false,
+    }
+
+    setmetatable(instance, MoneyCounter)
+
+    object.createButton({
+        click_function = 'onToggleForcedSalesClick',
+        position = { 0, 0.01, -0.75 },
+        rotation = { 0, 180, 0 },
+        height = 150,
+        width = 1000,
+        tooltip = 'Enabling Forced Sale will count shares at 50% of their regular price.',
+    })
+
+    instance:handleForcedSaleModeChange()
+
+    return instance
+end
+
+function onToggleForcedSalesClick(money_counter, player_color, alt_click)
+    local money_counter_model = getModel(money_counter)
+    local zone = money_counter_model.zone
+
+    money_counter_model:toggleForcedSaleMode()
+
+    if zone then
+        getModel(zone):countMoneyAndShares()
+    end
+end
+
+function MoneyCounter:toggleForcedSaleMode()
+    self.forced_sale_mode = not self.forced_sale_mode
+    self:handleForcedSaleModeChange()
+end
+
+function MoneyCounter:handleForcedSaleModeChange()
+    if self.forced_sale_mode then
+        self.object.setColorTint({ 0.25, 0.25, 0.25 })
+        self.object.editButton({
+            label = 'Disable Forced Sale',
+            color = { 1, 0, 0 },
+            font_color = { 1, 1, 1 },
+        })
+    else
+        -- Color tint is almost perfect white. For some reason actual white
+        -- (#FFFFFF) appears only white to the host. But for all others it is
+        -- displayed in black.
+        self.object.setColorTint({ 254/255, 254/255, 254/255 })
+        self.object.editButton({
+            label = 'Enable Forced Sale',
+            color = { 1, 1, 1 },
+            font_color = { 0, 0, 0 },
+        })
+    end
+end
+
+-- MoneyCounter end
+
+PlayerShareCardZone = {}
+PlayerShareCardZone.__index = PlayerShareCardZone
+
+function PlayerShareCardZone.new(object)
+    local instance = {
+        object = object,
+        stock_options = {}
+    }
+
+    setmetatable(instance, PlayerShareCardZone)
+
+    instance:reset()
+
+    return instance
+end
+
+function PlayerShareCardZone:getPlayerColor()
+    return self.object.getTable('player_share_card_zone').color
+end
+
+function PlayerShareCardZone:reset()
+    for _, company in ipairs(COMPANIES) do
+        self.stock_options[company] = 0
+    end
+end
+
+function PlayerShareCardZone:count(enter_object)
+    local objects = self.object.getObjects()
+
+    if enter_object then
+        table.insert(objects, enter_object)
+    end
+
+    self:reset()
+
+    local share_counters = {}
+    local stock_options = self.stock_options
+
+    for object in unbaggedObjects(objects) do
+        local kind = object.getVar('kind')
+
+        if kind == 'shark_share_card' then
+            local share = object.getTable('share')
+            local company = share.company
+            local share_stock_options = share.stock_options
+
+            stock_options[company] = stock_options[company] + share_stock_options
+        elseif kind == 'shark_share_counter' and object.tag == 'Counter' then
+            local share_counter = object.getTable('share_counter')
+            local company = share_counter.company
+
+            share_counters[company] = object
+        end
+    end
+
+    for company, share_counter in pairs(share_counters) do
+        local company_stock_options = stock_options[company]
+
+        share_counter.setValue(company_stock_options)
+    end
+end
+
+function PlayerShareCardZone:sum()
+    local share_prices = getSharePrices()
+
+    local sum = 0
+
+    for company, company_stock_options in pairs(self.stock_options) do
+        sum = sum + company_stock_options * share_prices[company]
+    end
+
+    return sum
+end
+
+-- PlayerShareCardZone end
+
+HandZone = {}
+HandZone.__index = HandZone
+
+function HandZone.new(object)
+    local instance = {
+        object = object,
+        money_amount = 0,
+    }
+
+    setmetatable(instance, HandZone)
+
+    return instance
+end
+
+function HandZone:getPlayerColor()
+    return self.object.getTable('hand_zone').color
+end
+
+function HandZone:count(enter_object)
+    -- We retrieve the objects from the scripting zone instead of from the hand.
+    -- Accurately tracking the objects in hand is tricky, since the enter and
+    -- leave events are triggered by the scripting zone.
+    --
+    -- Note, that it is actually possible to have objects in the scripting zone,
+    -- but not in the  hand (decks for example), which may be a downside.
+    local objects = self.object.getObjects()
+
+    if enter_object then
+        table.insert(objects, enter_object)
+    end
+
+    self.money_amount = 0
+
+    for object in unbaggedObjects(objects) do
+        local kind = object.getVar('kind')
+
+        if kind == 'shark_money' then
+            self.money_amount = self.money_amount + object.getTable('money').amount
+        end
+    end
+end
+
+-- HandZone end
+
+DropZone = {}
+DropZone.__index = DropZone
+
+function DropZone.new(object)
+    local instance = {
+        object = object,
+        state = 'normal'
+    }
+
+    setmetatable(instance, DropZone)
+
+    return instance
+end
+
+function DropZone:returnObjects()
+    if self.state == 'returning' then
+        return
+    end
+
+    self.state = 'returning'
+
+    local zone_objects = self.object.getObjects()
+    local object_returner = ObjectReturner.new(zone_objects, || self:finishObjectReturn())
+
+    object_returner:loop()
+end
+
+function DropZone:finishObjectReturn()
+    self.state = 'normal'
+    self:countMoneyAndShares()
+end
+
+function DropZone:countMoneyAndShares(enter_object)
+    if self.state == 'returning' then
+        -- Counting money while a return operation is in progress is too laggy.
+        return
+    end
+
+    local objects = self.object.getObjects()
+
+    if enter_object then
+        table.insert(objects, enter_object)
+    end
+
+    local money_counters = {}
+    local money_sum = 0
+    local share_sum = 0
+
+    local share_prices = getSharePrices()
+
+    for object in unbaggedObjects(objects) do
+        local kind = object.getVar('kind')
+
+        if kind == 'shark_share_card' then
+            local share = object.getTable('share')
+            local company = share.company
+            local share_stock_options = share.stock_options
+            local share_price = share_prices[company]
+
+            share_sum = share_sum + share_price * share_stock_options
+        elseif kind == 'shark_money' then
+            local amount = object.getTable('money').amount
+
+            money_sum = money_sum + amount
+        elseif kind == 'shark_money_counter' and object.tag == 'Counter' then
+            table.insert(money_counters, object)
+        end
+    end
+
+    for _, money_counter in ipairs(money_counters) do
+        local model = getModel(money_counter)
+
+        local counter_share_sum
+        if model.forced_sale_mode then
+            counter_share_sum = math.floor(share_sum / 2)
+        else
+            counter_share_sum = share_sum
+        end
+
+        money_counter.setValue(money_sum + counter_share_sum)
+    end
+end
+
+-- DropZone end
+
+DropZoneReturnButtonObject = {}
+DropZoneReturnButtonObject.__index = DropZoneReturnButtonObject
+
+function DropZoneReturnButtonObject.new(object)
+    local instance = {
+        object = object,
+        zone = nil,
+    }
+
+    setmetatable(instance, DropZoneReturnButtonObject)
+
+    object.createButton({
+        click_function = 'onDropZoneReturnClick',
+        position = { 0, 0.5, 0 },
+        rotation = { 0, 180, 0 },
+        height = 1000,
+        width = 1800,
+        font_size = 300,
+        label = 'Return',
+        tooltip = 'Returns money and shares to their designated deposit areas.'
+    })
+
+    return instance
+end
+
+function onDropZoneReturnClick(button_object, player_color, alt_click)
+    local button_model = getModel(button_object)
+    local zone_model = getModel(button_model.zone)
+
+    zone_model:returnObjects()
+end
+
+-- DropZoneReturnButtonObject end
+
+ObjectReturner = {}
+ObjectReturner.__index = ObjectReturner
+
+function ObjectReturner.new(objects, callback)
+    -- We want to return objects from top to bottom. Sorting by Y will avoid
+    -- accidential deck merges.
+    table.sort(objects, |a, b| a.getPosition().y < b.getPosition().y)
+
+    local instance = {
+        object_guids = table.collect(objects, 'guid'),
+        callback = callback,
+    }
+
+    setmetatable(instance, ObjectReturner)
+
+    return instance
+end
+
+function ObjectReturner:loop()
+    local continue = false
+
+    if #self.object_guids > 0 then
+        continue = self:step()
+    end
+
+    if #self.object_guids == 0 then
+        self.callback()
+    elseif continue then
+        -- continue loop in next frame for better performance
+        Wait.frames(|| self:loop(), 1)
+    end
+end
+
+-- Returns true if loop should be continued. Otherwise, the loop should be
+-- paused.
+function ObjectReturner:step()
+    local object_guid = table.remove(self.object_guids)
+    local object = getObjectFromGUID(object_guid)
+
+    -- object might have been destroyed in the meantime
+    if not object then
+        return true
+    end
+
+    local kind = object.getVar('kind')
+
+    if kind == 'shark_share_card' then
+        local properties = { share = object.getTable('share') }
+        local deposit = getDepositTarget(kind, properties)
+
+        object.setPositionSmooth(deposit.position, false, false)
+        object.setRotationSmooth(deposit.rotation, false, false)
+    elseif kind == 'shark_money' then
+        local properties = { money = object.getTable('money') }
+        local deposit = getDepositTarget(kind, properties)
+
+        object.setPositionSmooth(deposit.position, false, false)
+        object.setRotationSmooth(deposit.rotation, false, false)
+    elseif object.tag == 'Deck' then
+        DeckDecomposer.new(object, || self:loop()):loop()
+
+        return false
+    end
+
+    return true
+end
+
+-- ObjectReturner end
+
+DeckDecomposer = {}
+DeckDecomposer.__index = DeckDecomposer
+
+function DeckDecomposer.new(deck, callback)
+    local instance = {
+        deck_guid = deck.guid,
+        callback = callback,
+    }
+
+    setmetatable(instance, DeckDecomposer)
+
+    return instance
+end
+
+function DeckDecomposer:loop()
+    local continue = self:step()
+
+    if continue then
+        -- continue loop in next frame for better performance
+        Wait.frames(|| self:loop(), 1)
+    else
+        -- enqueue callback
+        Wait.frames(self.callback, 0)
+    end
+end
+
+function DeckDecomposer:step()
+    local deck = getObjectFromGUID(self.deck_guid)
+
+    -- deck might have been destroyed in the meantime
+    if not deck then
+        return false
+    end
+
+    local nextChunk = eachChunk(deck)
+    local chunk = nextChunk()
+    local top_size = chunk.size
+    local bottom_size = deck.getQuantity() - top_size
+    local deposit = getDepositTarget(chunk.kind, chunk.properties)
+
+    -- The cases below ensure the following:
+    -- - Only cut into valid decks (a deck consists of at least two cards).
+    -- - Otherwise take card from top or bottom.
+    -- - Move deck itself if it consists only of one chunk.
+
+    if top_size > 1 and bottom_size > 1 then
+        local cut_decks = deck.cut(chunk.size)
+        local bottom = cut_decks[1]
+        local top = cut_decks[2]
+
+        top.setPositionSmooth(deposit.position, false, false)
+        top.setRotationSmooth(deposit.rotation, false, false)
+
+        self.deck_guid = bottom.guid
+
+        -- signal to continue
+        return true
+    elseif top_size == 1 and bottom_size > 1 then
+        deck.takeObject({
+            position = deposit.position,
+            rotation = deposit.rotation,
+        })
+
+        -- signal to continue
+        return true
+    elseif top_size > 1 and bottom_size == 1 then
+        local next_chunk = nextChunk()
+        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
+
+        -- draw card from bottom
+        deck.takeObject({
+            top = false,
+            position = next_deposit.position,
+            rotation = next_deposit.rotation,
+        })
+
+        -- The only chunk remaining should be the current chunk.
+        -- Therefore, return the entire remaining deck.
+        deck.setPositionSmooth(deposit.position, false, false)
+        deck.setRotationSmooth(deposit.rotation, false, false)
+
+        -- signal to stop
+        return false
+    elseif top_size == 1 and bottom_size == 1 then
+        deck.takeObject({
+            position = deposit.position,
+            rotation = deposit.rotation,
+        })
+
+        local next_chunk = nextChunk()
+        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
+
+        -- draw last card
+        deck.takeObject({
+            position = next_deposit.position,
+            rotation = next_deposit.rotation,
+        })
+
+        -- signal to stop
+        return false
+    else -- bottom_size == 0
+        deck.setPositionSmooth(deposit.position, false, false)
+        deck.setRotationSmooth(deposit.rotation, false, false)
+
+        -- signal to stop
+        return false
+    end
+end
+
+-- DeckDecomposer end
+
+LeaderboardUiController = { element_id = 'Panel#leaderboard' }
+LeaderboardUiController.__index = setmetatable(LeaderboardUiController, UiClosable)
+
+function LeaderboardUiController.new(ui_dom, player_colors)
+    local instance = {
+        player_colors = player_colors,
+        data = {},
+    }
+
+    setmetatable(instance, LeaderboardUiController)
+
+    UiClosable.init(instance)
+
+    for _, color in ipairs(player_colors) do
+        instance.data[color] = { shares = 0, money = 0, total = 0 }
+    end
+
+    instance:generate(ui_dom)
+
+    return instance
+end
+
+-- LeaderboardUiController events
+
+function onLeaderboardCloseClick(player)
+    CONTROLLERS.leaderboard:close(player.color)
+end
+
+-- LeaderboardUiController methods
+
+function LeaderboardUiController:generate(ui_dom)
+    for i=1, #self.player_colors do
+        ui_dom:appendChild('TableLayout#leaderboard', {
+            tag = 'Row',
+            attributes = { id = 'Row#leaderboard.rows[' .. i .. ']', class = 'leaderboard' },
+            children = {
+                { tag = 'Cell', children = { tag = 'Text', attributes = { class = 'leaderboardData' }, value = util.format_ordinal(i) } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.player', class = 'leaderboardData leaderboardPlayer' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.money', class = 'leaderboardData number' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.shares', class = 'leaderboardData number' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.total', class = 'leaderboardData number' } } },
+            }
+        })
+    end
+end
+
+function LeaderboardUiController:updateData(data_changes)
+    for player_color, player_data_changes in pairs(data_changes) do
+        local player_data = self.data[player_color]
+
+        for attribute, value in pairs(player_data_changes) do
+            player_data[attribute] = value
+        end
+
+        player_data.total = player_data.shares + player_data.money
+    end
+end
+
+function LeaderboardUiController:updateAllPlayerShares()
+    for _, player_color in pairs(self.player_colors) do
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function LeaderboardUiController:updatePlayerShareValue(player_color)
+    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
+
+    self:updateData({ [player_color] = { shares = zone_model:sum() } })
+end
+
+function LeaderboardUiController:updatePlayerMoney(player_color)
+    local zone_model = getModel(HAND_ZONES[player_color])
+
+    self:updateData({ [player_color] = { money = zone_model.money_amount } })
+end
+
+function LeaderboardUiController:render()
+    local players = getSeatedPlayers()
+
+    -- sort players by their totals
+    table.sort(players, |a, b| self.data[a.color].total > self.data[b.color].total)
+
+    for i = 1, #self.player_colors do
+        if i <= #players then
+            local player = players[i]
+            local player_data = self.data[player.color]
+
+            UI.setAttributes('Row#leaderboard.rows[' .. i .. ']', {
+                active = true,
+                color = player.color,
+            })
+
+            UI.setValue('Text#leaderboard.rows[' .. i .. '].player', player.steam_name)
+
+            for _, attribute in ipairs{ 'shares', 'money', 'total' } do
+                local formatted_string =  'FT ' .. util.separate_thousands(player_data[attribute] * 1000)
+                UI.setValue('Text#leaderboard.rows[' .. i .. '].' .. attribute, formatted_string)
+            end
+        else
+            UI.setAttribute('Row#leaderboard.rows[' .. i .. ']', 'active', false)
+        end
+    end
+end
+
+-- LeaderboardUiController end
+
+AssetCountersUiController = { element_id = 'Panel#assetCounters' }
+AssetCountersUiController.__index = setmetatable(AssetCountersUiController, UiClosable)
+
+function AssetCountersUiController.new(ui_dom, player_colors)
+    local instance = {
+        player_colors = player_colors,
+        bought_shares_amount = 0,
+        bought_shares_player_color = 'Gray',
+    }
+
+    setmetatable(instance, AssetCountersUiController)
+    UiClosable.init(instance)
+
+    instance:open(table.unpack(player_colors))
+    instance:generate(ui_dom)
+
+    return instance
+end
+
+-- AssetCountersUiController events
+
+function onAssetCounterBoughtSharesResetClick(player)
+    CONTROLLERS.asset_counters:setBoughtShares(player.color, 0)
+end
+
+function onAssetCounterBoughtSharesIncreaseClick(player, amount)
+    CONTROLLERS.asset_counters:increaseBoughtShares(player.color, tonumber(amount))
+end
+
+function onAssetCounterBoughtSharesChange(player, amount)
+    CONTROLLERS.asset_counters:setBoughtShares(player.color, tonumber(amount))
+end
+
+-- AssetCountersUiController methods
+
+function AssetCountersUiController:generate(ui_dom, player_colors)
+    for _, player_color in ipairs(self.player_colors) do
+        ui_dom:appendChild('Cell#assetCounters.money.cash', {
+            tag = 'Text',
+            attributes = {
+                id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']',
+                class='assetCounters.money',
+                visibility = player_color,
+            },
+        })
+
+        ui_dom:appendChild('Cell#assetCounters.money.shareValue', {
+            tag = 'Text',
+            attributes = {
+                id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']',
+                class='assetCounters.money',
+                visibility = player_color,
+            },
+        })
+
+        for _, company in ipairs(COMPANIES) do
+            ui_dom:appendChild('Cell#assetCounters.shares.companies[' .. company .. ']', {
+                tag = 'Text',
+                attributes = {
+                    id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']',
+                    class = 'assetCounters.shares',
+                    visibility = player_color,
+                    color = '#' .. COMPANY_COLORS[company]:toHex(),
+                },
+            })
+        end
+    end
+end
+
+function AssetCountersUiController:updateAll()
+    for _, player_color in ipairs(self.player_colors) do
+        self:updatePlayerShareCounters(player_color)
+        self:updatePlayerMoney(player_color)
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function AssetCountersUiController:updatePlayerMoney(player_color)
+    local zone_model = getModel(HAND_ZONES[player_color])
+    local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'
+    local formatted_string = 'Cash: FT ' .. util.separate_thousands(zone_model.money_amount * 1000)
+
+    UI.setValue(element_id, formatted_string)
+end
+
+function AssetCountersUiController:updatePlayerShareValue(player_color)
+    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
+    local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'
+    local formatted_string = 'Shares: FT ' .. util.separate_thousands(zone_model:sum() * 1000)
+
+    UI.setValue(element_id, formatted_string)
+end
+
+function AssetCountersUiController:updateAllPlayerShareValues()
+    for _, player_color in ipairs(self.player_colors) do
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function AssetCountersUiController:updatePlayerShareCounters(player_color)
+    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
+
+    for company, count in pairs(zone_model.stock_options) do
+        local element_id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']'
+
+        UI.setValue(element_id, count)
+    end
+end
+
+function AssetCountersUiController:setBoughtShares(player_color, amount)
+    self.bought_shares_amount = amount
+
+    -- onPlayerTurn may be invoked with player.color == '' if no seated players
+    -- are present.
+    if player_color == '' then
+        self.bought_shares_player_color = 'Gray'
+    else
+        self.bought_shares_player_color = player_color
+    end
+
+    UI.setAttributes('InputField#assetCounters.boughtShares', {
+        text = self.bought_shares_amount,
+        color = self.bought_shares_player_color,
+    })
+end
+
+function AssetCountersUiController:increaseBoughtShares(player_color, delta_amount)
+    local amount
+    if player_color ~= self.bought_shares_player_color then
+        amount = delta_amount
+    else
+        amount = self.bought_shares_amount + delta_amount
+    end
+
+    self:setBoughtShares(player_color, amount)
+end
+
+-- AssetCountersUiController end
+
+ControlBarUiController = {}
+ControlBarUiController.__index = ControlBarUiController
+
+function ControlBarUiController.new(asset_counters, leaderboard)
+    local instance = {
+        enable_leaderboard_value = false,
+        asset_counters = asset_counters,
+        leaderboard = leaderboard,
+    }
+
+    setmetatable(instance, ControlBarUiController)
+
+    return instance
+end
+
+-- ControlBarUiController events
+
+function onControlBarLeaderboardClick(player)
+    CONTROLLERS.control_bar:toggleLeaderboard(player.color)
+end
+
+function onControlBarEnableLeaderboardChange(player, value)
+    CONTROLLERS.control_bar:setEnableLeaderboardValue(value == 'True')
+end
+
+function onControlBarShowAssetCountersChange(player, value)
+    CONTROLLERS.control_bar:setAssetCountersVisibility(player.color, value == 'True')
+end
+
+-- ControlBarUiController methods
+
+function ControlBarUiController:toggleLeaderboard(player_color)
+    self.leaderboard:toggle(player_color)
+end
+
+function ControlBarUiController:setEnableLeaderboardValue(value, update_ui)
+    self.enable_leaderboard_value = value
+
+    UI.setAttribute('Row#controlBar.leaderboardButton', 'active', value)
+
+    if not value then
+        self.leaderboard:closeAll()
+    end
+
+    if update_ui then
+        UI.setAttribute('Toggle#controlBar.enableLeaderboard', 'isOn', value)
+    end
+end
+
+function ControlBarUiController:setAssetCountersVisibility(player_color, value)
+    if value then
+        self.asset_counters:open(player_color)
+    else
+        self.asset_counters:close(player_color)
+    end
+end
+
+-- ControlBarUiController end
+
+GraphController = {
+    padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },
+    scale = Vector(8.29, 0.59, 8.29),
+    curve_displacement = 0.05,
+    default_visible_turns = 20,
+    max_price = SHARE_PRICE_MAX,
+}
+
+GraphController.ref_1 = Vector{
+    x = -1 + 2 * GraphController.padding.left,
+    y = 1,
+    z = -1 + 2 * GraphController.padding.bottom,
+}:scale(GraphController.scale)
+
+GraphController.ref_2 = Vector{
+    x = 1 - 2 * GraphController.padding.right,
+    y = 1,
+    z = 1 - 2 * GraphController.padding.top,
+}:scale(GraphController.scale)
+
+GraphController.ref_delta = GraphController.ref_2 - GraphController.ref_1
+
+GraphController.__index = GraphController
+
+function GraphController.new(objects, companies)
+    local instance = {
+        objects = objects,
+        companies = companies,
+        data = {},
+        objects_data = {},
+    }
+
+    setmetatable(instance, GraphController)
+
+    for _, company in ipairs(companies) do
+        instance.data[company] = { 0 }
+    end
+
+    for _, object in ipairs(objects) do
+        instance.objects_data[object.guid] = {
+            turn_offset = 0,
+            visible_turns = instance.default_visible_turns,
+        }
+    end
+
+    -- DEBUG
+    -- instance.data = {
+    --     green  = { 0, 1, 1, 1, 2, 2, 2 },
+    --     red    = { 1, 1, 2, 2, 2, 2, 3 },
+    --     blue   = { 0, 0, 0, 1, 1, 1, 1 },
+    --     yellow = { 0, 0, 0, 0, 0, 1, 1 },
+    -- }
+
+    -- DEBUG
+    -- for i = 1, instance.visible_turns - 1 do
+    -- for i = 1, 40 do
+    --     -- print(i)
+    --     local profit_company = COMPANIES[math.random(#COMPANIES)]
+    --
+    --     for _, company in ipairs(COMPANIES) do
+    --         if company == profit_company then
+    --             instance.data[company][i + 1] = instance.data[company][i] + 1
+    --         else
+    --             instance.data[company][i + 1] = instance.data[company][i]
+    --         end
+    --     end
+    -- end
+
+    return instance
+end
+
+function GraphController:getTurns()
+    return #self.data[self.companies[1]]
+end
+
+function GraphController:isLeftmost(object_guid)
+    return self.objects_data[object_guid].turn_offset == 0
+end
+
+function GraphController:isRightmost(object_guid)
+    local object_data = self.objects_data[object_guid]
+    local turn_offset = object_data.turn_offset
+    local visible_turns = object_data.visible_turns
+    local turns = self:getTurns()
+
+    return turns <= turn_offset + visible_turns
+end
+
+function GraphController:push(data)
+    local rightmost = set.new{}
+
+    -- memorize rightmost objects
+    for object_guid, object_data in pairs(self.objects_data) do
+        if self:isRightmost(object_guid) then
+            set.add(rightmost, object_guid)
+        end
+    end
+
+    -- insert data
+    for company, share_price in pairs(data) do
+        table.insert(self.data[company], share_price)
+    end
+
+    -- scroll objects to the right that were rightmost previously
+    for object_guid in set.each(rightmost) do
+        self:scrollRight(object_guid)
+    end
+end
+
+function GraphController:updateLast(data)
+    local index = self:getTurn() + 1
+
+    for company, share_price in pairs(data) do
+        self.data[company][index] = share_price
+    end
+end
+
+function GraphController:scrollLeft(object_guid)
+    if self:isLeftmost(object_guid) then
+        return
+    end
+
+    local object_data = self.objects_data[object_guid]
+    object_data.turn_offset = object_data.turn_offset - 1
+end
+
+function GraphController:scrollRight(object_guid)
+    if self:isRightmost(object_guid) then
+        return
+    end
+
+    local object_data = self.objects_data[object_guid]
+    object_data.turn_offset = object_data.turn_offset + 1
+end
+
+function GraphController:renderAll()
+    for _, object in ipairs(self.objects) do
+        self:render(object)
+    end
+end
+
+function GraphController:render(object)
+    local object_data = self.objects_data[object.guid]
+    local turn_offset = object_data.turn_offset
+    local visible_turns = object_data.visible_turns
+
+    local vector_lines = {}
+
+    -- axes
+    table.insert(vector_lines, {
+        points = self:projectDataPoints({
+            { 0, self.max_price },
+            { 0, 0 },
+            { 0 + visible_turns - 1, 0 }
+        }, object.guid)
+    })
+
+    -- company share price curves
+    for i, company in ipairs(self.companies) do
+        local displacement = i * self.curve_displacement
+        local points = table.collect(self.data[company], function (share_price, j)
+            local x = j - 1 - turn_offset
+            local y = share_price + displacement
+
+            return { x, y }
+        end, turn_offset + 1, turn_offset + visible_turns)
+
+        table.insert(vector_lines, 1, {
+            points = self:projectDataPoints(points, object.guid),
+            color = COMPANY_COLORS[company],
+        })
+    end
+
+    object.setVectorLines(vector_lines)
+end
+
+function GraphController:projectDataPoints(points, object_guid)
+    local object_data = self.objects_data[object_guid]
+    local visible_turns = object_data.visible_turns
+
+    return table.collect(points, function (point)
+        local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.max_price)
+        return self.ref_1 + temp:scale(self.ref_delta)
+    end)
+end
+
+-- GraphController end

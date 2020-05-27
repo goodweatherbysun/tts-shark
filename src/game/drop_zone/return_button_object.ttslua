@@ -1,0 +1,10 @@
+DEFAULT_STATE = {
+    vars = {
+        kind = 'shark_drop_zone_return_button_object',
+    },
+}
+
+function onLoad(save_state)
+    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+    Global.call('registerObject', self)
+end
