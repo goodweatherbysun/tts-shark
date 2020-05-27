@@ -1,0 +1,85 @@
+local DropZoneModel = {}
+
+DropZoneModel.__index = DropZoneModel
+
+function DropZoneModel.new(object)
+    local instance = {
+        object = object,
+        state = 'normal'
+    }
+
+    setmetatable(instance, DropZoneModel)
+
+    return instance
+end
+
+function DropZoneModel:returnObjects()
+    if self.state == 'returning' then
+        return
+    end
+
+    self.state = 'returning'
+
+    local zone_objects = self.object.getObjects()
+    local object_returner = ObjectReturner.new(zone_objects, || self:finishObjectReturn())
+
+    object_returner:loop()
+end
+
+function DropZoneModel:finishObjectReturn()
+    self.state = 'normal'
+    self:countMoneyAndShares()
+end
+
+function DropZoneModel:countMoneyAndShares(enter_object)
+    if self.state == 'returning' then
+        -- Counting money while a return operation is in progress is too laggy.
+        return
+    end
+
+    local objects = self.object.getObjects()
+
+    if enter_object then
+        table.insert(objects, enter_object)
+    end
+
+    local money_counters = {}
+    local money_sum = 0
+    local share_sum = 0
+
+    local share_prices = getSharePrices()
+
+    for object in unbaggedObjects(objects) do
+        local kind = object.getVar('kind')
+
+        if kind == 'shark_share_card' then
+            local share = object.getTable('share')
+            local company = share.company
+            local share_stock_options = share.stock_options
+            local share_price = share_prices[company]
+
+            share_sum = share_sum + share_price * share_stock_options
+        elseif kind == 'shark_money' then
+            local amount = object.getTable('money').amount
+
+            money_sum = money_sum + amount
+        elseif kind == 'shark_money_counter' and object.tag == 'Counter' then
+            table.insert(money_counters, object)
+        end
+    end
+
+    for _, money_counter in ipairs(money_counters) do
+        local model = getModel(money_counter)
+
+        local counter_share_sum
+        if model.forced_sale_mode then
+            counter_share_sum = math.floor(share_sum / 2)
+        else
+            counter_share_sum = share_sum
+        end
+
+        money_counter.setValue(money_sum + counter_share_sum)
+    end
+end
+
+return DropZoneModel

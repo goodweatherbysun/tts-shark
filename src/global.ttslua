@@ -5,6 +5,7 @@ UiClosable = require("shark/tts/ui_closable")
 -- DEBUG
 debug = require("shark/util/debug")
 
+DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
 MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
 PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
 HandZoneModel = require("shark/game/hand_zone_model")
@@ -254,7 +255,7 @@ function onLoad()
     -- discover drop zones
     discoverObjects(DROP_ZONES, DROP_ZONE_GUIDS, function (zone)
         zone.setVar('kind', 'shark_drop_zone')
-        addModel(zone, DropZone.new(zone))
+        addModel(zone, DropZoneModel.new(zone))
     end)
 
     -- discover player share card zones
@@ -866,91 +867,6 @@ end
 
 -- Model Management end
 
-DropZone = {}
-DropZone.__index = DropZone
-
-function DropZone.new(object)
-    local instance = {
-        object = object,
-        state = 'normal'
-    }
-
-    setmetatable(instance, DropZone)
-
-    return instance
-end
-
-function DropZone:returnObjects()
-    if self.state == 'returning' then
-        return
-    end
-
-    self.state = 'returning'
-
-    local zone_objects = self.object.getObjects()
-    local object_returner = ObjectReturner.new(zone_objects, || self:finishObjectReturn())
-
-    object_returner:loop()
-end
-
-function DropZone:finishObjectReturn()
-    self.state = 'normal'
-    self:countMoneyAndShares()
-end
-
-function DropZone:countMoneyAndShares(enter_object)
-    if self.state == 'returning' then
-        -- Counting money while a return operation is in progress is too laggy.
-        return
-    end
-
-    local objects = self.object.getObjects()
-
-    if enter_object then
-        table.insert(objects, enter_object)
-    end
-
-    local money_counters = {}
-    local money_sum = 0
-    local share_sum = 0
-
-    local share_prices = getSharePrices()
-
-    for object in unbaggedObjects(objects) do
-        local kind = object.getVar('kind')
-
-        if kind == 'shark_share_card' then
-            local share = object.getTable('share')
-            local company = share.company
-            local share_stock_options = share.stock_options
-            local share_price = share_prices[company]
-
-            share_sum = share_sum + share_price * share_stock_options
-        elseif kind == 'shark_money' then
-            local amount = object.getTable('money').amount
-
-            money_sum = money_sum + amount
-        elseif kind == 'shark_money_counter' and object.tag == 'Counter' then
-            table.insert(money_counters, object)
-        end
-    end
-
-    for _, money_counter in ipairs(money_counters) do
-        local model = getModel(money_counter)
-
-        local counter_share_sum
-        if model.forced_sale_mode then
-            counter_share_sum = math.floor(share_sum / 2)
-        else
-            counter_share_sum = share_sum
-        end
-
-        money_counter.setValue(money_sum + counter_share_sum)
-    end
-end
-
--- DropZone end
-
 DropZoneReturnButtonObject = {}
 DropZoneReturnButtonObject.__index = DropZoneReturnButtonObject
 
@@ -963,7 +879,7 @@ function DropZoneReturnButtonObject.new(object)
     setmetatable(instance, DropZoneReturnButtonObject)
 
     object.createButton({
-        click_function = 'onDropZoneReturnClick',
+        click_function = 'onDropZoneModelReturnClick',
         position = { 0, 0.5, 0 },
         rotation = { 0, 180, 0 },
         height = 1000,
@@ -976,7 +892,7 @@ function DropZoneReturnButtonObject.new(object)
     return instance
 end
 
-function onDropZoneReturnClick(button_object, player_color, alt_click)
+function onDropZoneModelReturnClick(button_object, player_color, alt_click)
     local button_model = getModel(button_object)
     local zone_model = getModel(button_model.zone)
 
