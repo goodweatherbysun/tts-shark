@@ -16,6 +16,7 @@ local PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/play
 local HandZoneModel = require("shark/game/hand_zone_model")
 
 local LeaderboardController = require("shark/game/leaderboard/leaderboard_controller")
+local AssetCountersController = require("shark/game/asset_counters/asset_counters_controller")
 
 local SEAT_COLORS = {
     'White',
@@ -322,16 +323,15 @@ function onLoad()
     local ui_dom = UiDom.new(xml_table)
 
     LeaderboardController.init(ui_dom, SEAT_COLORS)
-
-    CONTROLLERS.asset_counters = AssetCountersUiController.new(ui_dom, SEAT_COLORS)
-    CONTROLLERS.control_bar = ControlBarUiController.new(CONTROLLERS.asset_counters, LeaderboardController.instance)
+    AssetCountersController.init(ui_dom, SEAT_COLORS, COMPANIES, COMPANY_COLORS)
+    CONTROLLERS.control_bar = ControlBarUiController.new(AssetCountersController.instance, LeaderboardController.instance)
 
     UI.setXmlTable(ui_dom.xml_table)
 
     -- update UI in next frame
     Wait.frames(function ()
         LeaderboardController.instance:render()
-        CONTROLLERS.asset_counters:updateAll()
+        AssetCountersController.instance:updateAll()
     end, 1)
 end
 
@@ -362,7 +362,7 @@ function afterLoad()
 end
 
 function onPlayerTurn(player)
-    CONTROLLERS.asset_counters:setBoughtShares(player.color, 0, true)
+    AssetCountersController.instance:setBoughtShares(player.color, 0, true)
 end
 
 -- Triggers last turn only once within LAST_TURN_COOLDOWN seconds.
@@ -446,7 +446,7 @@ function onObjectDrop(color, dropped_object)
         LeaderboardController.instance:updateAllPlayerShares()
         LeaderboardController.instance:render()
 
-        CONTROLLERS.asset_counters:updateAllPlayerShareValues()
+        AssetCountersController.instance:updateAllPlayerShareValues()
 
         local properties = dropped_object.getTable('share_price_indicator')
 
@@ -505,8 +505,8 @@ function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
             LeaderboardController.instance:updatePlayerShareValue(player_color)
             LeaderboardController.instance:render()
 
-            CONTROLLERS.asset_counters:updatePlayerShareCounters(player_color)
-            CONTROLLERS.asset_counters:updatePlayerShareValue(player_color)
+            AssetCountersController.instance:updatePlayerShareCounters(player_color)
+            AssetCountersController.instance:updatePlayerShareValue(player_color)
         end
     elseif zone_kind == 'shark_drop_zone' then
         if object_kind == 'shark_money' or object_kind == 'shark_share_card' then
@@ -522,7 +522,7 @@ function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
             LeaderboardController.instance:updatePlayerMoney(zone_model:getPlayerColor())
             LeaderboardController.instance:render()
 
-            CONTROLLERS.asset_counters:updatePlayerMoney(player_color)
+            AssetCountersController.instance:updatePlayerMoney(player_color)
         end
     end
 end
@@ -653,6 +653,11 @@ function getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)
     }
 end
 
+function getPlayerStockOptions(player_color)
+    local zone = PLAYER_SHARE_CARD_ZONES[player_color]
+    return getModel(zone).stock_options
+end
+
 function getPlayerShareValue(player_color)
     local zone = PLAYER_SHARE_CARD_ZONES[player_color]
     return getModel(zone):sum()
@@ -732,7 +737,7 @@ function handlePlayerTakeShareCard(player_color, object)
                 rotation = deposit.rotation,
             })
 
-            CONTROLLERS.asset_counters:increaseBoughtShares(player_color, properties.stock_options)
+            AssetCountersController.instance:increaseBoughtShares(player_color, properties.stock_options)
         end
     elseif object.tag == 'Card' then
         local kind = object.getVar('kind')
@@ -743,151 +748,12 @@ function handlePlayerTakeShareCard(player_color, object)
             object.setPositionSmooth(deposit.position, false, false)
             object.setRotationSmooth(deposit.rotation, false, false)
 
-            CONTROLLERS.asset_counters:increaseBoughtShares(player_color, properties.stock_options)
+            AssetCountersController.instance:increaseBoughtShares(player_color, properties.stock_options)
         end
     end
 end
 
 -- Model Management end
-
-AssetCountersUiController = { element_id = 'Panel#assetCounters' }
-AssetCountersUiController.__index = setmetatable(AssetCountersUiController, UiClosable)
-
-function AssetCountersUiController.new(ui_dom, player_colors)
-    local instance = {
-        player_colors = player_colors,
-        bought_shares_amount = 0,
-        bought_shares_player_color = 'Gray',
-    }
-
-    setmetatable(instance, AssetCountersUiController)
-    UiClosable.init(instance)
-
-    instance:open(table.unpack(player_colors))
-    instance:generate(ui_dom)
-
-    return instance
-end
-
--- AssetCountersUiController events
-
-function onAssetCounterBoughtSharesResetClick(player)
-    CONTROLLERS.asset_counters:setBoughtShares(player.color, 0)
-end
-
-function onAssetCounterBoughtSharesIncreaseClick(player, amount)
-    CONTROLLERS.asset_counters:increaseBoughtShares(player.color, tonumber(amount))
-end
-
-function onAssetCounterBoughtSharesChange(player, amount)
-    CONTROLLERS.asset_counters:setBoughtShares(player.color, tonumber(amount))
-end
-
--- AssetCountersUiController methods
-
-function AssetCountersUiController:generate(ui_dom, player_colors)
-    for _, player_color in ipairs(self.player_colors) do
-        ui_dom:appendChild('Cell#assetCounters.money.cash', {
-            tag = 'Text',
-            attributes = {
-                id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']',
-                class='assetCounters.money',
-                visibility = player_color,
-            },
-        })
-
-        ui_dom:appendChild('Cell#assetCounters.money.shareValue', {
-            tag = 'Text',
-            attributes = {
-                id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']',
-                class='assetCounters.money',
-                visibility = player_color,
-            },
-        })
-
-        for _, company in ipairs(COMPANIES) do
-            ui_dom:appendChild('Cell#assetCounters.shares.companies[' .. company .. ']', {
-                tag = 'Text',
-                attributes = {
-                    id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']',
-                    class = 'assetCounters.shares',
-                    visibility = player_color,
-                    color = '#' .. COMPANY_COLORS[company]:toHex(),
-                },
-            })
-        end
-    end
-end
-
-function AssetCountersUiController:updateAll()
-    for _, player_color in ipairs(self.player_colors) do
-        self:updatePlayerShareCounters(player_color)
-        self:updatePlayerMoney(player_color)
-        self:updatePlayerShareValue(player_color)
-    end
-end
-
-function AssetCountersUiController:updatePlayerMoney(player_color)
-    local zone_model = getModel(HAND_ZONES[player_color])
-    local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'
-    local formatted_string = 'Cash: FT ' .. util.separate_thousands(zone_model.money_amount * 1000)
-
-    UI.setValue(element_id, formatted_string)
-end
-
-function AssetCountersUiController:updatePlayerShareValue(player_color)
-    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
-    local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'
-    local formatted_string = 'Shares: FT ' .. util.separate_thousands(zone_model:sum() * 1000)
-
-    UI.setValue(element_id, formatted_string)
-end
-
-function AssetCountersUiController:updateAllPlayerShareValues()
-    for _, player_color in ipairs(self.player_colors) do
-        self:updatePlayerShareValue(player_color)
-    end
-end
-
-function AssetCountersUiController:updatePlayerShareCounters(player_color)
-    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
-
-    for company, count in pairs(zone_model.stock_options) do
-        local element_id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']'
-
-        UI.setValue(element_id, count)
-    end
-end
-
-function AssetCountersUiController:setBoughtShares(player_color, amount)
-    self.bought_shares_amount = amount
-
-    -- onPlayerTurn may be invoked with player.color == '' if no seated players
-    -- are present.
-    if player_color == '' then
-        self.bought_shares_player_color = 'Gray'
-    else
-        self.bought_shares_player_color = player_color
-    end
-
-    UI.setAttributes('InputField#assetCounters.boughtShares', {
-        text = self.bought_shares_amount,
-        color = self.bought_shares_player_color,
-    })
-end
-
-function AssetCountersUiController:increaseBoughtShares(player_color, delta_amount)
-    local amount
-    if player_color ~= self.bought_shares_player_color then
-        amount = delta_amount
-    else
-        amount = self.bought_shares_amount + delta_amount
-    end
-
-    self:setBoughtShares(player_color, amount)
-end
-
--- AssetCountersUiController end
 
 ControlBarUiController = {}
 ControlBarUiController.__index = ControlBarUiController

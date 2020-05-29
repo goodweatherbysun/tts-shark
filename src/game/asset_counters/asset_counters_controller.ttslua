@@ -1,0 +1,146 @@
+local util = require("shark/util/util")
+local UiClosable = require("shark/tts/ui_closable")
+
+local AssetCountersController = { element_id = 'Panel#assetCounters' }
+AssetCountersController.__index = setmetatable(AssetCountersController, UiClosable)
+
+function AssetCountersController.init(ui_dom, player_colors, companies, company_colors)
+    local instance = {
+        player_colors = player_colors,
+        companies = companies,
+        company_colors = company_colors,
+        bought_shares_amount = 0,
+        bought_shares_player_color = 'Gray',
+    }
+
+    setmetatable(instance, AssetCountersController)
+    UiClosable.init(instance)
+
+    instance:open(table.unpack(player_colors))
+    instance:generate(ui_dom)
+
+    AssetCountersController.instance = instance
+
+    return instance
+end
+
+-- events
+
+function AssetCounters_onBoughtSharesResetClick(player)
+    AssetCountersController.instance:setBoughtShares(player.color, 0)
+end
+
+function AssetCounters_onBoughtSharesIncreaseClick(player, amount)
+    AssetCountersController.instance:increaseBoughtShares(player.color, tonumber(amount))
+end
+
+function AssetCounters_onBoughtSharesChange(player, amount)
+    AssetCountersController.instance:setBoughtShares(player.color, tonumber(amount))
+end
+
+-- methods
+
+function AssetCountersController:generate(ui_dom, player_colors)
+    for _, player_color in ipairs(self.player_colors) do
+        ui_dom:appendChild('Cell#assetCounters.money.cash', {
+            tag = 'Text',
+            attributes = {
+                id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']',
+                class='assetCounters.money',
+                visibility = player_color,
+            },
+        })
+
+        ui_dom:appendChild('Cell#assetCounters.money.shareValue', {
+            tag = 'Text',
+            attributes = {
+                id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']',
+                class='assetCounters.money',
+                visibility = player_color,
+            },
+        })
+
+        for _, company in ipairs(self.companies) do
+            ui_dom:appendChild('Cell#assetCounters.shares.companies[' .. company .. ']', {
+                tag = 'Text',
+                attributes = {
+                    id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']',
+                    class = 'assetCounters.shares',
+                    visibility = player_color,
+                    color = '#' .. self.company_colors[company]:toHex(),
+                },
+            })
+        end
+    end
+end
+
+function AssetCountersController:updateAll()
+    for _, player_color in ipairs(self.player_colors) do
+        self:updatePlayerShareCounters(player_color)
+        self:updatePlayerMoney(player_color)
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function AssetCountersController:updatePlayerMoney(player_color)
+    local money_amount = getPlayerMoney(player_color)
+    local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'
+    local formatted_string = 'Cash: FT ' .. util.separate_thousands(money_amount * 1000)
+
+    UI.setValue(element_id, formatted_string)
+end
+
+function AssetCountersController:updatePlayerShareValue(player_color)
+    local share_value = getPlayerShareValue(player_color)
+    local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'
+    local formatted_string = 'Shares: FT ' .. util.separate_thousands(share_value * 1000)
+
+    UI.setValue(element_id, formatted_string)
+end
+
+function AssetCountersController:updateAllPlayerShareValues()
+    for _, player_color in ipairs(self.player_colors) do
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function AssetCountersController:updatePlayerShareCounters(player_color)
+    local stock_options = getPlayerStockOptions(player_color)
+
+    -- for company, count in pairs(zone_model.stock_options) do
+    for company, count in pairs(stock_options) do
+        local element_id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']'
+
+        UI.setValue(element_id, count)
+    end
+end
+
+function AssetCountersController:setBoughtShares(player_color, amount)
+    self.bought_shares_amount = amount
+
+    -- onPlayerTurn may be invoked with player.color == '' if no seated players
+    -- are present.
+    if player_color == '' then
+        self.bought_shares_player_color = 'Gray'
+    else
+        self.bought_shares_player_color = player_color
+    end
+
+    UI.setAttributes('InputField#assetCounters.boughtShares', {
+        text = self.bought_shares_amount,
+        color = self.bought_shares_player_color,
+    })
+end
+
+function AssetCountersController:increaseBoughtShares(player_color, delta_amount)
+    local amount
+    if player_color ~= self.bought_shares_player_color then
+        amount = delta_amount
+    else
+        amount = self.bought_shares_amount + delta_amount
+    end
+
+    self:setBoughtShares(player_color, amount)
+end
+
+return AssetCountersController
