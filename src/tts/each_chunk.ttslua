@@ -1,3 +1,5 @@
+local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
+
 local function eachChunk(deck)
     local chunk = nil
     local bagged_objects = deck.getObjects()

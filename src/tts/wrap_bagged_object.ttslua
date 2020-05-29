@@ -1,0 +1,39 @@
+local function wrapBaggedObject(bagged_object)
+    local object = {
+        guid = bagged_object.guid,
+    }
+
+    local state = JSON.decode(bagged_object.lua_script_state)
+    local vars = {}
+    local tables = {}
+
+    if type(state) == 'table' then
+        if type(state.vars) == 'table' then
+            vars = state.vars
+        end
+
+        if type(state.tables) == 'table' then
+            tables = state.tables
+        end
+    end
+
+    function object.getVar(name)
+        return vars[name]
+    end
+
+    function object.setVar(name, value)
+        vars[name] = value
+    end
+
+    function object.getTable(name)
+        return tables[name]
+    end
+
+    function object.setTable(name, value)
+        tables[name] = value
+    end
+
+    return object
+end
+
+return wrapBaggedObject
