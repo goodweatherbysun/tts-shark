@@ -1,0 +1,39 @@
+local function eachChunk(deck)
+    local chunk = nil
+    local bagged_objects = deck.getObjects()
+    local i = 0
+
+    return function ()
+        while i < #bagged_objects do
+            i = i + 1
+
+            local card = wrapBaggedObject(bagged_objects[#bagged_objects - i + 1])
+            local kind = card.getVar('kind')
+            local properties = {}
+
+            if kind == 'shark_share_card' then
+                properties.share = card.getTable('share')
+            elseif kind == 'shark_money' then
+                properties.money = card.getTable('money')
+            end
+
+            if chunk and kind == chunk.kind and util.equal(properties, chunk.properties) then
+                chunk.size = chunk.size + 1
+            else
+                local last_chunk = chunk
+                chunk = { size = 1, kind = kind, properties = properties }
+
+                if last_chunk then
+                    return last_chunk
+                end
+            end
+        end
+
+        last_chunk = chunk
+        chunk = nil
+
+        return last_chunk
+    end
+end
+
+return eachChunk
