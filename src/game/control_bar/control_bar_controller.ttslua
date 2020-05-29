@@ -1,0 +1,60 @@
+local ControlBarController = {}
+ControlBarController.__index = ControlBarController
+
+function ControlBarController.init(asset_counters, leaderboard)
+    local instance = {
+        enable_leaderboard_value = false,
+        asset_counters = asset_counters,
+        leaderboard = leaderboard,
+    }
+
+    setmetatable(instance, ControlBarController)
+
+    ControlBarController.instance = instance
+
+    return instance
+end
+
+-- ControlBarController events
+
+function onControlBarLeaderboardClick(player)
+    ControlBarController.instance:toggleLeaderboard(player.color)
+end
+
+function onControlBarEnableLeaderboardChange(player, value)
+    ControlBarController.instance:setEnableLeaderboardValue(value == 'True')
+end
+
+function onControlBarShowAssetCountersChange(player, value)
+    ControlBarController.instance:setAssetCountersVisibility(player.color, value == 'True')
+end
+
+-- ControlBarController methods
+
+function ControlBarController:toggleLeaderboard(player_color)
+    self.leaderboard:toggle(player_color)
+end
+
+function ControlBarController:setEnableLeaderboardValue(value, update_ui)
+    self.enable_leaderboard_value = value
+
+    UI.setAttribute('Row#controlBar.leaderboardButton', 'active', value)
+
+    if not value then
+        self.leaderboard:closeAll()
+    end
+
+    if update_ui then
+        UI.setAttribute('Toggle#controlBar.enableLeaderboard', 'isOn', value)
+    end
+end
+
+function ControlBarController:setAssetCountersVisibility(player_color, value)
+    if value then
+        self.asset_counters:open(player_color)
+    else
+        self.asset_counters:close(player_color)
+    end
+end
+
+return ControlBarController

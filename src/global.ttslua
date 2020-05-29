@@ -17,6 +17,7 @@ local HandZoneModel = require("shark/game/hand_zone_model")
 
 local LeaderboardController = require("shark/game/leaderboard/leaderboard_controller")
 local AssetCountersController = require("shark/game/asset_counters/asset_counters_controller")
+local ControlBarController = require("shark/game/control_bar/control_bar_controller")
 
 local SEAT_COLORS = {
     'White',
@@ -324,7 +325,7 @@ function onLoad()
 
     LeaderboardController.init(ui_dom, SEAT_COLORS)
     AssetCountersController.init(ui_dom, SEAT_COLORS, COMPANIES, COMPANY_COLORS)
-    CONTROLLERS.control_bar = ControlBarUiController.new(AssetCountersController.instance, LeaderboardController.instance)
+    ControlBarController.init(AssetCountersController.instance, LeaderboardController.instance)
 
     UI.setXmlTable(ui_dom.xml_table)
 
@@ -381,7 +382,7 @@ function triggerLastTurn()
 end
 
 function onLastTurn()
-    if not CONTROLLERS.control_bar.enable_leaderboard_value then
+    if not ControlBarController.instance.enable_leaderboard_value then
         UI.show('Panel#lastTurnDialog')
     end
 end
@@ -389,7 +390,7 @@ end
 function onEnableLeaderboardClick()
     UI.hide('Panel#lastTurnDialog')
 
-    CONTROLLERS.control_bar:setEnableLeaderboardValue(true, true)
+    ControlBarController.instance:setEnableLeaderboardValue(true, true)
 end
 
 function onDismissLastTurnDialogClick()
@@ -754,65 +755,6 @@ function handlePlayerTakeShareCard(player_color, object)
 end
 
 -- Model Management end
-
-ControlBarUiController = {}
-ControlBarUiController.__index = ControlBarUiController
-
-function ControlBarUiController.new(asset_counters, leaderboard)
-    local instance = {
-        enable_leaderboard_value = false,
-        asset_counters = asset_counters,
-        leaderboard = leaderboard,
-    }
-
-    setmetatable(instance, ControlBarUiController)
-
-    return instance
-end
-
--- ControlBarUiController events
-
-function onControlBarLeaderboardClick(player)
-    CONTROLLERS.control_bar:toggleLeaderboard(player.color)
-end
-
-function onControlBarEnableLeaderboardChange(player, value)
-    CONTROLLERS.control_bar:setEnableLeaderboardValue(value == 'True')
-end
-
-function onControlBarShowAssetCountersChange(player, value)
-    CONTROLLERS.control_bar:setAssetCountersVisibility(player.color, value == 'True')
-end
-
--- ControlBarUiController methods
-
-function ControlBarUiController:toggleLeaderboard(player_color)
-    self.leaderboard:toggle(player_color)
-end
-
-function ControlBarUiController:setEnableLeaderboardValue(value, update_ui)
-    self.enable_leaderboard_value = value
-
-    UI.setAttribute('Row#controlBar.leaderboardButton', 'active', value)
-
-    if not value then
-        self.leaderboard:closeAll()
-    end
-
-    if update_ui then
-        UI.setAttribute('Toggle#controlBar.enableLeaderboard', 'isOn', value)
-    end
-end
-
-function ControlBarUiController:setAssetCountersVisibility(player_color, value)
-    if value then
-        self.asset_counters:open(player_color)
-    else
-        self.asset_counters:close(player_color)
-    end
-end
-
--- ControlBarUiController end
 
 GraphController = {
     padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },

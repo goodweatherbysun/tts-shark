@@ -1,0 +1,74 @@
+<Defaults>
+    <Panel
+        class="controlBar"
+        rectAlignment="LowerRight"
+        offsetXY="-110 0"
+    />
+
+    <TableLayout
+        class="controlBar"
+        autoCalculateHeight="true"
+        color="white"
+        padding="5 5 5 5"
+        cellSpacing="5"
+        cellBackgroundColor="rgba(1, 1, 1, 0)"
+    />
+
+    <Row
+        class="controlBar"
+        preferredHeight="30"
+    />
+
+    <Button
+        class="controlBar"
+        fontSize="20"
+        fontStyle="Bold"
+    />
+
+    <Toggle
+        class="controlBar"
+        fontSize="15"
+        tooltipPosition="Below"
+        tooltipBackgroundColor="Black"
+    />
+</Defaults>
+
+<Panel class="controlBar" width="200">
+    <VerticalLayout childForceExpandHeight="false">
+        <Panel flexibleHeight="1" />
+
+        <TableLayout class="controlBar">
+            <Row id="Row#controlBar.leaderboardButton" class="controlBar" active="false">
+                <Cell>
+                    <Button
+                        class="controlBar"
+                        onClick="onControlBarLeaderboardClick"
+                        text="Leaderboard"
+                    />
+                </Cell>
+            </Row>
+            <Row class="controlBar" visibility="Admin">
+                <Cell>
+                    <Toggle
+                        id="Toggle#controlBar.enableLeaderboard"
+                        class="controlBar"
+                        isOn="false"
+                        onValueChanged="onControlBarEnableLeaderboardChange"
+                        text="Enable Leaderboard"
+                        tooltip="Allow Players to view Leaderboard"
+                    />
+                </Cell>
+            </Row>
+            <Row class="controlBar">
+                <Cell>
+                    <Toggle
+                        class="controlBar"
+                        isOn="true"
+                        onValueChanged="onControlBarShowAssetCountersChange"
+                        text="Show Asset Counters"
+                    />
+                </Cell>
+            </Row>
+        </TableLayout>
+    </VerticalLayout>
+</Panel>
