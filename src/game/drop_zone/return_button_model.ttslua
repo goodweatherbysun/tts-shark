@@ -1,0 +1,33 @@
+local DropZoneReturnButtonModel = {}
+DropZoneReturnButtonModel.__index = DropZoneReturnButtonModel
+
+function DropZoneReturnButtonModel.new(object)
+    local instance = {
+        object = object,
+        zone = nil,
+    }
+
+    setmetatable(instance, DropZoneReturnButtonModel)
+
+    object.createButton({
+        click_function = 'DropZoneReturnButton_onClick',
+        position = { 0, 0.5, 0 },
+        rotation = { 0, 180, 0 },
+        height = 1000,
+        width = 1800,
+        font_size = 300,
+        label = 'Return',
+        tooltip = 'Returns money and shares to their designated deposit areas.'
+    })
+
+    return instance
+end
+
+function DropZoneReturnButton_onClick(button_object, player_color, alt_click)
+    local button_model = getModel(button_object)
+    local zone_model = getModel(button_model.zone)
+
+    zone_model:returnObjects()
+end
+
+return DropZoneReturnButtonModel

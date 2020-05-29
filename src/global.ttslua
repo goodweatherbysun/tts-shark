@@ -9,6 +9,7 @@ local UiClosable = require("shark/tts/ui_closable")
 local debug = require("shark/util/debug")
 
 local DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
+local DropZoneReturnButtonModel = require("shark/game/drop_zone/return_button_model")
 local MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
 local PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
 local HandZoneModel = require("shark/game/hand_zone_model")
@@ -671,7 +672,7 @@ function registerObject(object)
     if kind == 'shark_money_counter' then
         return addModel(object, MoneyCounterModel.new(object))
     elseif kind == 'shark_drop_zone_return_button_object' then
-        return addModel(object, DropZoneReturnButtonObject.new(object))
+        return addModel(object, DropZoneReturnButtonModel.new(object))
     end
 end
 
@@ -734,40 +735,6 @@ function handlePlayerTakeShareCard(player_color, object)
 end
 
 -- Model Management end
-
-DropZoneReturnButtonObject = {}
-DropZoneReturnButtonObject.__index = DropZoneReturnButtonObject
-
-function DropZoneReturnButtonObject.new(object)
-    local instance = {
-        object = object,
-        zone = nil,
-    }
-
-    setmetatable(instance, DropZoneReturnButtonObject)
-
-    object.createButton({
-        click_function = 'onDropZoneModelReturnClick',
-        position = { 0, 0.5, 0 },
-        rotation = { 0, 180, 0 },
-        height = 1000,
-        width = 1800,
-        font_size = 300,
-        label = 'Return',
-        tooltip = 'Returns money and shares to their designated deposit areas.'
-    })
-
-    return instance
-end
-
-function onDropZoneModelReturnClick(button_object, player_color, alt_click)
-    local button_model = getModel(button_object)
-    local zone_model = getModel(button_model.zone)
-
-    zone_model:returnObjects()
-end
-
--- DropZoneReturnButtonObject end
 
 ObjectReturner = {}
 ObjectReturner.__index = ObjectReturner
