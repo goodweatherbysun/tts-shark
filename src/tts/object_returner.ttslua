@@ -1,0 +1,68 @@
+local ObjectReturner = {}
+ObjectReturner.__index = ObjectReturner
+
+function ObjectReturner.new(objects, callback)
+    -- We want to return objects from top to bottom. Sorting by Y will avoid
+    -- accidential deck merges.
+    table.sort(objects, |a, b| a.getPosition().y < b.getPosition().y)
+
+    local instance = {
+        object_guids = table.collect(objects, 'guid'),
+        callback = callback,
+    }
+
+    setmetatable(instance, ObjectReturner)
+
+    return instance
+end
+
+function ObjectReturner:loop()
+    local continue = false
+
+    if #self.object_guids > 0 then
+        continue = self:step()
+    end
+
+    if #self.object_guids == 0 then
+        self.callback()
+    elseif continue then
+        -- continue loop in next frame for better performance
+        Wait.frames(|| self:loop(), 1)
+    end
+end
+
+-- Returns true if loop should be continued. Otherwise, the loop should be
+-- paused.
+function ObjectReturner:step()
+    local object_guid = table.remove(self.object_guids)
+    local object = getObjectFromGUID(object_guid)
+
+    -- object might have been destroyed in the meantime
+    if not object then
+        return true
+    end
+
+    local kind = object.getVar('kind')
+
+    if kind == 'shark_share_card' then
+        local properties = { share = object.getTable('share') }
+        local deposit = getDepositTarget(kind, properties)
+
+        object.setPositionSmooth(deposit.position, false, false)
+        object.setRotationSmooth(deposit.rotation, false, false)
+    elseif kind == 'shark_money' then
+        local properties = { money = object.getTable('money') }
+        local deposit = getDepositTarget(kind, properties)
+
+        object.setPositionSmooth(deposit.position, false, false)
+        object.setRotationSmooth(deposit.rotation, false, false)
+    elseif object.tag == 'Deck' then
+        DeckDecomposer.new(object, || self:loop()):loop()
+
+        return false
+    end
+
+    return true
+end
+
+return ObjectReturner

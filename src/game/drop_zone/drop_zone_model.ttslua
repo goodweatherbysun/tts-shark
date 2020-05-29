@@ -1,4 +1,5 @@
 local unbaggedObjects = require("shark/tts/unbagged_objects")
+local ObjectReturner = require("shark/tts/object_returner")
 
 local DropZoneModel = {}
 
