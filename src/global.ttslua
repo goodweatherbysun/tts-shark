@@ -1,18 +1,18 @@
-set = require("shark/util/set")
-util = require("shark/util/util")
-eachChunk = require("shark/tts/each_chunk")
-wrapBaggedObject = require("shark/tts/wrap_bagged_object")
-UiDom = require("shark/tts/ui_dom")
-UiClosable = require("shark/tts/ui_closable")
+local set = require("shark/util/set")
+local util = require("shark/util/util")
+local eachChunk = require("shark/tts/each_chunk")
+local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
+local UiDom = require("shark/tts/ui_dom")
+local UiClosable = require("shark/tts/ui_closable")
 -- DEBUG
-debug = require("shark/util/debug")
+local debug = require("shark/util/debug")
 
-DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
-MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
-PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
-HandZoneModel = require("shark/game/hand_zone_model")
+local DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
+local MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
+local PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
+local HandZoneModel = require("shark/game/hand_zone_model")
 
-SEAT_COLORS = {
+local SEAT_COLORS = {
     'White',
     'Red',
     'Yellow',
@@ -21,47 +21,47 @@ SEAT_COLORS = {
     'Purple',
 }
 
-SEAT_COLOR_SET = set.new(SEAT_COLORS)
+local SEAT_COLOR_SET = set.new(SEAT_COLORS)
 
-COMPANIES = {
+local COMPANIES = {
     'green',
     'red',
     'blue',
     'yellow',
 }
 
--- COMPANY_COLORS = {
+-- local COMPANY_COLORS = {
 --     green = '#5fab46',
 --     red = '#e4312e',
 --     blue = '#7bbebb',
 --     yellow = '#fbc133',
 -- }
 
-COMPANY_COLORS = {
+local COMPANY_COLORS = {
     green = Color(95 / 255, 171 / 255, 70 / 255),
     red = Color(228 / 255, 49 / 255, 46 / 255),
     blue = Color(123 / 255, 190 / 255, 187 / 255),
     yellow = Color(251 / 255, 193 / 255, 51 / 255),
 }
 
-SCRIPTING_BUTTON_BUY_SHARE = 10
-SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
-SCRIPTING_BUTTON_UNLOCK_OBJECTS = 8
-SCRIPTING_BUTTON_LOCK_OBJECTS = 9
+local SCRIPTING_BUTTON_BUY_SHARE = 10
+local SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
+local SCRIPTING_BUTTON_UNLOCK_OBJECTS = 8
+local SCRIPTING_BUTTON_LOCK_OBJECTS = 9
 
-SHARE_PRICE_MIN = 0
-SHARE_PRICE_MAX = 15
-SHARE_PRICE_LEVEL_REF_1 = 1
-SHARE_PRICE_LEVEL_REF_2 = 15
-SHARE_PRICE_LEVEL_REF_DELTA = SHARE_PRICE_LEVEL_REF_2 - SHARE_PRICE_LEVEL_REF_1
+local SHARE_PRICE_MIN = 0
+local SHARE_PRICE_MAX = 15
+local SHARE_PRICE_LEVEL_REF_1 = 1
+local SHARE_PRICE_LEVEL_REF_2 = 15
+local SHARE_PRICE_LEVEL_REF_DELTA = SHARE_PRICE_LEVEL_REF_2 - SHARE_PRICE_LEVEL_REF_1
 -- Values below are relative to the board. Translating, scaling, or rotating
 -- the board has no effect on these values.
-SHARE_PRICE_LEVEL_REF_1_Z = 3.6954
-SHARE_PRICE_LEVEL_REF_2_Z = -7.0907
-SHARE_PRICE_LEVEL_REF_Z_DELTA = SHARE_PRICE_LEVEL_REF_2_Z - SHARE_PRICE_LEVEL_REF_1_Z
+local SHARE_PRICE_LEVEL_REF_1_Z = 3.6954
+local SHARE_PRICE_LEVEL_REF_2_Z = -7.0907
+local SHARE_PRICE_LEVEL_REF_Z_DELTA = SHARE_PRICE_LEVEL_REF_2_Z - SHARE_PRICE_LEVEL_REF_1_Z
 
 -- relative to board
-SHARE_DEPOSIT_POSITIONS = {
+local SHARE_DEPOSIT_POSITIONS = {
     green = {
         [1] = { x = 7.1214, y = 2, z = 5.9878 },
         [5] = { x = -7.1289, y = 2, z = -6.0329 },
@@ -80,44 +80,44 @@ SHARE_DEPOSIT_POSITIONS = {
     },
 }
 
-MONEY_DEPOSIT_MARKERS = {}
-MONEY_DEPOSIT_MARKERS_GUIDS = {
+local MONEY_DEPOSIT_MARKERS = {}
+local MONEY_DEPOSIT_MARKERS_GUIDS = {
     [1] = 'cb10ca',
     [5] = 'c6fff2',
     [10] = '6396b9',
     [50] = 'd9c185',
 }
 
-BOARD = nil
-BOARD_GUID = '12bb20'
+local BOARD = nil
+local BOARD_GUID = '12bb20'
 
-BUILDING_BAGS = {}
-BUILDING_BAG_GUIDS = {
+local BUILDING_BAGS = {}
+local BUILDING_BAG_GUIDS = {
     green = '062411',
     red = '16b065',
     blue = 'bd55ee',
     yellow = 'c47da9',
 }
 
-DISCARDED_BUILDING_BAG_GUID = '47b9a5'
-DISCARDED_BUILDING_BAG = nil
+local DISCARDED_BUILDING_BAG_GUID = '47b9a5'
+local DISCARDED_BUILDING_BAG = nil
 
-INDICATORS = {}
-INDICATOR_GUIDS = {
+local INDICATORS = {}
+local INDICATOR_GUIDS = {
     green = '65f72d',
     red = 'c7426a',
     blue = 'd4bd37',
     yellow = 'b96f7a',
 }
 
-DROP_ZONES = {}
-DROP_ZONE_GUIDS = {
+local DROP_ZONES = {}
+local DROP_ZONE_GUIDS = {
     '558917',
     '2dc3c1',
 }
 
-PLAYER_SHARE_CARD_ZONES = {}
-PLAYER_SHARE_CARD_ZONE_GUIDS = {
+local PLAYER_SHARE_CARD_ZONES = {}
+local PLAYER_SHARE_CARD_ZONE_GUIDS = {
     White = '64d891',
     Red = '9dae36',
     Yellow = '0356a0',
@@ -127,8 +127,8 @@ PLAYER_SHARE_CARD_ZONE_GUIDS = {
 }
 
 -- These are actually scripting zones on top of the real hand zones.
-HAND_ZONES = {}
-HAND_ZONE_GUIDS = {
+local HAND_ZONES = {}
+local HAND_ZONE_GUIDS = {
     White = '6ce9b9',
     Red = '980351',
     Yellow = '008eed',
@@ -137,12 +137,12 @@ HAND_ZONE_GUIDS = {
     Purple = '4053a7',
 }
 
-GRAPH_BOARD_GUIDS = {
+local GRAPH_BOARD_GUIDS = {
     'd8b4ea',
     'a86554',
 }
 
-PLAYER_SHARE_DEPOSITS = {
+local PLAYER_SHARE_DEPOSITS = {
     -- obsolute deposit positions of the 5 green share for each player
     absolute_positions = {
         White = { x = -5.6002, y = 2, z = -14.6324 },
@@ -180,10 +180,10 @@ PLAYER_SHARE_DEPOSITS = {
     }
 }
 
-LAST_TURN_TIME = nil
-LAST_TURN_COOLDOWN = 180 -- 3 minutes
+local LAST_TURN_TIME = nil
+local LAST_TURN_COOLDOWN = 180 -- 3 minutes
 
-LOCK_OBJECT_GUIDS = table.append({
+local LOCK_OBJECT_GUIDS = table.append({
     '93af80',
     'c54cc2',
     '2e7035',
@@ -194,11 +194,11 @@ LOCK_OBJECT_GUIDS = table.append({
     'df7272',
 }, table.values(INDICATOR_GUIDS))
 
-MODELS = {}
+local MODELS = {}
 
-CONTROLLERS = {}
+local CONTROLLERS = {}
 
-NOTES = string.rep('\n', 11) .. [=[
+local NOTES = string.rep('\n', 11) .. [=[
 [b]Hotkeys[/b]
 
 Bind hotkeys via [i]Options[/i] > [i]Game Keys[/i].
@@ -265,7 +265,7 @@ function onLoad()
         zone.setVar('kind', 'shark_player_share_card_zone')
         zone.setTable('player_share_card_zone', { color = color })
 
-        addModel(zone, PlayerShareCardZoneModel.new(zone))
+        addModel(zone, PlayerShareCardZoneModel.new(zone, COMPANIES))
     end)
 
     -- discover hand zones

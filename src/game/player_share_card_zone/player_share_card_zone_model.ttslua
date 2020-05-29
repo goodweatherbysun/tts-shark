@@ -2,10 +2,11 @@ local PlayerShareCardZoneModel = {}
 
 PlayerShareCardZoneModel.__index = PlayerShareCardZoneModel
 
-function PlayerShareCardZoneModel.new(object)
+function PlayerShareCardZoneModel.new(object, companies)
     local instance = {
         object = object,
-        stock_options = {}
+        companies = companies,
+        stock_options = {},
     }
 
     setmetatable(instance, PlayerShareCardZoneModel)
@@ -20,7 +21,7 @@ function PlayerShareCardZoneModel:getPlayerColor()
 end
 
 function PlayerShareCardZoneModel:reset()
-    for _, company in ipairs(COMPANIES) do
+    for _, company in ipairs(self.companies) do
         self.stock_options[company] = 0
     end
 end

@@ -1,3 +1,4 @@
+local util = require("shark/util/util")
 local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
 
 local function eachChunk(deck)
