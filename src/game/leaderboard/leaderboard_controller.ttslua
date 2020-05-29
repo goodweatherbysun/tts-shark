@@ -1,0 +1,110 @@
+local util = require("shark/util/util")
+local UiClosable = require("shark/tts/ui_closable")
+
+local LeaderboardController = { element_id = 'Panel#leaderboard' }
+LeaderboardController.__index = setmetatable(LeaderboardController, UiClosable)
+
+function LeaderboardController.init(ui_dom, player_colors)
+    local instance = {
+        player_colors = player_colors,
+        data = {},
+    }
+
+    setmetatable(instance, LeaderboardController)
+
+    UiClosable.init(instance)
+
+    for _, color in ipairs(player_colors) do
+        instance.data[color] = { shares = 0, money = 0, total = 0 }
+    end
+
+    instance:generate(ui_dom)
+
+    LeaderboardController.instance = instance
+
+    return instance
+end
+
+-- events
+
+function Leaderboard_onCloseClick(player)
+    LeaderboardController.instance:close(player.color)
+end
+
+-- methods
+
+function LeaderboardController:generate(ui_dom)
+    for i = 1, #self.player_colors do
+        ui_dom:appendChild('TableLayout#leaderboard', {
+            tag = 'Row',
+            attributes = { id = 'Row#leaderboard.rows[' .. i .. ']', class = 'leaderboard' },
+            children = {
+                { tag = 'Cell', children = { tag = 'Text', attributes = { class = 'leaderboardData' }, value = util.format_ordinal(i) } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.player', class = 'leaderboardData leaderboardPlayer' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.money', class = 'leaderboardData number' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.shares', class = 'leaderboardData number' } } },
+                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.total', class = 'leaderboardData number' } } },
+            }
+        })
+    end
+end
+
+function LeaderboardController:updateData(data_changes)
+    for player_color, player_data_changes in pairs(data_changes) do
+        local player_data = self.data[player_color]
+
+        for attribute, value in pairs(player_data_changes) do
+            player_data[attribute] = value
+        end
+
+        player_data.total = player_data.shares + player_data.money
+    end
+end
+
+function LeaderboardController:updateAllPlayerShares()
+    for _, player_color in pairs(self.player_colors) do
+        self:updatePlayerShareValue(player_color)
+    end
+end
+
+function LeaderboardController:updatePlayerShareValue(player_color)
+    local share_value = getPlayerShareValue(player_color)
+
+    self:updateData({ [player_color] = { shares = share_value } })
+end
+
+function LeaderboardController:updatePlayerMoney(player_color)
+    local money_amount = getPlayerMoney(player_color)
+
+    self:updateData({ [player_color] = { money = money_amount } })
+end
+
+function LeaderboardController:render()
+    local players = getSeatedPlayers()
+
+    -- sort players by their totals
+    table.sort(players, |a, b| self.data[a.color].total > self.data[b.color].total)
+
+    for i = 1, #self.player_colors do
+        if i <= #players then
+            local player = players[i]
+            local player_data = self.data[player.color]
+
+            UI.setAttributes('Row#leaderboard.rows[' .. i .. ']', {
+                active = true,
+                color = player.color,
+            })
+
+            UI.setValue('Text#leaderboard.rows[' .. i .. '].player', player.steam_name)
+
+            for _, attribute in ipairs{ 'shares', 'money', 'total' } do
+                local formatted_string =  'FT ' .. util.separate_thousands(player_data[attribute] * 1000)
+                UI.setValue('Text#leaderboard.rows[' .. i .. '].' .. attribute, formatted_string)
+            end
+        else
+            UI.setAttribute('Row#leaderboard.rows[' .. i .. ']', 'active', false)
+        end
+    end
+end
+
+return LeaderboardController

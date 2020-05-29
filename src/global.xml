@@ -52,45 +52,6 @@
         preferredHeight="40"
     />
 
-    <!-- Leaderboard -->
-
-    <Panel
-        class="leaderboard"
-        width="550"
-        height="350"
-    />
-
-    <TableLayout
-        class="leaderboard"
-        autoCalculateHeight="true"
-        cellPadding="10 10 0 0"
-        columnWidths="75 0 100 100 100"
-    />
-
-    <Row
-        class="leaderboardHead"
-        preferredHeight="40"
-    />
-
-    <Row
-        class="leaderboard"
-        preferredHeight="30"
-        dontUseTableRowBackground="true"
-    />
-
-    <Text
-        class="leaderboardHead"
-        fontStyle="Bold"
-    />
-
-    <Text
-        class="leaderboardPlayer"
-        fontStyle="Bold"
-        resizeTextForBestFit="true"
-        resizeTextMinSize="8"
-        resizeTextMaxSize="14"
-    />
-
     <!-- Last Turn Dialog -->
 
     <Panel
@@ -291,26 +252,7 @@
     </TableLayout>
 </Panel>
 
-<Panel id="Panel#leaderboard" class="leaderboard window" active="false">
-    <VerticalLayout class="windowLayout">
-        <Text class="h1">Leaderboard</Text>
-
-        <TableLayout id="TableLayout#leaderboard" class="leaderboard">
-            <Row class="leaderboardHead">
-                <Cell><Text class="leaderboardHead">Place</Text></Cell>
-                <Cell><Text class="leaderboardHead">Player</Text></Cell>
-                <Cell><Text class="leaderboardHead">Cash</Text></Cell>
-                <Cell><Text class="leaderboardHead">Shares</Text></Cell>
-                <Cell><Text class="leaderboardHead">Total</Text></Cell>
-            </Row>
-            <!-- data rows are generates by LeaderboardUiController -->
-        </TableLayout>
-
-        <Panel flexibleHeight="1" />
-
-        <Button class="close" onClick="onLeaderboardCloseClick">Close</Button>
-    </VerticalLayout>
-</Panel>
+<Include src="game/leaderboard/leaderboard"/>
 
 <Panel class="controlBar" width="200">
     <VerticalLayout childForceExpandHeight="false">

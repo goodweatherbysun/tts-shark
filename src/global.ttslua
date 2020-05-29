@@ -15,6 +15,8 @@ local MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
 local PlayerShareCardZoneModel = require("shark/game/player_share_card_zone/player_share_card_zone_model")
 local HandZoneModel = require("shark/game/hand_zone_model")
 
+local LeaderboardController = require("shark/game/leaderboard/leaderboard_controller")
+
 local SEAT_COLORS = {
     'White',
     'Red',
@@ -319,15 +321,16 @@ function onLoad()
     local xml_table = UI.getXmlTable()
     local ui_dom = UiDom.new(xml_table)
 
-    CONTROLLERS.leaderboard = LeaderboardUiController.new(ui_dom, SEAT_COLORS)
+    LeaderboardController.init(ui_dom, SEAT_COLORS)
+
     CONTROLLERS.asset_counters = AssetCountersUiController.new(ui_dom, SEAT_COLORS)
-    CONTROLLERS.control_bar = ControlBarUiController.new(CONTROLLERS.asset_counters, CONTROLLERS.leaderboard)
+    CONTROLLERS.control_bar = ControlBarUiController.new(CONTROLLERS.asset_counters, LeaderboardController.instance)
 
     UI.setXmlTable(ui_dom.xml_table)
 
     -- update UI in next frame
     Wait.frames(function ()
-        CONTROLLERS.leaderboard:render()
+        LeaderboardController.instance:render()
         CONTROLLERS.asset_counters:updateAll()
     end, 1)
 end
@@ -394,7 +397,7 @@ function onDismissLastTurnDialogClick()
 end
 
 function onPlayerChangeColor(player_color)
-    CONTROLLERS.leaderboard:render()
+    LeaderboardController.instance:render()
 end
 
 function onScriptingButtonUp(index, player_color)
@@ -440,8 +443,8 @@ function onObjectDrop(color, dropped_object)
             getModel(zone):countMoneyAndShares()
         end
 
-        CONTROLLERS.leaderboard:updateAllPlayerShares()
-        CONTROLLERS.leaderboard:render()
+        LeaderboardController.instance:updateAllPlayerShares()
+        LeaderboardController.instance:render()
 
         CONTROLLERS.asset_counters:updateAllPlayerShareValues()
 
@@ -499,8 +502,8 @@ function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
 
             zone_model:count(enter_object)
 
-            CONTROLLERS.leaderboard:updatePlayerShareValue(player_color)
-            CONTROLLERS.leaderboard:render()
+            LeaderboardController.instance:updatePlayerShareValue(player_color)
+            LeaderboardController.instance:render()
 
             CONTROLLERS.asset_counters:updatePlayerShareCounters(player_color)
             CONTROLLERS.asset_counters:updatePlayerShareValue(player_color)
@@ -516,8 +519,8 @@ function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
 
             zone_model:count(enter_object)
 
-            CONTROLLERS.leaderboard:updatePlayerMoney(zone_model:getPlayerColor())
-            CONTROLLERS.leaderboard:render()
+            LeaderboardController.instance:updatePlayerMoney(zone_model:getPlayerColor())
+            LeaderboardController.instance:render()
 
             CONTROLLERS.asset_counters:updatePlayerMoney(player_color)
         end
@@ -650,6 +653,16 @@ function getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)
     }
 end
 
+function getPlayerShareValue(player_color)
+    local zone = PLAYER_SHARE_CARD_ZONES[player_color]
+    return getModel(zone):sum()
+end
+
+function getPlayerMoney(player_color)
+    local zone = HAND_ZONES[player_color]
+    return getModel(zone).money_amount
+end
+
 function isBuildingBagDepleted(company)
     return BUILDING_BAGS[company].getQuantity() == 0
 end
@@ -736,112 +749,6 @@ function handlePlayerTakeShareCard(player_color, object)
 end
 
 -- Model Management end
-
-LeaderboardUiController = { element_id = 'Panel#leaderboard' }
-LeaderboardUiController.__index = setmetatable(LeaderboardUiController, UiClosable)
-
-function LeaderboardUiController.new(ui_dom, player_colors)
-    local instance = {
-        player_colors = player_colors,
-        data = {},
-    }
-
-    setmetatable(instance, LeaderboardUiController)
-
-    UiClosable.init(instance)
-
-    for _, color in ipairs(player_colors) do
-        instance.data[color] = { shares = 0, money = 0, total = 0 }
-    end
-
-    instance:generate(ui_dom)
-
-    return instance
-end
-
--- LeaderboardUiController events
-
-function onLeaderboardCloseClick(player)
-    CONTROLLERS.leaderboard:close(player.color)
-end
-
--- LeaderboardUiController methods
-
-function LeaderboardUiController:generate(ui_dom)
-    for i=1, #self.player_colors do
-        ui_dom:appendChild('TableLayout#leaderboard', {
-            tag = 'Row',
-            attributes = { id = 'Row#leaderboard.rows[' .. i .. ']', class = 'leaderboard' },
-            children = {
-                { tag = 'Cell', children = { tag = 'Text', attributes = { class = 'leaderboardData' }, value = util.format_ordinal(i) } },
-                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.player', class = 'leaderboardData leaderboardPlayer' } } },
-                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.money', class = 'leaderboardData number' } } },
-                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.shares', class = 'leaderboardData number' } } },
-                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.total', class = 'leaderboardData number' } } },
-            }
-        })
-    end
-end
-
-function LeaderboardUiController:updateData(data_changes)
-    for player_color, player_data_changes in pairs(data_changes) do
-        local player_data = self.data[player_color]
-
-        for attribute, value in pairs(player_data_changes) do
-            player_data[attribute] = value
-        end
-
-        player_data.total = player_data.shares + player_data.money
-    end
-end
-
-function LeaderboardUiController:updateAllPlayerShares()
-    for _, player_color in pairs(self.player_colors) do
-        self:updatePlayerShareValue(player_color)
-    end
-end
-
-function LeaderboardUiController:updatePlayerShareValue(player_color)
-    local zone_model = getModel(PLAYER_SHARE_CARD_ZONES[player_color])
-
-    self:updateData({ [player_color] = { shares = zone_model:sum() } })
-end
-
-function LeaderboardUiController:updatePlayerMoney(player_color)
-    local zone_model = getModel(HAND_ZONES[player_color])
-
-    self:updateData({ [player_color] = { money = zone_model.money_amount } })
-end
-
-function LeaderboardUiController:render()
-    local players = getSeatedPlayers()
-
-    -- sort players by their totals
-    table.sort(players, |a, b| self.data[a.color].total > self.data[b.color].total)
-
-    for i = 1, #self.player_colors do
-        if i <= #players then
-            local player = players[i]
-            local player_data = self.data[player.color]
-
-            UI.setAttributes('Row#leaderboard.rows[' .. i .. ']', {
-                active = true,
-                color = player.color,
-            })
-
-            UI.setValue('Text#leaderboard.rows[' .. i .. '].player', player.steam_name)
-
-            for _, attribute in ipairs{ 'shares', 'money', 'total' } do
-                local formatted_string =  'FT ' .. util.separate_thousands(player_data[attribute] * 1000)
-                UI.setValue('Text#leaderboard.rows[' .. i .. '].' .. attribute, formatted_string)
-            end
-        else
-            UI.setAttribute('Row#leaderboard.rows[' .. i .. ']', 'active', false)
-        end
-    end
-end
-
--- LeaderboardUiController end
 
 AssetCountersUiController = { element_id = 'Panel#assetCounters' }
 AssetCountersUiController.__index = setmetatable(AssetCountersUiController, UiClosable)
