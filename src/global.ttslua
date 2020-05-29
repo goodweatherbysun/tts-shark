@@ -1,7 +1,6 @@
 local set = require("shark/util/set")
 local util = require("shark/util/util")
 
-local eachChunk = require("shark/tts/each_chunk")
 local unbaggedObjects = require("shark/tts/unbagged_objects")
 local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
 local UiDom = require("shark/tts/ui_dom")
@@ -737,117 +736,6 @@ function handlePlayerTakeShareCard(player_color, object)
 end
 
 -- Model Management end
-
-DeckDecomposer = {}
-DeckDecomposer.__index = DeckDecomposer
-
-function DeckDecomposer.new(deck, callback)
-    local instance = {
-        deck_guid = deck.guid,
-        callback = callback,
-    }
-
-    setmetatable(instance, DeckDecomposer)
-
-    return instance
-end
-
-function DeckDecomposer:loop()
-    local continue = self:step()
-
-    if continue then
-        -- continue loop in next frame for better performance
-        Wait.frames(|| self:loop(), 1)
-    else
-        -- enqueue callback
-        Wait.frames(self.callback, 0)
-    end
-end
-
-function DeckDecomposer:step()
-    local deck = getObjectFromGUID(self.deck_guid)
-
-    -- deck might have been destroyed in the meantime
-    if not deck then
-        return false
-    end
-
-    local nextChunk = eachChunk(deck)
-    local chunk = nextChunk()
-    local top_size = chunk.size
-    local bottom_size = deck.getQuantity() - top_size
-    local deposit = getDepositTarget(chunk.kind, chunk.properties)
-
-    -- The cases below ensure the following:
-    -- - Only cut into valid decks (a deck consists of at least two cards).
-    -- - Otherwise take card from top or bottom.
-    -- - Move deck itself if it consists only of one chunk.
-
-    if top_size > 1 and bottom_size > 1 then
-        local cut_decks = deck.cut(chunk.size)
-        local bottom = cut_decks[1]
-        local top = cut_decks[2]
-
-        top.setPositionSmooth(deposit.position, false, false)
-        top.setRotationSmooth(deposit.rotation, false, false)
-
-        self.deck_guid = bottom.guid
-
-        -- signal to continue
-        return true
-    elseif top_size == 1 and bottom_size > 1 then
-        deck.takeObject({
-            position = deposit.position,
-            rotation = deposit.rotation,
-        })
-
-        -- signal to continue
-        return true
-    elseif top_size > 1 and bottom_size == 1 then
-        local next_chunk = nextChunk()
-        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
-
-        -- draw card from bottom
-        deck.takeObject({
-            top = false,
-            position = next_deposit.position,
-            rotation = next_deposit.rotation,
-        })
-
-        -- The only chunk remaining should be the current chunk.
-        -- Therefore, return the entire remaining deck.
-        deck.setPositionSmooth(deposit.position, false, false)
-        deck.setRotationSmooth(deposit.rotation, false, false)
-
-        -- signal to stop
-        return false
-    elseif top_size == 1 and bottom_size == 1 then
-        deck.takeObject({
-            position = deposit.position,
-            rotation = deposit.rotation,
-        })
-
-        local next_chunk = nextChunk()
-        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
-
-        -- draw last card
-        deck.takeObject({
-            position = next_deposit.position,
-            rotation = next_deposit.rotation,
-        })
-
-        -- signal to stop
-        return false
-    else -- bottom_size == 0
-        deck.setPositionSmooth(deposit.position, false, false)
-        deck.setRotationSmooth(deposit.rotation, false, false)
-
-        -- signal to stop
-        return false
-    end
-end
-
--- DeckDecomposer end
 
 LeaderboardUiController = { element_id = 'Panel#leaderboard' }
 LeaderboardUiController.__index = setmetatable(LeaderboardUiController, UiClosable)

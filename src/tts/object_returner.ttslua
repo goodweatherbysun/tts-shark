@@ -1,3 +1,5 @@
+local DeckDecomposer = require("shark/tts/deck_decomposer")
+
 local ObjectReturner = {}
 ObjectReturner.__index = ObjectReturner
 
