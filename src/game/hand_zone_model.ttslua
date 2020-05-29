@@ -1,3 +1,5 @@
+local unbaggedObjects = require("shark/tts/unbagged_objects")
+
 local HandZoneModel = {}
 
 HandZoneModel.__index = HandZoneModel

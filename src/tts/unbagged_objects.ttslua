@@ -1,0 +1,63 @@
+local set = require("shark/util/set")
+local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
+
+-- Iterates over given objects except for decks. Instead it will iterate over
+-- the deck's cards.
+local function unbaggedObjects(objects)
+    -- We will track visited objects by their GUID and ensure that each one is
+    -- yielded only once.
+    --
+    -- Background: There is a weird behavior when grouping cards into a deck:
+    -- One card will appear both as a singular card but also inside the deck for
+    -- a brief time.
+    local visited_guids = set.new{}
+
+    local i = 1 -- object index
+    local j = 1 -- card index for decks
+    local bagged_objects = nil -- cache bagged objects
+
+    -- returns whether object has not been visited before
+    local function visit(object)
+        local unvisited = not set.contains(visited_guids, object.guid)
+        if unvisited then
+            set.add(visited_guids, object.guid)
+        end
+        return unvisited
+    end
+
+    return function ()
+        while i <= #objects do
+            local object = objects[i]
+
+            if object.tag == 'Deck' then
+                -- getObjects is suprisingly costly when iterating over a lot of
+                -- cards in a deck. Therefore, cache objects for the current
+                -- deck.
+                if not bagged_objects then
+                    bagged_objects = object.getObjects()
+                end
+
+                while j <= #bagged_objects do
+                    local bagged_object = bagged_objects[j]
+                    j = j + 1
+
+                    if visit(bagged_object) then
+                        return wrapBaggedObject(bagged_object)
+                    end
+                end
+
+                i = i + 1
+                j = 1
+                bagged_objects = nil
+            else
+                i = i + 1
+
+                if visit(object) then
+                    return object
+                end
+            end
+        end
+    end
+end
+
+return unbaggedObjects
