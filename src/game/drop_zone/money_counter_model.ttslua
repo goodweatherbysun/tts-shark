@@ -12,7 +12,7 @@ function MoneyCounterModel.new(object)
     setmetatable(instance, MoneyCounterModel)
 
     object.createButton({
-        click_function = 'MoneyCounterModel_onToggleForcedSalesClick',
+        click_function = 'MoneyCounterModel_onToggleForcedSaleClick',
         position = { 0, 0.01, -0.75 },
         rotation = { 0, 180, 0 },
         height = 150,
@@ -25,7 +25,7 @@ function MoneyCounterModel.new(object)
     return instance
 end
 
-function MoneyCounterModel_onToggleForcedSalesClick(money_counter, player_color, alt_click)
+function MoneyCounterModel_onToggleForcedSaleClick(money_counter, player_color, alt_click)
     local money_counter = getModel(money_counter)
     local zone = money_counter.zone
 
