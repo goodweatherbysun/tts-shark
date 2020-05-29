@@ -26,7 +26,7 @@ function MoneyCounterModel.new(object)
 end
 
 function MoneyCounterModel_onToggleForcedSalesClick(money_counter, player_color, alt_click)
-    local money_counter = getModel(money_counter_object)
+    local money_counter = getModel(money_counter)
     local zone = money_counter.zone
 
     money_counter:toggleForcedSaleMode()
