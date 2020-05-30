@@ -1,3 +1,3 @@
 # Shark - A Tabletop Simulator Mod
 
-Workshop ID: 2073967354
+Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2073967354
