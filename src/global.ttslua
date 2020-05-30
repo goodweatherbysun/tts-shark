@@ -1,10 +1,8 @@
 local set = require("shark/util/set")
 local util = require("shark/util/util")
 
-local unbaggedObjects = require("shark/tts/unbagged_objects")
 local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
 local UiDom = require("shark/tts/ui_dom")
-local UiClosable = require("shark/tts/ui_closable")
 
 -- DEBUG
 local debug = require("shark/util/debug")
