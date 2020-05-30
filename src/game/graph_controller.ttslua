@@ -1,0 +1,192 @@
+local set = require("shark/util/set")
+
+local GraphController = {
+    padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },
+    scale = Vector(8.29, 0.59, 8.29),
+    curve_displacement = 0.05,
+    default_visible_turns = 20,
+}
+
+GraphController.ref_1 = Vector{
+    x = -1 + 2 * GraphController.padding.left,
+    y = 1,
+    z = -1 + 2 * GraphController.padding.bottom,
+}:scale(GraphController.scale)
+
+GraphController.ref_2 = Vector{
+    x = 1 - 2 * GraphController.padding.right,
+    y = 1,
+    z = 1 - 2 * GraphController.padding.top,
+}:scale(GraphController.scale)
+
+GraphController.ref_delta = GraphController.ref_2 - GraphController.ref_1
+
+GraphController.__index = GraphController
+
+function GraphController.init(objects, companies, company_colors, max_price)
+    local instance = {
+        objects = objects,
+        companies = companies,
+        company_colors = company_colors,
+        max_price = max_price,
+        data = {},
+        objects_data = {},
+    }
+
+    setmetatable(instance, GraphController)
+
+    for _, company in ipairs(companies) do
+        instance.data[company] = { 0 }
+    end
+
+    for _, object in ipairs(objects) do
+        instance.objects_data[object.guid] = {
+            turn_offset = 0,
+            visible_turns = instance.default_visible_turns,
+        }
+    end
+
+    -- DEBUG
+    -- instance.data = {
+    --     green  = { 0, 1, 1, 1, 2, 2, 2 },
+    --     red    = { 1, 1, 2, 2, 2, 2, 3 },
+    --     blue   = { 0, 0, 0, 1, 1, 1, 1 },
+    --     yellow = { 0, 0, 0, 0, 0, 1, 1 },
+    -- }
+
+    -- DEBUG
+    -- for i = 1, instance.visible_turns - 1 do
+    -- for i = 1, 40 do
+    --     -- print(i)
+    --     local profit_company = COMPANIES[math.random(#COMPANIES)]
+    --
+    --     for _, company in ipairs(COMPANIES) do
+    --         if company == profit_company then
+    --             instance.data[company][i + 1] = instance.data[company][i] + 1
+    --         else
+    --             instance.data[company][i + 1] = instance.data[company][i]
+    --         end
+    --     end
+    -- end
+
+    GraphController.instance = instance
+
+    return instance
+end
+
+function GraphController:getTurns()
+    return #self.data[self.companies[1]]
+end
+
+function GraphController:isLeftmost(object_guid)
+    return self.objects_data[object_guid].turn_offset == 0
+end
+
+function GraphController:isRightmost(object_guid)
+    local object_data = self.objects_data[object_guid]
+    local turn_offset = object_data.turn_offset
+    local visible_turns = object_data.visible_turns
+    local turns = self:getTurns()
+
+    return turns <= turn_offset + visible_turns
+end
+
+function GraphController:push(data)
+    local rightmost = set.new{}
+
+    -- memorize rightmost objects
+    for object_guid, object_data in pairs(self.objects_data) do
+        if self:isRightmost(object_guid) then
+            set.add(rightmost, object_guid)
+        end
+    end
+
+    -- insert data
+    for company, share_price in pairs(data) do
+        table.insert(self.data[company], share_price)
+    end
+
+    -- scroll objects to the right that were rightmost previously
+    for object_guid in set.each(rightmost) do
+        self:scrollRight(object_guid)
+    end
+end
+
+function GraphController:updateLast(data)
+    local index = self:getTurn() + 1
+
+    for company, share_price in pairs(data) do
+        self.data[company][index] = share_price
+    end
+end
+
+function GraphController:scrollLeft(object_guid)
+    if self:isLeftmost(object_guid) then
+        return
+    end
+
+    local object_data = self.objects_data[object_guid]
+    object_data.turn_offset = object_data.turn_offset - 1
+end
+
+function GraphController:scrollRight(object_guid)
+    if self:isRightmost(object_guid) then
+        return
+    end
+
+    local object_data = self.objects_data[object_guid]
+    object_data.turn_offset = object_data.turn_offset + 1
+end
+
+function GraphController:renderAll()
+    for _, object in ipairs(self.objects) do
+        self:render(object)
+    end
+end
+
+function GraphController:render(object)
+    local object_data = self.objects_data[object.guid]
+    local turn_offset = object_data.turn_offset
+    local visible_turns = object_data.visible_turns
+
+    local vector_lines = {}
+
+    -- axes
+    table.insert(vector_lines, {
+        points = self:projectDataPoints({
+            { 0, self.max_price },
+            { 0, 0 },
+            { 0 + visible_turns - 1, 0 }
+        }, object.guid)
+    })
+
+    -- company share price curves
+    for i, company in ipairs(self.companies) do
+        local displacement = i * self.curve_displacement
+        local points = table.collect(self.data[company], function (share_price, j)
+            local x = j - 1 - turn_offset
+            local y = share_price + displacement
+
+            return { x, y }
+        end, turn_offset + 1, turn_offset + visible_turns)
+
+        table.insert(vector_lines, 1, {
+            points = self:projectDataPoints(points, object.guid),
+            color = self.company_colors[company],
+        })
+    end
+
+    object.setVectorLines(vector_lines)
+end
+
+function GraphController:projectDataPoints(points, object_guid)
+    local object_data = self.objects_data[object_guid]
+    local visible_turns = object_data.visible_turns
+
+    return table.collect(points, function (point)
+        local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.max_price)
+        return self.ref_1 + temp:scale(self.ref_delta)
+    end)
+end
+
+return GraphController
