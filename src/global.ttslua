@@ -7,6 +7,8 @@ local UiDom = require("shark/tts/ui_dom")
 -- DEBUG
 local debug = require("shark/util/debug")
 
+local Game = require("shark/game")
+
 local DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
 local DropZoneReturnButtonModel = require("shark/game/drop_zone/return_button_model")
 local MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
@@ -29,42 +31,86 @@ local SEAT_COLORS = {
 
 local SEAT_COLOR_SET = set.new(SEAT_COLORS)
 
-local COMPANIES = {
-    'green',
-    'red',
-    'blue',
-    'yellow',
-}
-
--- local COMPANY_COLORS = {
---     green = '#5fab46',
---     red = '#e4312e',
---     blue = '#7bbebb',
---     yellow = '#fbc133',
--- }
-
-local COMPANY_COLORS = {
-    green = Color(95 / 255, 171 / 255, 70 / 255),
-    red = Color(228 / 255, 49 / 255, 46 / 255),
-    blue = Color(123 / 255, 190 / 255, 187 / 255),
-    yellow = Color(251 / 255, 193 / 255, 51 / 255),
-}
-
 local SCRIPTING_BUTTON_BUY_SHARE = 10
 local SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
-local SCRIPTING_BUTTON_UNLOCK_OBJECTS = 8
-local SCRIPTING_BUTTON_LOCK_OBJECTS = 9
 
-local SHARE_PRICE_MIN = 0
-local SHARE_PRICE_MAX = 15
-local SHARE_PRICE_LEVEL_REF_1 = 1
-local SHARE_PRICE_LEVEL_REF_2 = 15
-local SHARE_PRICE_LEVEL_REF_DELTA = SHARE_PRICE_LEVEL_REF_2 - SHARE_PRICE_LEVEL_REF_1
--- Values below are relative to the board. Translating, scaling, or rotating
--- the board has no effect on these values.
-local SHARE_PRICE_LEVEL_REF_1_Z = 3.6954
-local SHARE_PRICE_LEVEL_REF_2_Z = -7.0907
-local SHARE_PRICE_LEVEL_REF_Z_DELTA = SHARE_PRICE_LEVEL_REF_2_Z - SHARE_PRICE_LEVEL_REF_1_Z
+local GUIDS = {
+    board = '12bb20',
+
+    money_deposit_markers = {
+        [1] = 'cb10ca',
+        [5] = 'c6fff2',
+        [10] = '6396b9',
+        [50] = 'd9c185',
+    },
+
+    building_bags = {
+        green = '062411',
+        red = '16b065',
+        blue = 'bd55ee',
+        yellow = 'c47da9',
+    },
+
+    discarded_building_bag = '47b9a5',
+
+    indicators = {
+        green = '65f72d',
+        red = 'c7426a',
+        blue = 'd4bd37',
+        yellow = 'b96f7a',
+    },
+
+    drop_zones = {
+        '558917',
+        '2dc3c1',
+    },
+
+    player_share_card_zones = {
+        White = '64d891',
+        Red = '9dae36',
+        Yellow = '0356a0',
+        Green = 'a1d77d',
+        Blue = '51fa09',
+        Purple = '9d30f7',
+    },
+
+    -- These are actually scripting zones on top of the real hand zones.
+    hand_zones = {
+        White = '6ce9b9',
+        Red = '980351',
+        Yellow = '008eed',
+        Green = 'f2c6f5',
+        Blue = '677e18',
+        Purple = '4053a7',
+    },
+
+    graph_boards = {
+        'd8b4ea',
+        'a86554',
+    },
+}
+
+local LOCK_OBJECT_GUIDS = table.append({
+    '93af80',
+    'c54cc2',
+    '2e7035',
+    '3c57ef',
+    'b712a4',
+    '1dc0fe',
+    'd4518b',
+    'df7272',
+}, table.values(GUIDS.indicators))
+
+-- z values are relative to the board. Translating, scaling, or rotating the
+-- board has no effect on these values.
+local SHARE_PRICE_TRANSFORM = {
+    value_1 = 1,
+    value_2 = 15,
+    z_1 = 3.6954,
+    z_2 = -7.0907,
+}
+SHARE_PRICE_TRANSFORM.value_delta = SHARE_PRICE_TRANSFORM.value_2 - SHARE_PRICE_TRANSFORM.value_1
+SHARE_PRICE_TRANSFORM.z_delta = SHARE_PRICE_TRANSFORM.z_2 - SHARE_PRICE_TRANSFORM.z_1
 
 -- relative to board
 local SHARE_DEPOSIT_POSITIONS = {
@@ -86,68 +132,6 @@ local SHARE_DEPOSIT_POSITIONS = {
     },
 }
 
-local MONEY_DEPOSIT_MARKERS = {}
-local MONEY_DEPOSIT_MARKERS_GUIDS = {
-    [1] = 'cb10ca',
-    [5] = 'c6fff2',
-    [10] = '6396b9',
-    [50] = 'd9c185',
-}
-
-local BOARD = nil
-local BOARD_GUID = '12bb20'
-
-local BUILDING_BAGS = {}
-local BUILDING_BAG_GUIDS = {
-    green = '062411',
-    red = '16b065',
-    blue = 'bd55ee',
-    yellow = 'c47da9',
-}
-
-local DISCARDED_BUILDING_BAG_GUID = '47b9a5'
-local DISCARDED_BUILDING_BAG = nil
-
-local INDICATORS = {}
-local INDICATOR_GUIDS = {
-    green = '65f72d',
-    red = 'c7426a',
-    blue = 'd4bd37',
-    yellow = 'b96f7a',
-}
-
-local DROP_ZONES = {}
-local DROP_ZONE_GUIDS = {
-    '558917',
-    '2dc3c1',
-}
-
-local PLAYER_SHARE_CARD_ZONES = {}
-local PLAYER_SHARE_CARD_ZONE_GUIDS = {
-    White = '64d891',
-    Red = '9dae36',
-    Yellow = '0356a0',
-    Green = 'a1d77d',
-    Blue = '51fa09',
-    Purple = '9d30f7',
-}
-
--- These are actually scripting zones on top of the real hand zones.
-local HAND_ZONES = {}
-local HAND_ZONE_GUIDS = {
-    White = '6ce9b9',
-    Red = '980351',
-    Yellow = '008eed',
-    Green = 'f2c6f5',
-    Blue = '677e18',
-    Purple = '4053a7',
-}
-
-local GRAPH_BOARD_GUIDS = {
-    'd8b4ea',
-    'a86554',
-}
-
 local PLAYER_SHARE_DEPOSITS = {
     -- obsolute deposit positions of the 5 green share for each player
     absolute_positions = {
@@ -158,6 +142,7 @@ local PLAYER_SHARE_DEPOSITS = {
         Blue = { x = 29.2419, y = 2, z = 14.6094 },
         Purple = { x = 18.0398, y = 2, z = -14.6423 },
     },
+
     rotation_y = {
         White = math.pi,
         Red = math.pi,
@@ -166,6 +151,7 @@ local PLAYER_SHARE_DEPOSITS = {
         Blue = 0,
         Purple = math.pi,
     },
+
     relative_positions = {
         green = {
             [1] = { x = 0.0166, y = 0, z = 5.3027 },
@@ -189,21 +175,6 @@ local PLAYER_SHARE_DEPOSITS = {
 local LAST_TURN_TIME = nil
 local LAST_TURN_COOLDOWN = 180 -- 3 minutes
 
-local LOCK_OBJECT_GUIDS = table.append({
-    '93af80',
-    'c54cc2',
-    '2e7035',
-    '3c57ef',
-    'b712a4',
-    '1dc0fe',
-    'd4518b',
-    'df7272',
-}, table.values(INDICATOR_GUIDS))
-
-local MODELS = {}
-
-local CONTROLLERS = {}
-
 local NOTES = string.rep('\n', 11) .. [=[
 [b]Hotkeys[/b]
 
@@ -212,6 +183,12 @@ Bind hotkeys via [i]Options[/i] > [i]Game Keys[/i].
 [b]Scripting 10[/b] (Default: [i]Keypad 0[/i]):
 Moves a Share Card into your deposit area.
 Also increases the “Bought Shares” counter.]=]
+
+local OBJECTS = {}
+
+local GAME = nil
+
+local MODELS = {}
 
 -- DEBUG
 function onDebug(player_color, object, position, key_up)
@@ -223,15 +200,9 @@ function onDebug(player_color, object, position, key_up)
 
     if object then
         debug.dumpVector(object.positionToLocal(position))
-
-        -- debug.inspect('local position:', object.positionToLocal(position))
-        -- debug.inspect('object bounds: ', object.getBounds())
-        -- debug.inspect('object norm bounds: ', object.getBoundsNormalized())
-    -- else
-    --     debug.inspect('global position:', position)
     end
 
-    GraphController.instance:push(getSharePrices())
+    GraphController.instance:push(GAME:getSharePrices())
     GraphController.instance:renderAll()
 end
 
@@ -239,52 +210,56 @@ function onLoad()
     -- invoke afterLoad after all objects have called onLoad
     Wait.frames(afterLoad, 0)
 
-    -- discover board
-    BOARD = getObjectFromGUID(BOARD_GUID)
+    GAME = Game.new({
+        objects = OBJECTS,
+        player_share_deposits = PLAYER_SHARE_DEPOSITS,
+        share_deposit_positions = SHARE_DEPOSIT_POSITIONS,
+        share_price_transform = SHARE_PRICE_TRANSFORM,
+    })
 
-    -- discover money deposits
-    discoverObjects(MONEY_DEPOSIT_MARKERS, MONEY_DEPOSIT_MARKERS_GUIDS)
+    -- discover objects
 
-    -- discover building bags
-    discoverObjects(BUILDING_BAGS, BUILDING_BAG_GUIDS, function (bag, company)
-        bag.setVar('kind', 'shark_building_bag')
-        bag.setTable('building_bag', { company = company })
-    end)
+    OBJECTS.board = getObjectFromGUID(GUIDS.board)
 
-    DISCARDED_BUILDING_BAG = getObjectFromGUID(DISCARDED_BUILDING_BAG_GUID)
-    DISCARDED_BUILDING_BAG.setVar('kind', 'shark_discarded_building_bag')
-
-    -- discover share price indicators
-    discoverObjects(INDICATORS, INDICATOR_GUIDS, function (indicator, company)
+    OBJECTS.indicators = discoverObjects(GUIDS.indicators, function (indicator, company)
         indicator.setVar('kind', 'shark_share_price_indicator')
         indicator.setTable('share_price_indicator', { company = company })
     end)
 
-    -- discover drop zones
-    discoverObjects(DROP_ZONES, DROP_ZONE_GUIDS, function (zone)
-        zone.setVar('kind', 'shark_drop_zone')
-        addModel(zone, DropZoneModel.new(zone))
+    OBJECTS.money_deposit_markers = discoverObjects(GUIDS.money_deposit_markers)
+
+    OBJECTS.building_bags = discoverObjects(GUIDS.building_bags, function (bag, company)
+        bag.setVar('kind', 'shark_building_bag')
+        bag.setTable('building_bag', { company = company })
     end)
 
-    -- discover player share card zones
-    discoverObjects(PLAYER_SHARE_CARD_ZONES, PLAYER_SHARE_CARD_ZONE_GUIDS, function (zone, color)
+    OBJECTS.discarded_building_bag = discoverObjects({ GUIDS.discarded_building_bag }, function (bag)
+        bag.setVar('kind', 'shark_discarded_building_bag')
+    end)
+
+    OBJECTS.drop_zones = discoverObjects(GUIDS.drop_zones, function (zone)
+        zone.setVar('kind', 'shark_drop_zone')
+        addModel(zone, DropZoneModel.new(zone, GAME))
+    end)
+
+    OBJECTS.player_share_card_zones = discoverObjects(GUIDS.player_share_card_zones, function (zone, color)
         zone.setVar('kind', 'shark_player_share_card_zone')
         zone.setTable('player_share_card_zone', { color = color })
 
-        addModel(zone, PlayerShareCardZoneModel.new(zone, COMPANIES))
+        addModel(zone, PlayerShareCardZoneModel.new(zone, GAME.companies))
     end)
 
-    -- discover hand zones
-    discoverObjects(HAND_ZONES, HAND_ZONE_GUIDS, function (zone, color)
+    OBJECTS.hand_zones = discoverObjects(GUIDS.hand_zones, function (zone, color)
         zone.setVar('kind', 'hand_zone')
         zone.setTable('hand_zone', { color = color })
         addModel(zone, HandZoneModel.new(zone))
     end)
 
+    OBJECTS.graph_boards = discoverObjects(GUIDS.graph_boards)
+
     -- init graphs
 
-    local graph_boards = table.collect(GRAPH_BOARD_GUIDS, getObjectFromGUID)
-    GraphController.init(graph_boards, COMPANIES, COMPANY_COLORS, SHARE_PRICE_MAX)
+    GraphController.init(OBJECTS.graph_boards, GAME)
     GraphController.instance:renderAll()
 
     -- unlock cards and indicators on the board for a brief time
@@ -315,15 +290,15 @@ function onLoad()
 
     -- notes
 
-    -- Notes.setNotes(NOTES)
+    Notes.setNotes(NOTES)
 
     -- initialize UI
 
     local xml_table = UI.getXmlTable()
     local ui_dom = UiDom.new(xml_table)
 
-    LeaderboardController.init(ui_dom, SEAT_COLORS)
-    AssetCountersController.init(ui_dom, SEAT_COLORS, COMPANIES, COMPANY_COLORS)
+    LeaderboardController.init(ui_dom, GAME, SEAT_COLORS)
+    AssetCountersController.init(ui_dom, GAME, SEAT_COLORS)
     ControlBarController.init(AssetCountersController.instance, LeaderboardController.instance)
 
     UI.setXmlTable(ui_dom.xml_table)
@@ -335,20 +310,24 @@ function onLoad()
     end, 1)
 end
 
-function discoverObjects(table, guids, callback)
+function discoverObjects(guids, callback)
+    local result = {}
+
     for key, guid in pairs(guids) do
         local object = getObjectFromGUID(guid)
 
-        table[key] = object
+        result[key] = object
 
         if callback then
             callback(object, key)
         end
     end
+
+    return result
 end
 
 function afterLoad()
-    for _, zone in ipairs(DROP_ZONES) do
+    for _, zone in ipairs(OBJECTS.drop_zones) do
         for _, zone_object in ipairs(zone.getObjects()) do
             local kind = zone_object.getVar('kind')
 
@@ -410,18 +389,6 @@ function onScriptingButtonUp(index, player_color)
         local object = Player[player_color].getHoverObject()
 
         print(object)
-    elseif index == SCRIPTING_BUTTON_UNLOCK_OBJECTS then
-        -- TODO remove
-        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
-            getObjectFromGUID(guid).setLock(false)
-        end
-        print('unlocked')
-    elseif index == SCRIPTING_BUTTON_LOCK_OBJECTS then
-        -- TODO remove
-        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
-            getObjectFromGUID(guid).setLock(true)
-        end
-        print('locked')
     end
 end
 
@@ -439,7 +406,7 @@ function onObjectDrop(color, dropped_object)
     local kind = dropped_object.getVar('kind')
 
     if kind == 'shark_share_price_indicator' then
-        for _, zone in pairs(DROP_ZONES) do
+        for _, zone in pairs(OBJECTS.drop_zones) do
             getModel(zone):countMoneyAndShares()
         end
 
@@ -450,13 +417,13 @@ function onObjectDrop(color, dropped_object)
 
         local properties = dropped_object.getTable('share_price_indicator')
 
-        if getSharePrice(properties.company) == SHARE_PRICE_MAX then
+        if GAME:isAtMaxSharePrice(properties.company) then
             Wait.frames(triggerLastTurn, 0)
         end
     elseif kind == 'shark_building' then
         local properties = dropped_object.getTable('building')
 
-        if isBuildingBagDepleted(properties.company) then
+        if GAME:isBuildingBagDepleted(properties.company) then
             Wait.frames(triggerLastTurn, 0)
         end
     end
@@ -578,100 +545,6 @@ function getKind(object)
     return kind
 end
 
-function getSharePrice(company)
-    local indicator = INDICATORS[company];
-    local indicator_position = indicator.getPosition()
-    local local_indicator_position = BOARD.positionToLocal(indicator_position)
-    local share_price = SHARE_PRICE_LEVEL_REF_1 + SHARE_PRICE_LEVEL_REF_DELTA * (local_indicator_position.z - SHARE_PRICE_LEVEL_REF_1_Z) / SHARE_PRICE_LEVEL_REF_Z_DELTA
-
-    if share_price <= SHARE_PRICE_MIN then
-        return SHARE_PRICE_MIN
-    elseif share_price >= SHARE_PRICE_MAX then
-        return SHARE_PRICE_MAX
-    else
-        return math.round(share_price)
-    end
-end
-
-function getSharePrices()
-    local share_prices = {}
-
-    for _, company in ipairs(COMPANIES) do
-        share_prices[company] = getSharePrice(company)
-    end
-
-    return share_prices
-end
-
-function getDepositTarget(deposit_kind, deposit_properties)
-    local position, rotation_y
-
-    if deposit_kind == 'shark_share_card' then
-        local share = deposit_properties.share
-        local localPosition = SHARE_DEPOSIT_POSITIONS[share.company][share.stock_options]
-
-        position = BOARD.positionToWorld(localPosition)
-        rotation_y = BOARD.getRotation().y
-    elseif deposit_kind == 'shark_money' then
-        local marker = MONEY_DEPOSIT_MARKERS[deposit_properties.money.amount]
-
-        position = marker.getPosition()
-        rotation_y = marker.getRotation().y
-    else
-        return
-    end
-
-    position.y = 3
-
-    return {
-        position = position,
-        rotation = { x = 0, y = rotation_y, z = 0 },
-    }
-end
-
-function getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)
-    if deposit_kind ~= 'shark_share_card' then
-        return
-    end
-
-    local share = deposit_properties.share
-
-    local absolute_position = PLAYER_SHARE_DEPOSITS.absolute_positions[player_color]
-    local relative_position = PLAYER_SHARE_DEPOSITS.relative_positions[share.company][share.stock_options]
-    local rotation_y = PLAYER_SHARE_DEPOSITS.rotation_y[player_color]
-
-    local cos_theta = math.cos(rotation_y)
-    local sin_theta = math.sin(rotation_y)
-
-    return {
-        position = Vector(absolute_position) + Vector{
-            x = cos_theta * relative_position.x - sin_theta * relative_position.z,
-            y = relative_position.y,
-            z = sin_theta * relative_position.x + cos_theta * relative_position.z,
-        },
-        rotation = { x = 0, y = util.rad2deg(rotation_y), z = 0 },
-    }
-end
-
-function getPlayerStockOptions(player_color)
-    local zone = PLAYER_SHARE_CARD_ZONES[player_color]
-    return getModel(zone).stock_options
-end
-
-function getPlayerShareValue(player_color)
-    local zone = PLAYER_SHARE_CARD_ZONES[player_color]
-    return getModel(zone):sum()
-end
-
-function getPlayerMoney(player_color)
-    local zone = HAND_ZONES[player_color]
-    return getModel(zone).money_amount
-end
-
-function isBuildingBagDepleted(company)
-    return BUILDING_BAGS[company].getQuantity() == 0
-end
-
 function initObjectState(params)
     local object = params.object
     local state = params.state
@@ -714,6 +587,8 @@ function addModel(object, model)
     MODELS[object.guid] = model
 end
 
+-- Model Management end
+
 -- handlers
 
 function handlePlayerTakeShareCard(player_color, object)
@@ -729,7 +604,7 @@ function handlePlayerTakeShareCard(player_color, object)
         local card = wrapBaggedObject(object.getObjects()[1])
         local kind = card.getVar('kind')
         local properties = card.getTable('share')
-        local deposit = getPlayerDepositTarget(player_color, kind, { share = properties })
+        local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
 
         if deposit then
             object.takeObject({
@@ -742,7 +617,7 @@ function handlePlayerTakeShareCard(player_color, object)
     elseif object.tag == 'Card' then
         local kind = object.getVar('kind')
         local properties = object.getTable('share')
-        local deposit = getPlayerDepositTarget(player_color, kind, { share = properties })
+        local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
 
         if deposit then
             object.setPositionSmooth(deposit.position, false, false)
@@ -752,5 +627,3 @@ function handlePlayerTakeShareCard(player_color, object)
         end
     end
 end
-
--- Model Management end

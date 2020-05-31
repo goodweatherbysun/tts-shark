@@ -4,11 +4,10 @@ local UiClosable = require("shark/tts/ui_closable")
 local AssetCountersController = { element_id = 'Panel#assetCounters' }
 AssetCountersController.__index = setmetatable(AssetCountersController, UiClosable)
 
-function AssetCountersController.init(ui_dom, player_colors, companies, company_colors)
+function AssetCountersController.init(ui_dom, game, player_colors)
     local instance = {
+        game = game,
         player_colors = player_colors,
-        companies = companies,
-        company_colors = company_colors,
         bought_shares_amount = 0,
         bought_shares_player_color = 'Gray',
     }
@@ -40,7 +39,7 @@ end
 
 -- methods
 
-function AssetCountersController:generate(ui_dom, player_colors)
+function AssetCountersController:generate(ui_dom)
     for _, player_color in ipairs(self.player_colors) do
         ui_dom:appendChild('Cell#assetCounters.money.cash', {
             tag = 'Text',
@@ -60,14 +59,14 @@ function AssetCountersController:generate(ui_dom, player_colors)
             },
         })
 
-        for _, company in ipairs(self.companies) do
+        for _, company in ipairs(self.game.companies) do
             ui_dom:appendChild('Cell#assetCounters.shares.companies[' .. company .. ']', {
                 tag = 'Text',
                 attributes = {
                     id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']',
                     class = 'assetCounters.shares',
                     visibility = player_color,
-                    color = '#' .. self.company_colors[company]:toHex(),
+                    color = '#' .. self.game.company_colors[company]:toHex(),
                 },
             })
         end
@@ -83,7 +82,7 @@ function AssetCountersController:updateAll()
 end
 
 function AssetCountersController:updatePlayerMoney(player_color)
-    local money_amount = getPlayerMoney(player_color)
+    local money_amount = self.game:getPlayerMoney(player_color)
     local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'
     local formatted_string = 'Cash: FT ' .. util.separate_thousands(money_amount * 1000)
 
@@ -91,7 +90,7 @@ function AssetCountersController:updatePlayerMoney(player_color)
 end
 
 function AssetCountersController:updatePlayerShareValue(player_color)
-    local share_value = getPlayerShareValue(player_color)
+    local share_value = self.game:getPlayerShareValue(player_color)
     local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'
     local formatted_string = 'Shares: FT ' .. util.separate_thousands(share_value * 1000)
 
@@ -105,7 +104,7 @@ function AssetCountersController:updateAllPlayerShareValues()
 end
 
 function AssetCountersController:updatePlayerShareCounters(player_color)
-    local stock_options = getPlayerStockOptions(player_color)
+    local stock_options = self.game:getPlayerStockOptions(player_color)
 
     -- for company, count in pairs(zone_model.stock_options) do
     for company, count in pairs(stock_options) do

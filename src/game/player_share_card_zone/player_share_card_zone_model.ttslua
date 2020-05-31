@@ -64,16 +64,4 @@ function PlayerShareCardZoneModel:count(enter_object)
     end
 end
 
-function PlayerShareCardZoneModel:sum()
-    local share_prices = getSharePrices()
-
-    local sum = 0
-
-    for company, company_stock_options in pairs(self.stock_options) do
-        sum = sum + company_stock_options * share_prices[company]
-    end
-
-    return sum
-end
-
 return PlayerShareCardZoneModel

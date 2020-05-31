@@ -23,19 +23,17 @@ GraphController.ref_delta = GraphController.ref_2 - GraphController.ref_1
 
 GraphController.__index = GraphController
 
-function GraphController.init(objects, companies, company_colors, max_price)
+function GraphController.init(objects, game)
     local instance = {
         objects = objects,
-        companies = companies,
-        company_colors = company_colors,
-        max_price = max_price,
+        game = game,
         data = {},
         objects_data = {},
     }
 
     setmetatable(instance, GraphController)
 
-    for _, company in ipairs(companies) do
+    for _, company in ipairs(game.companies) do
         instance.data[company] = { 0 }
     end
 
@@ -75,7 +73,7 @@ function GraphController.init(objects, companies, company_colors, max_price)
 end
 
 function GraphController:getTurns()
-    return #self.data[self.companies[1]]
+    return #self.data[self.game.companies[1]]
 end
 
 function GraphController:isLeftmost(object_guid)
@@ -154,14 +152,14 @@ function GraphController:render(object)
     -- axes
     table.insert(vector_lines, {
         points = self:projectDataPoints({
-            { 0, self.max_price },
+            { 0, self.game.share_price.max },
             { 0, 0 },
             { 0 + visible_turns - 1, 0 }
         }, object.guid)
     })
 
     -- company share price curves
-    for i, company in ipairs(self.companies) do
+    for i, company in ipairs(self.game.companies) do
         local displacement = i * self.curve_displacement
         local points = table.collect(self.data[company], function (share_price, j)
             local x = j - 1 - turn_offset
@@ -172,7 +170,7 @@ function GraphController:render(object)
 
         table.insert(vector_lines, 1, {
             points = self:projectDataPoints(points, object.guid),
-            color = self.company_colors[company],
+            color = self.game.company_colors[company],
         })
     end
 
@@ -184,7 +182,7 @@ function GraphController:projectDataPoints(points, object_guid)
     local visible_turns = object_data.visible_turns
 
     return table.collect(points, function (point)
-        local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.max_price)
+        local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.game.share_price.max)
         return self.ref_1 + temp:scale(self.ref_delta)
     end)
 end

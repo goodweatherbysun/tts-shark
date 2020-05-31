@@ -3,13 +3,14 @@ local DeckDecomposer = require("shark/tts/deck_decomposer")
 local ObjectReturner = {}
 ObjectReturner.__index = ObjectReturner
 
-function ObjectReturner.new(objects, callback)
+function ObjectReturner.new(objects, getDepositTarget, callback)
     -- We want to return objects from top to bottom. Sorting by Y will avoid
     -- accidential deck merges.
     table.sort(objects, |a, b| a.getPosition().y < b.getPosition().y)
 
     local instance = {
         object_guids = table.collect(objects, 'guid'),
+        getDepositTarget = getDepositTarget,
         callback = callback,
     }
 
@@ -48,18 +49,18 @@ function ObjectReturner:step()
 
     if kind == 'shark_share_card' then
         local properties = { share = object.getTable('share') }
-        local deposit = getDepositTarget(kind, properties)
+        local deposit = self.getDepositTarget(kind, properties)
 
         object.setPositionSmooth(deposit.position, false, false)
         object.setRotationSmooth(deposit.rotation, false, false)
     elseif kind == 'shark_money' then
         local properties = { money = object.getTable('money') }
-        local deposit = getDepositTarget(kind, properties)
+        local deposit = self.getDepositTarget(kind, properties)
 
         object.setPositionSmooth(deposit.position, false, false)
         object.setRotationSmooth(deposit.rotation, false, false)
     elseif object.tag == 'Deck' then
-        DeckDecomposer.new(object, || self:loop()):loop()
+        DeckDecomposer.new(object, self.getDepositTarget, || self:loop()):loop()
 
         return false
     end

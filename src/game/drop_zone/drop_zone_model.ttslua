@@ -1,3 +1,5 @@
+local bind = require("shark/util/bind")
+
 local unbaggedObjects = require("shark/tts/unbagged_objects")
 local ObjectReturner = require("shark/tts/object_returner")
 
@@ -5,10 +7,11 @@ local DropZoneModel = {}
 
 DropZoneModel.__index = DropZoneModel
 
-function DropZoneModel.new(object)
+function DropZoneModel.new(object, game)
     local instance = {
         object = object,
-        state = 'normal'
+        game = game,
+        state = 'normal',
     }
 
     setmetatable(instance, DropZoneModel)
@@ -24,7 +27,8 @@ function DropZoneModel:returnObjects()
     self.state = 'returning'
 
     local zone_objects = self.object.getObjects()
-    local object_returner = ObjectReturner.new(zone_objects, || self:finishObjectReturn())
+    local getDepositTarget = bind(self.game.getDepositTarget, self.game)
+    local object_returner = ObjectReturner.new(zone_objects, getDepositTarget, || self:finishObjectReturn())
 
     object_returner:loop()
 end
@@ -50,7 +54,7 @@ function DropZoneModel:countMoneyAndShares(enter_object)
     local money_sum = 0
     local share_sum = 0
 
-    local share_prices = getSharePrices()
+    local share_prices = self.game:getSharePrices()
 
     for object in unbaggedObjects(objects) do
         local kind = object.getVar('kind')

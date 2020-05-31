@@ -1,0 +1,146 @@
+local util = require("shark/util/util")
+
+local Game = {
+    companies = {
+        'green',
+        'red',
+        'blue',
+        'yellow',
+    },
+    company_colors = {
+        green = Color(95 / 255, 171 / 255, 70 / 255),
+        red = Color(228 / 255, 49 / 255, 46 / 255),
+        blue = Color(123 / 255, 190 / 255, 187 / 255),
+        yellow = Color(251 / 255, 193 / 255, 51 / 255),
+    },
+    share_price = {
+        min = 0,
+        max = 15,
+    }
+}
+
+Game.__index = Game
+
+function Game.new(scene_data)
+    return setmetatable({
+        objects = scene_data.objects,
+        player_share_deposits = scene_data.player_share_deposits,
+        share_deposit_positions = scene_data.share_deposit_positions,
+        share_price_transform = scene_data.share_price_transform,
+    }, Game)
+end
+
+function Game:getSharePrice(company)
+    local transform = self.share_price_transform
+    local indicator = self.objects.indicators[company]
+    local indicator_position = indicator.getPosition()
+    local local_indicator_position = self.objects.board.positionToLocal(indicator_position)
+
+    local share_price = transform.value_1 + transform.value_delta * (local_indicator_position.z - transform.z_1) / transform.z_delta
+
+    if share_price <= self.share_price.min then
+        return self.share_price.min
+    elseif share_price >= self.share_price.max then
+        return self.share_price.max
+    else
+        return math.round(share_price)
+    end
+end
+
+function Game:getSharePrices()
+    local share_prices = {}
+
+    for _, company in ipairs(self.companies) do
+        share_prices[company] = self:getSharePrice(company)
+    end
+
+    return share_prices
+end
+
+function Game:getDepositTarget(deposit_kind, deposit_properties)
+    local position, rotation_y
+
+    if deposit_kind == 'shark_share_card' then
+        local share = deposit_properties.share
+        local localPosition = self.share_deposit_positions[share.company][share.stock_options]
+
+        position = self.objects.board.positionToWorld(localPosition)
+        rotation_y = self.objects.board.getRotation().y
+    elseif deposit_kind == 'shark_money' then
+        local marker = self.objects.money_deposit_markers[deposit_properties.money.amount]
+
+        position = marker.getPosition()
+        rotation_y = marker.getRotation().y
+    else
+        return
+    end
+
+    position.y = 3
+
+    return {
+        position = position,
+        rotation = { x = 0, y = rotation_y, z = 0 },
+    }
+end
+
+function Game:getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)
+    if deposit_kind ~= 'shark_share_card' then
+        return
+    end
+
+    local share = deposit_properties.share
+
+    local absolute_position = self.player_share_deposits.absolute_positions[player_color]
+    local relative_position = self.player_share_deposits.relative_positions[share.company][share.stock_options]
+    local rotation_y = self.player_share_deposits.rotation_y[player_color]
+
+    local cos_theta = math.cos(rotation_y)
+    local sin_theta = math.sin(rotation_y)
+
+    return {
+        position = Vector(absolute_position) + Vector{
+            x = cos_theta * relative_position.x - sin_theta * relative_position.z,
+            y = relative_position.y,
+            z = sin_theta * relative_position.x + cos_theta * relative_position.z,
+        },
+        rotation = { x = 0, y = util.rad2deg(rotation_y), z = 0 },
+    }
+end
+
+function Game:getPlayerStockOptions(player_color)
+    local zone = self.objects.player_share_card_zones[player_color]
+    return getModel(zone).stock_options
+end
+
+function Game:getPlayerShareValue(player_color)
+    local zone = self.objects.player_share_card_zones[player_color]
+    local zone_model = getModel(zone)
+    local share_prices = self:getSharePrices()
+
+    local sum = 0
+    for company, company_stock_options in pairs(zone_model.stock_options) do
+        sum = sum + company_stock_options * share_prices[company]
+    end
+
+    return sum
+end
+
+function Game:getPlayerMoney(player_color)
+    local zone = self.objects.hand_zones[player_color]
+    return getModel(zone).money_amount
+end
+
+function Game:isBuildingBagDepleted(company)
+    return self.objects.building_bags[company].getQuantity() == 0
+end
+
+function Game:isAtMaxSharePrice(company)
+    return self:getSharePrice(company) == self.share_price.max
+end
+
+function Game:getPlayerMoney(player_color)
+    local zone = self.objects.hand_zones[player_color]
+    return getModel(zone).money_amount
+end
+
+return Game

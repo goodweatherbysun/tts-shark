@@ -3,9 +3,10 @@ local eachChunk = require("shark/tts/each_chunk")
 local DeckDecomposer = {}
 DeckDecomposer.__index = DeckDecomposer
 
-function DeckDecomposer.new(deck, callback)
+function DeckDecomposer.new(deck, getDepositTarget, callback)
     local instance = {
         deck_guid = deck.guid,
+        getDepositTarget = getDepositTarget,
         callback = callback,
     }
 
@@ -38,7 +39,7 @@ function DeckDecomposer:step()
     local chunk = nextChunk()
     local top_size = chunk.size
     local bottom_size = deck.getQuantity() - top_size
-    local deposit = getDepositTarget(chunk.kind, chunk.properties)
+    local deposit = self.getDepositTarget(chunk.kind, chunk.properties)
 
     -- The cases below ensure the following:
     -- - Only cut into valid decks (a deck consists of at least two cards).
@@ -67,7 +68,7 @@ function DeckDecomposer:step()
         return true
     elseif top_size > 1 and bottom_size == 1 then
         local next_chunk = nextChunk()
-        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
+        local next_deposit = self.getDepositTarget(next_chunk.kind, next_chunk.properties)
 
         -- draw card from bottom
         deck.takeObject({
@@ -90,7 +91,7 @@ function DeckDecomposer:step()
         })
 
         local next_chunk = nextChunk()
-        local next_deposit = getDepositTarget(next_chunk.kind, next_chunk.properties)
+        local next_deposit = self.getDepositTarget(next_chunk.kind, next_chunk.properties)
 
         -- draw last card
         deck.takeObject({
