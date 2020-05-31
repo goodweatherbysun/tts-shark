@@ -87,6 +87,7 @@ local GUIDS = {
     graph_boards = {
         'd8b4ea',
         'a86554',
+        'fe56ea',
     },
 }
 
