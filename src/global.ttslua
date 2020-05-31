@@ -717,7 +717,7 @@ end
 -- handlers
 
 function handlePlayerTakeShareCard(player_color, object)
-    if not set.contains(SEAT_COLOR_SET, player_color) then
+    if not set.contains(SEAT_COLOR_SET, player_color) or not object then
         return
     end
 
