@@ -42,35 +42,135 @@ function GraphController.init(objects, game)
             turn_offset = 0,
             visible_turns = instance.default_visible_turns,
         }
+
+        object.createButton({
+            label = '<',
+            click_function = 'GraphController_onScrollLeftClick',
+            position = { 4, 0.25, -11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '>',
+            click_function = 'GraphController_onScrollRightClick',
+            position = { 0, 0.25, -11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '>|',
+            click_function = 'GraphController_onScrollEndClick',
+            position = { -4, 0.25, -11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '-',
+            click_function = 'GraphController_onZoomOutClick',
+            position = { 4, 0.25, 11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '0',
+            click_function = 'GraphController_onZoomResetClick',
+            position = { 0, 0.25, 11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '+',
+            click_function = 'GraphController_onZoomInClick',
+            position = { -4, 0.25, 11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = "Clear\nData",
+            click_function = 'GraphController_onClearDataClick',
+            position = { -11.5, 0.25, -7 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 200,
+        })
     end
 
     -- DEBUG
-    -- instance.data = {
-    --     green  = { 0, 1, 1, 1, 2, 2, 2 },
-    --     red    = { 1, 1, 2, 2, 2, 2, 3 },
-    --     blue   = { 0, 0, 0, 1, 1, 1, 1 },
-    --     yellow = { 0, 0, 0, 0, 0, 1, 1 },
-    -- }
+    for i = 1, 40 do
+        -- print(i)
+        local profit_company = game.companies[math.random(#game.companies)]
 
-    -- DEBUG
-    -- for i = 1, instance.visible_turns - 1 do
-    -- for i = 1, 40 do
-    --     -- print(i)
-    --     local profit_company = COMPANIES[math.random(#COMPANIES)]
-    --
-    --     for _, company in ipairs(COMPANIES) do
-    --         if company == profit_company then
-    --             instance.data[company][i + 1] = instance.data[company][i] + 1
-    --         else
-    --             instance.data[company][i + 1] = instance.data[company][i]
-    --         end
-    --     end
-    -- end
+        for _, company in ipairs(game.companies) do
+            if company == profit_company then
+                instance.data[company][i + 1] = instance.data[company][i] + 1
+            else
+                instance.data[company][i + 1] = instance.data[company][i]
+            end
+        end
+    end
 
     GraphController.instance = instance
 
     return instance
 end
+
+-- events
+
+function GraphController_onScrollLeftClick()
+
+end
+
+function GraphController_onScrollRightClick()
+
+end
+
+function GraphController_onScrollEndClick()
+
+end
+
+function GraphController_onZoomOutClick()
+
+end
+
+function GraphController_onZoomResetClick()
+
+end
+
+function GraphController_onZoomInClick()
+
+end
+
+function GraphController_onClearDataClick()
+
+end
+
+-- methods
 
 function GraphController:getTurns()
     return #self.data[self.game.companies[1]]
