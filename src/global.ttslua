@@ -91,17 +91,6 @@ local GUIDS = {
     },
 }
 
-local LOCK_OBJECT_GUIDS = table.append({
-    '93af80',
-    'c54cc2',
-    '2e7035',
-    '3c57ef',
-    'b712a4',
-    '1dc0fe',
-    'd4518b',
-    'df7272',
-}, table.values(GUIDS.indicators))
-
 -- z values are relative to the board. Translating, scaling, or rotating the
 -- board has no effect on these values.
 local SHARE_PRICE_TRANSFORM = {
@@ -262,25 +251,6 @@ function onLoad()
 
     GraphController.init(OBJECTS.graph_boards, GAME)
     GraphController.instance:renderAll()
-
-    -- unlock cards and indicators on the board for a brief time
-
-    -- Reasoning: After loading the scene the board still needs a little time to
-    -- grow to full size. Due to friction the indicators and cards are moved out
-    -- of place. Therefore, these objects are initially locked and have to be
-    -- unlocked.
-
-    -- lock objects
-    for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
-        getObjectFromGUID(guid).setLock(true)
-    end
-
-    -- unlock objects after a few seconds
-    Wait.time(function ()
-        for _, guid in ipairs(LOCK_OBJECT_GUIDS) do
-            getObjectFromGUID(guid).setLock(false)
-        end
-    end, 3)
 
     -- hotkeys
 
