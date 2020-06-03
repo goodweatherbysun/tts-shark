@@ -5,6 +5,7 @@ local GraphController = {
     scale = Vector(8.29, 0.59, 8.29),
     curve_displacement = 0.05,
     default_visible_turns = 20,
+    scroll_factor = 1 / 3,
 }
 
 GraphController.ref_1 = Vector{
@@ -142,31 +143,48 @@ end
 
 -- events
 
-function GraphController_onScrollLeftClick()
+function GraphController_onScrollLeftClick(object, player_color, alt_click)
+    local graph = GraphController.instance
+    local visible_turns = graph:getVisibleTurns(object.guid)
+    local delta = -math.round(visible_turns * graph.scroll_factor)
+
+    if graph:scrollBy(object.guid, delta) then
+        graph:render(object)
+    end
+end
+
+function GraphController_onScrollRightClick(object, player_color, alt_click)
+    local graph = GraphController.instance
+    local visible_turns = graph:getVisibleTurns(object.guid)
+    local delta = math.round(visible_turns * graph.scroll_factor)
+
+    if graph:scrollBy(object.guid, delta) then
+        graph:render(object)
+    end
+end
+
+function GraphController_onScrollEndClick(object, player_color, alt_click)
+    local graph = GraphController.instance
+    local rightmost = graph:getRightmostTurn(object.guid)
+
+    if graph:scrollTo(object.guid, rightmost) then
+        graph:render(object)
+    end
+end
+
+function GraphController_onZoomOutClick(object, player_color, alt_click)
 
 end
 
-function GraphController_onScrollRightClick()
+function GraphController_onZoomResetClick(object, player_color, alt_click)
 
 end
 
-function GraphController_onScrollEndClick()
+function GraphController_onZoomInClick(object, player_color, alt_click)
 
 end
 
-function GraphController_onZoomOutClick()
-
-end
-
-function GraphController_onZoomResetClick()
-
-end
-
-function GraphController_onZoomInClick()
-
-end
-
-function GraphController_onClearDataClick()
+function GraphController_onClearDataClick(object, player_color, alt_click)
 
 end
 
@@ -176,17 +194,37 @@ function GraphController:getTurns()
     return #self.data[self.game.companies[1]]
 end
 
+function GraphController:getTurnOffset(object_guid)
+    return self.objects_data[object_guid].turn_offset
+end
+
+function GraphController:getVisibleTurns(object_guid)
+    return self.objects_data[object_guid].visible_turns
+end
+
+function GraphController:getLeftmostTurn(object_guid)
+    return 0
+end
+
+function GraphController:getRightmostTurn(object_guid)
+    local visible_turns = self:getVisibleTurns(object_guid)
+    local turns = self:getTurns()
+
+    return math.max(0, turns - visible_turns)
+end
+
 function GraphController:isLeftmost(object_guid)
-    return self.objects_data[object_guid].turn_offset == 0
+    local turn_offset = self:getVisibleTurns(object_guid)
+    local leftmost = self:getLeftmostTurn(object_guid)
+
+    return turn_offset <= leftmost
 end
 
 function GraphController:isRightmost(object_guid)
-    local object_data = self.objects_data[object_guid]
-    local turn_offset = object_data.turn_offset
-    local visible_turns = object_data.visible_turns
-    local turns = self:getTurns()
+    local turn_offset = self:getTurnOffset(object_guid)
+    local rightmost = self:getRightmostTurn(object_guid)
 
-    return turns <= turn_offset + visible_turns
+    return turn_offset >= rightmost
 end
 
 function GraphController:push(data)
@@ -206,7 +244,7 @@ function GraphController:push(data)
 
     -- scroll objects to the right that were rightmost previously
     for object_guid in set.each(rightmost) do
-        self:scrollRight(object_guid)
+        self:scrollBy(object_guid, 1)
     end
 end
 
@@ -218,22 +256,41 @@ function GraphController:updateLast(data)
     end
 end
 
-function GraphController:scrollLeft(object_guid)
-    if self:isLeftmost(object_guid) then
-        return
+-- Returns whether the view has actually been changed.
+function GraphController:scrollTo(object_guid, turn_offset)
+    local object_data = self.objects_data[object_guid]
+
+    if turn_offset < object_data.turn_offset then
+        local leftmost = self:getLeftmostTurn(object_guid)
+
+        if leftmost >= object_data.turn_offset then
+            return false
+        end
+
+        object_data.turn_offset = math.max(turn_offset, leftmost)
+
+        return true
+    elseif turn_offset > object_data.turn_offset then
+        local rightmost = self:getRightmostTurn(object_guid)
+
+        if rightmost <= object_data.turn_offset then
+            return false
+        end
+
+        object_data.turn_offset = math.min(turn_offset, rightmost)
+
+        return true
     end
 
-    local object_data = self.objects_data[object_guid]
-    object_data.turn_offset = object_data.turn_offset - 1
+    -- no change: turn_offset == object_data.turn_offset
+
+    return false
 end
 
-function GraphController:scrollRight(object_guid)
-    if self:isRightmost(object_guid) then
-        return
-    end
+function GraphController:scrollBy(object_guid, delta)
+    local turn_offset = self:getTurnOffset(object_guid) + delta
 
-    local object_data = self.objects_data[object_guid]
-    object_data.turn_offset = object_data.turn_offset + 1
+    return self:scrollTo(object_guid, turn_offset)
 end
 
 function GraphController:renderAll()
