@@ -416,12 +416,6 @@ function onObjectDrop(color, dropped_object)
 end
 
 function onObjectEnterScriptingZone(zone, enter_object)
-    -- There seems to be a bug where a snap point preview can trigger the
-    -- ObjectEnterScriptingZone event incorrectly (v12.4.2).
-    if not enter_object then
-        return
-    end
-
     onObjectEnterOrLeaveScriptingZone(zone, enter_object, nil)
 end
 
