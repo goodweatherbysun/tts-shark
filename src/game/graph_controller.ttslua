@@ -4,9 +4,13 @@ local GraphController = {
     padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },
     scale = Vector(8.29, 0.59, 8.29),
     curve_displacement = 0.05,
-    default_visible_turns = 20,
+    min_visible_turns = 15,
+    default_visible_turns = 15,
     scroll_factor = 1 / 3,
+    scale_factor = 2,
 }
+
+local helpers = {}
 
 GraphController.ref_1 = Vector{
     x = -1 + 2 * GraphController.padding.left,
@@ -78,31 +82,20 @@ function GraphController.init(objects, game)
         })
 
         object.createButton({
-            label = '-',
-            click_function = 'GraphController_onZoomOutClick',
-            position = { 4, 0.25, 11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
-            label = '0',
-            click_function = 'GraphController_onZoomResetClick',
-            position = { 0, 0.25, 11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
             label = '+',
             click_function = 'GraphController_onZoomInClick',
-            position = { -4, 0.25, 11.5 },
+            position = { 2, 0.25, 11.5 },
+            scale = { 2, 2, 2 },
+            rotation = { 0, 180, 0 },
+            width = 800,
+            height = 800,
+            font_size = 500,
+        })
+
+        object.createButton({
+            label = '-',
+            click_function = 'GraphController_onZoomOutClick',
+            position = { -2, 0.25, 11.5 },
             scale = { 2, 2, 2 },
             rotation = { 0, 180, 0 },
             width = 800,
@@ -123,8 +116,7 @@ function GraphController.init(objects, game)
     end
 
     -- DEBUG
-    for i = 1, 40 do
-        -- print(i)
+    for i = 1, 69 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)
         local profit_company = game.companies[math.random(#game.companies)]
 
         for _, company in ipairs(game.companies) do
@@ -173,7 +165,11 @@ function GraphController_onScrollEndClick(object, player_color, alt_click)
 end
 
 function GraphController_onZoomOutClick(object, player_color, alt_click)
+    local graph = GraphController.instance
 
+    if graph:scaleBy(object.guid, 1 / graph.scale_factor) then
+        graph:render(object)
+    end
 end
 
 function GraphController_onZoomResetClick(object, player_color, alt_click)
@@ -181,7 +177,11 @@ function GraphController_onZoomResetClick(object, player_color, alt_click)
 end
 
 function GraphController_onZoomInClick(object, player_color, alt_click)
+    local graph = GraphController.instance
 
+    if graph:scaleBy(object.guid, graph.scale_factor) then
+        graph:render(object)
+    end
 end
 
 function GraphController_onClearDataClick(object, player_color, alt_click)
@@ -293,6 +293,57 @@ function GraphController:scrollBy(object_guid, delta)
     return self:scrollTo(object_guid, turn_offset)
 end
 
+-- Returns whether the view has actually been changed.
+function GraphController:scaleBy(object_guid, delta)
+    -- This scales the turns axis up or down. We try to zoom in or out from the
+    -- middle. However, we still want to ensure to not get off the scale.
+    --
+    -- Tbh, this is way over-engineered. It probably would have sufficed to have
+    -- two zoom settings for a closer and an overall view. However, this
+    -- realization came after doing the math and implementation. And now I don't
+    -- have the heart to replace it. So ... there you go :P
+
+    local T = self:getTurns()
+    local x_0 = self:getTurnOffset(object_guid)
+    -- \Delta x := x_1 - x_0, where x_1 is the rightmost visible turn on the axis
+    local x_delta = self:getVisibleTurns(object_guid)
+    -- \Delta x_{min}
+    local x_delta_min = self.min_visible_turns
+    -- \Delta x_{max} := \max(\Delta x_{min}, T)
+    local x_delta_max = math.max(x_delta_min, T)
+
+    -- check if scale will change
+    if (delta == 1)
+        or (delta < 1 and x_delta >= x_delta_max)
+        or (delta > 1 and x_delta <= x_delta_min)
+    then
+        return false
+    end
+
+    local delta_inv = 1 / delta
+
+    -- determine \Delta x' (aka visible_turns):
+    -- Ensure \Delta x' \in [\Delta x_{min}, \Delta x_{max}]
+    local x_delta_new = helpers.confine(
+        math.round(x_delta * delta_inv), x_delta_min, x_delta_max
+    )
+
+    -- determine x'_0 (aka turn_offset):
+    -- We want x'_p \overset{!}{=} x_p where x_p = x_0 + \frac{\Delta x}{2}
+    -- Choose x'_0 accordingly. However, x'_0 \in [0, \max(0, T - \Delta x')]
+    -- takes precedence:
+    local x_0_new = helpers.confine(
+        math.round(x_0 + x_delta * (1 - delta_inv) / 2), 0, math.max(0, T - x_delta_new)
+    )
+
+    local object_data = self.objects_data[object_guid]
+
+    object_data.turn_offset = x_0_new
+    object_data.visible_turns = x_delta_new
+
+    return true
+end
+
 function GraphController:renderAll()
     for _, object in ipairs(self.objects) do
         self:render(object)
@@ -342,6 +393,18 @@ function GraphController:projectDataPoints(points, object_guid)
         local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.game.share_price.max)
         return self.ref_1 + temp:scale(self.ref_delta)
     end)
+end
+
+-- helpers
+
+function helpers.confine(value, min, max)
+    if value <= min then
+        return min
+    elseif value >= max then
+        return max
+    else
+        return value
+    end
 end
 
 return GraphController
