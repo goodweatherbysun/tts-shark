@@ -37,6 +37,8 @@ local SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
 local GUIDS = {
     board = '12bb20',
 
+    numbered_die = '5248eb',
+
     money_deposit_markers = {
         [1] = 'cb10ca',
         [5] = 'c6fff2',
@@ -91,6 +93,8 @@ local GUIDS = {
     },
 }
 
+local MIN_DICE_ROLL_VELOCITY_SQUARED = 64 -- 8^2
+
 -- z values are relative to the board. Translating, scaling, or rotating the
 -- board has no effect on these values.
 local SHARE_PRICE_TRANSFORM = {
@@ -101,6 +105,20 @@ local SHARE_PRICE_TRANSFORM = {
 }
 SHARE_PRICE_TRANSFORM.value_delta = SHARE_PRICE_TRANSFORM.value_2 - SHARE_PRICE_TRANSFORM.value_1
 SHARE_PRICE_TRANSFORM.z_delta = SHARE_PRICE_TRANSFORM.z_2 - SHARE_PRICE_TRANSFORM.z_1
+
+local SHARE_PRICE_SCALE_BOUNDS = {
+    x1 = -4.2186,
+    x2 = -1.9203,
+    z1 = -7.3828,
+    z2 = 5.4881,
+}
+
+local WORLD_MAP_BOUNDS = {
+    x1 = 0.2625,
+    x2 = 8.1033,
+    z1 = -7.9578,
+    z2 = 1.7061,
+}
 
 -- relative to board
 local SHARE_DEPOSIT_POSITIONS = {
@@ -192,8 +210,7 @@ function onDebug(player_color, object, position, key_up)
         debug.dumpVector(object.positionToLocal(position))
     end
 
-    GraphController.instance:push(GAME:getSharePrices())
-    GraphController.instance:renderAll()
+    print(GAME.state_machine.state)
 end
 
 function onLoad()
@@ -210,6 +227,10 @@ function onLoad()
     -- discover objects
 
     OBJECTS.board = getObjectFromGUID(GUIDS.board)
+
+    OBJECTS.numbered_die = discoverObjects({ GUIDS.numbered_die }, function (die)
+        die.setVar('kind', 'shark_numbered_die')
+    end)
 
     OBJECTS.indicators = discoverObjects(GUIDS.indicators, function (indicator, company)
         indicator.setVar('kind', 'shark_share_price_indicator')
@@ -313,6 +334,8 @@ end
 
 function onPlayerTurn(player)
     AssetCountersController.instance:setBoughtShares(player.color, 0, true)
+
+    GAME.state_machine:emitTurnStarted()
 end
 
 -- Triggers last turn only once within LAST_TURN_COOLDOWN seconds.
@@ -388,14 +411,29 @@ function onObjectDrop(color, dropped_object)
 
         local properties = dropped_object.getTable('share_price_indicator')
 
+        if withinBoundsOnBoard(dropped_object, SHARE_PRICE_SCALE_BOUNDS) then
+            GAME.state_machine:emitIndicatorPlaced()
+        end
+
         if GAME:isAtMaxSharePrice(properties.company) then
             Wait.frames(triggerLastTurn, 0)
         end
     elseif kind == 'shark_building' then
         local properties = dropped_object.getTable('building')
 
+        if withinBoundsOnBoard(dropped_object, WORLD_MAP_BOUNDS) then
+            GAME.state_machine:emitBuildingPlaced()
+        end
+
         if GAME:isBuildingBagDepleted(properties.company) then
             Wait.frames(triggerLastTurn, 0)
+        end
+    elseif kind == 'shark_numbered_die' then
+        local velocity = dropped_object.getVelocity()
+
+        -- interpret dropped die as rolled if x-z velocity is high enough
+        if velocity.x * velocity.x + velocity.z * velocity.z >= MIN_DICE_ROLL_VELOCITY_SQUARED then
+            GAME.state_machine:emitDiceRolled()
         end
     end
 
@@ -403,8 +441,8 @@ function onObjectDrop(color, dropped_object)
     if dropped_object.guid == 'fd701d' then
         Wait.time(function()
             -- local position = Vector(dropped_object.getPosition())
-            local position = Vector(dropped_object.getPosition()) - Vector{ x = 5.5956, y = 1.46, z = 14.5975 }
-            -- local position = BOARD.positionToLocal(dropped_object.getPosition())
+            -- local position = Vector(dropped_object.getPosition()) - Vector{ x = 5.5956, y = 1.46, z = 14.5975 }
+            local position = OBJECTS.board.positionToLocal(dropped_object.getPosition())
 
             local x = math.round(position.x, 4)
             local y = math.round(position.y, 4)
@@ -412,6 +450,14 @@ function onObjectDrop(color, dropped_object)
 
             Notes.setNotes('{ x = ' .. x .. ', y = ' .. y .. ', z = ' .. z .. ' }')
         end, 2)
+    end
+end
+
+function onObjectRandomize(randomize_object, player_color)
+    local kind = randomize_object.getVar('kind')
+
+    if kind == 'shark_numbered_die' then
+        GAME.state_machine:emitDiceRolled()
     end
 end
 
@@ -508,6 +554,15 @@ function getKind(object)
     end
 
     return kind
+end
+
+function withinBoundsOnBoard(object, bounds)
+    local position = object.getPosition()
+    local board_position = OBJECTS.board.positionToLocal(position)
+
+    return
+        util.between(board_position.x, bounds.x1, bounds.x2) and
+        util.between(board_position.z, bounds.z1, bounds.z2)
 end
 
 function initObjectState(params)

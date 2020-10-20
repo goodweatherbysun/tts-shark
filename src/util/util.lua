@@ -188,4 +188,8 @@ function module.rad2deg(number)
     return number * DEGREES_PER_RADIAN
 end
 
+function module.between(number, min, max)
+    return number >= min and number < max
+end
+
 return module

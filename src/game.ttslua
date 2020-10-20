@@ -1,4 +1,5 @@
 local util = require("shark/util/util")
+local SharkStateMachine = require("shark/game/shark_state_machine")
 
 local Game = {
     companies = {
@@ -22,12 +23,18 @@ local Game = {
 Game.__index = Game
 
 function Game.new(scene_data)
-    return setmetatable({
+    local instance = {
         objects = scene_data.objects,
         player_share_deposits = scene_data.player_share_deposits,
         share_deposit_positions = scene_data.share_deposit_positions,
         share_price_transform = scene_data.share_price_transform,
-    }, Game)
+    }
+
+    instance.state_machine = SharkStateMachine.new(instance)
+
+    setmetatable(instance, Game)
+
+    return instance
 end
 
 function Game:getSharePrice(company)

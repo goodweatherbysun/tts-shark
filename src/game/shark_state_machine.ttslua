@@ -1,0 +1,68 @@
+local GraphController = require("shark/game/graph_controller")
+
+local SharkStateMachine = {}
+
+SharkStateMachine.__index = SharkStateMachine
+
+function SharkStateMachine.new(game)
+    local instance = {
+        game = game,
+        state = 'initial',
+    }
+
+    setmetatable(instance, SharkStateMachine)
+
+    return instance
+end
+
+function SharkStateMachine:emitTurnStarted()
+    if self.state == 'uncertain_new_turn' then
+        self:pushSharePrices()
+    end
+
+    self.state = 'new_turn'
+end
+
+function SharkStateMachine:emitDiceRolled()
+    if Turns.enable then
+        return
+    end
+
+    if self.state == 'building_placed' then
+        self.state = 'uncertain_new_turn'
+    elseif self.state ~= 'uncertain_new_turn' then
+        self.state = 'new_turn'
+    end
+end
+
+function SharkStateMachine:emitBuildingPlaced()
+    if self.state == 'new_turn' then
+        self.state = 'building_placed'
+    elseif self.state == 'uncertain_new_turn' then
+        self:pushSharePrices()
+        self.state = 'building_placed'
+    end
+end
+
+function SharkStateMachine:emitIndicatorPlaced()
+    if self.state == 'new_turn' or self.state == 'indicator_placed' then
+        self:updateSharePrices()
+    elseif self.state == 'building_placed' or self.state == 'uncertain_new_turn' then
+        self:pushSharePrices()
+        self.state = 'indicator_placed'
+    end
+end
+
+function SharkStateMachine:pushSharePrices()
+    local data = self.game:getSharePrices()
+    GraphController.instance:push(data)
+    GraphController.instance:renderAll()
+end
+
+function SharkStateMachine:updateSharePrices()
+    local data = self.game:getSharePrices()
+    GraphController.instance:updateLast(data)
+    GraphController.instance:renderAll()
+end
+
+return SharkStateMachine
