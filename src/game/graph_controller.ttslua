@@ -38,9 +38,7 @@ function GraphController.init(objects, game)
 
     setmetatable(instance, GraphController)
 
-    for _, company in ipairs(game.companies) do
-        instance.data[company] = { 0 }
-    end
+    instance:clear()
 
     for _, object in ipairs(objects) do
         instance.objects_data[object.guid] = {
@@ -104,8 +102,8 @@ function GraphController.init(objects, game)
         })
 
         object.createButton({
-            label = "Clear\nData",
-            click_function = 'GraphController_onClearDataClick',
+            label = "Clear",
+            click_function = 'GraphController_onClearClick',
             position = { -11.5, 0.25, -7 },
             scale = { 2, 2, 2 },
             rotation = { 0, 180, 0 },
@@ -172,10 +170,6 @@ function GraphController_onZoomOutClick(object, player_color, alt_click)
     end
 end
 
-function GraphController_onZoomResetClick(object, player_color, alt_click)
-
-end
-
 function GraphController_onZoomInClick(object, player_color, alt_click)
     local graph = GraphController.instance
 
@@ -184,8 +178,9 @@ function GraphController_onZoomInClick(object, player_color, alt_click)
     end
 end
 
-function GraphController_onClearDataClick(object, player_color, alt_click)
-
+function GraphController_onClearClick(object, player_color, alt_click)
+    GraphController.instance:clear()
+    GraphController.instance:renderAll()
 end
 
 -- methods
@@ -225,6 +220,12 @@ function GraphController:isRightmost(object_guid)
     local rightmost = self:getRightmostTurn(object_guid)
 
     return turn_offset >= rightmost
+end
+
+function GraphController:clear()
+    for _, company in ipairs(self.game.companies) do
+        self.data[company] = { 0 }
+    end
 end
 
 function GraphController:push(data)
