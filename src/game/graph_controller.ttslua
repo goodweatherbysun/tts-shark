@@ -249,7 +249,7 @@ function GraphController:push(data)
 end
 
 function GraphController:updateLast(data)
-    local index = self:getTurn() + 1
+    local index = self:getTurns()
 
     for company, share_price in pairs(data) do
         self.data[company][index] = share_price
