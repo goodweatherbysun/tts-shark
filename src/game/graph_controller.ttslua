@@ -115,18 +115,18 @@ function GraphController.init(objects, game)
         })
     end
 
-    -- DEBUG
-    for i = 1, 69 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)
-        local profit_company = game.companies[math.random(#game.companies)]
-
-        for _, company in ipairs(game.companies) do
-            if company == profit_company then
-                instance.data[company][i + 1] = instance.data[company][i] + 1
-            else
-                instance.data[company][i + 1] = instance.data[company][i]
-            end
-        end
-    end
+    -- -- DEBUG
+    -- for i = 1, 69 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)
+    --     local profit_company = game.companies[math.random(#game.companies)]
+    --
+    --     for _, company in ipairs(game.companies) do
+    --         if company == profit_company then
+    --             instance.data[company][i + 1] = instance.data[company][i] + 1
+    --         else
+    --             instance.data[company][i + 1] = instance.data[company][i]
+    --         end
+    --     end
+    -- end
 
     GraphController.instance = instance
 
