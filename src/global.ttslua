@@ -20,6 +20,8 @@ local AssetCountersController = require("shark/game/asset_counters/asset_counter
 local ControlBarController = require("shark/game/control_bar/control_bar_controller")
 local GraphController = require("shark/game/graph_controller")
 
+local SAVED_STATE_VERSION = 1
+
 local SEAT_COLORS = {
     'White',
     'Red',
@@ -213,9 +215,15 @@ function onDebug(player_color, object, position, key_up)
     print(GAME.state_machine.state)
 end
 
-function onLoad()
+function onLoad(saved_state_json)
     -- invoke afterLoad after all objects have called onLoad
     Wait.frames(afterLoad, 0)
+
+    local saved_state = nil
+
+    if saved_state_json ~= '' then
+        saved_state = JSON.decode(saved_state_json)
+    end
 
     GAME = Game.new({
         objects = OBJECTS,
@@ -223,6 +231,10 @@ function onLoad()
         share_deposit_positions = SHARE_DEPOSIT_POSITIONS,
         share_price_transform = SHARE_PRICE_TRANSFORM,
     })
+
+    if saved_state and saved_state.state_machine_state then
+        GAME.state_machine.state = saved_state.state_machine_state
+    end
 
     -- discover objects
 
@@ -271,6 +283,11 @@ function onLoad()
     -- init graphs
 
     GraphController.init(OBJECTS.graph_boards, GAME)
+
+    if saved_state and saved_state.graph_data then
+        GraphController.instance.data = saved_state.graph_data
+    end
+
     GraphController.instance:renderAll()
 
     -- hotkeys
@@ -330,6 +347,16 @@ function afterLoad()
             end
         end
     end
+end
+
+function onSave()
+    local state = {
+        version = SAVED_STATE_VERSION,
+        state_machine_state = GAME.state_machine.state,
+        graph_data = GraphController.instance.data,
+    }
+
+    return JSON.encode(state)
 end
 
 function onPlayerTurn(player)
