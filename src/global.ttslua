@@ -58,10 +58,10 @@ local GUIDS = {
     discarded_building_bag = '47b9a5',
 
     indicators = {
-        green = '65f72d',
-        red = 'c7426a',
-        blue = 'd4bd37',
-        yellow = 'b96f7a',
+        green = '8a020b',
+        red = '1e0110',
+        blue = '455b41',
+        yellow = '19e5ef',
     },
 
     drop_zones = {
