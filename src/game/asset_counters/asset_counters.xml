@@ -136,7 +136,7 @@
                         color="Gray"
                         text="0"
                         placeholder=""
-                        tooltip="Count shares bought this round here"
+                        tooltip="Number of shares which were bought by the player in the given color."
                     />
                     <Button
                         class="assetCounters.boughtShares"
