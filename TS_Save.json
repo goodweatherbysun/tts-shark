@@ -1,7 +1,7 @@
 {
   "SaveName": "Shark v5",
   "GameMode": "Shark",
-  "Date": "10/26/2020 11:42:21 PM",
+  "Date": "10/26/2020 11:45:06 PM",
   "Gravity": 0.5,
   "PlayArea": 0.5,
   "GameType": "",
@@ -75,9 +75,9 @@
           "rotX": 0.0,
           "rotY": 179.8,
           "rotZ": 0.0,
-          "scaleX": 15.35131,
+          "scaleX": 15.35149,
           "scaleY": 11.8970528,
-          "scaleZ": 6.36205673
+          "scaleZ": 6.36212635
         }
       },
       {
@@ -131,9 +131,9 @@
           "rotX": 0.0,
           "rotY": 179.800049,
           "rotZ": 0.0,
-          "scaleX": 15.3513269,
+          "scaleX": 15.3515081,
           "scaleY": 11.8970528,
-          "scaleZ": 6.361731
+          "scaleZ": 6.36179543
         }
       },
       {
@@ -231,7 +231,7 @@
       "Name": "Counter",
       "Transform": {
         "posX": -29.2545376,
-        "posY": 0.930000067,
+        "posY": 0.93,
         "posZ": -23.82,
         "rotX": -6.34496544E-08,
         "rotY": 5.484613E-09,
@@ -244,9 +244,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993773,
+        "r": 0.191993743,
         "g": 0.701,
-        "b": 0.167993754
+        "b": 0.167993724
       },
       "Locked": true,
       "Grid": true,
@@ -265,14 +265,13 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "559d33"
     },
     {
       "Name": "Counter",
       "Transform": {
         "posX": -25.540432,
-        "posY": 0.929999769,
+        "posY": 0.9299998,
         "posZ": -23.8189049,
         "rotX": -1.32716679E-07,
         "rotY": 1.58942171E-07,
@@ -286,8 +285,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999312,
-        "b": 0.093993105
+        "g": 0.09999309,
+        "b": 0.0939930752
       },
       "Locked": true,
       "Grid": true,
@@ -306,14 +305,13 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "d8c62b"
     },
     {
       "Name": "Counter",
       "Transform": {
         "posX": -21.811264,
-        "posY": 0.93,
+        "posY": 0.930000067,
         "posZ": -23.8189049,
         "rotX": -2.92846721E-07,
         "rotY": 8.163985E-08,
@@ -326,7 +324,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993437,
+        "r": 0.117993407,
         "g": 0.53,
         "b": 1.0
       },
@@ -347,7 +345,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "b64a3a"
     },
     {
@@ -369,7 +366,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993762
+        "b": 0.171993732
       },
       "Locked": true,
       "Grid": true,
@@ -388,7 +385,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "ad2218"
     },
     {
@@ -590,11 +586,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.3849945,
-        "posY": 0.7747456,
+        "posY": 0.774742246,
         "posZ": 2.1279583,
-        "rotX": 4.81191546E-06,
-        "rotY": 75.00001,
-        "rotZ": -3.98921E-05,
+        "rotX": 4.13854559E-06,
+        "rotY": 75.00002,
+        "rotZ": -4.040879E-05,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -603,7 +599,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993511,
+        "r": 0.117993481,
         "g": 0.53,
         "b": 1.0
       },
@@ -2756,7 +2752,7 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.3540916,
-        "posY": 0.7743832,
+        "posY": 0.774379134,
         "posZ": -1.561869,
         "rotX": -3.917719E-05,
         "rotY": 345.000122,
@@ -2771,7 +2767,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993822
+        "b": 0.171993792
       },
       "Locked": true,
       "Grid": true,
@@ -4922,7 +4918,7 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.5779514,
-        "posY": 0.774858952,
+        "posY": 0.7748585,
         "posZ": 5.85375261,
         "rotX": -3.51356648E-05,
         "rotY": 165.000031,
@@ -4936,8 +4932,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999374,
-        "b": 0.09399373
+        "g": 0.09999371,
+        "b": 0.0939937
       },
       "Locked": true,
       "Grid": true,
@@ -7101,9 +7097,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993833,
+        "r": 0.1919938,
         "g": 0.701,
-        "b": 0.167993814
+        "b": 0.167993784
       },
       "Locked": true,
       "Grid": true,
@@ -9254,10 +9250,10 @@
       "Name": "Die_6_Rounded",
       "Transform": {
         "posX": 1.88821971,
-        "posY": 2.09648919,
-        "posZ": 5.62527466,
-        "rotX": -7.565651E-06,
-        "rotY": 150.438858,
+        "posY": 2.09648943,
+        "posZ": 5.625275,
+        "rotX": -3.08269341E-06,
+        "rotY": 150.438889,
         "rotZ": 180.0,
         "scaleX": 1.0,
         "scaleY": 1.0,
@@ -10772,10 +10768,10 @@
     {
       "Name": "Custom_Dice",
       "Transform": {
-        "posX": 0.644257843,
+        "posX": 0.6442579,
         "posY": 2.07669,
         "posZ": 4.48843145,
-        "rotX": -5.122642E-06,
+        "rotX": -8.537737E-06,
         "rotY": 162.757065,
         "rotZ": 90.0,
         "scaleX": 1.0,
@@ -10872,9 +10868,9 @@
         "posX": -49.183403,
         "posY": 0.9652238,
         "posZ": 9.61712551,
-        "rotX": 1.74952337E-08,
+        "rotX": 1.55247513E-08,
         "rotY": 179.84935,
-        "rotZ": 3.00619E-08,
+        "rotZ": 3.07140056E-08,
         "scaleX": 2.99246836,
         "scaleY": 1.0,
         "scaleZ": 2.99246836
@@ -10914,11 +10910,11 @@
       "Name": "Custom_PDF",
       "Transform": {
         "posX": -49.3113976,
-        "posY": 0.9652239,
-        "posZ": -3.48589063,
-        "rotX": 1.33328095E-08,
+        "posY": 0.96522367,
+        "posZ": -3.48589039,
+        "rotX": 1.787299E-08,
         "rotY": 179.973724,
-        "rotZ": -1.54791E-08,
+        "rotZ": 4.304279E-08,
         "scaleX": 2.99173284,
         "scaleY": 1.0,
         "scaleZ": 2.99173284
@@ -10957,11 +10953,11 @@
     {
       "Name": "BlockSquare",
       "Transform": {
-        "posX": 0.7731966,
+        "posX": 0.7731946,
         "posY": 2.246514,
-        "posZ": 6.890049,
-        "rotX": 0.0179209989,
-        "rotY": 180.024338,
+        "posZ": 6.890053,
+        "rotX": 0.0178472269,
+        "rotY": 180.023041,
         "rotZ": 359.985535,
         "scaleX": 0.1,
         "scaleY": 1.0,
@@ -10996,7 +10992,7 @@
       "Name": "Counter",
       "Transform": {
         "posX": 33.39,
-        "posY": 0.93,
+        "posY": 0.930000067,
         "posZ": -5.871675,
         "rotX": -4.17539553E-07,
         "rotY": -3.12124721E-05,
@@ -11030,7 +11026,6 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "e75804"
     },
     {
@@ -11038,7 +11033,7 @@
       "Transform": {
         "posX": 33.5508728,
         "posY": 3.51,
-        "posZ": 17.4975071,
+        "posZ": 0.0,
         "rotX": 0.0,
         "rotY": 0.1666,
         "rotZ": 0.0,
@@ -11077,7 +11072,7 @@
       "Transform": {
         "posX": -29.7027473,
         "posY": 3.51,
-        "posZ": 19.65096,
+        "posZ": 0.0,
         "rotX": 0.0,
         "rotY": 0.1666,
         "rotZ": 0.0,
@@ -11149,15 +11144,14 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "eae4e9"
     },
     {
       "Name": "3DText",
       "Transform": {
-        "posX": -40.17381,
-        "posY": 0.959999263,
-        "posZ": 5.24520874E-06,
+        "posX": -40.1738,
+        "posY": 0.9599991,
+        "posZ": 7.152558E-06,
         "rotX": 90.0,
         "rotY": 270.0,
         "rotZ": 0.0,
@@ -11202,9 +11196,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": -38.3662834,
-        "posY": 0.9611087,
-        "posZ": 4.291535E-06,
+        "posX": -38.36628,
+        "posY": 0.961108446,
+        "posZ": 5.72204635E-06,
         "rotX": 90.0,
         "rotY": 270.0,
         "rotZ": 0.0,
@@ -11249,9 +11243,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": 43.78434,
-        "posY": 0.9610778,
-        "posZ": 4.291535E-06,
+        "posX": 43.7844124,
+        "posY": 0.9610776,
+        "posZ": 5.72204635E-06,
         "rotX": 90.0,
         "rotY": 90.0,
         "rotZ": 0.0,
@@ -11296,9 +11290,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": 41.95027,
-        "posY": 0.9611093,
-        "posZ": 5.00679062E-06,
+        "posX": 41.9503555,
+        "posY": 0.961109042,
+        "posZ": 7.152558E-06,
         "rotX": 90.0,
         "rotY": 90.0,
         "rotZ": 0.0,
@@ -11378,7 +11372,6 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "057382"
     },
     {
@@ -11415,11 +11408,10 @@
       "HideWhenFaceDown": false,
       "Hands": false,
       "Counter": {
-        "value": -1
+        "value": 0
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "05926f"
     },
     {
@@ -11457,7 +11449,6 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "228165"
     },
     {
@@ -11495,7 +11486,6 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "67aaf1"
     },
     {
@@ -11533,7 +11523,6 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "20dacd"
     },
     {
@@ -11571,14 +11560,13 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "2ee7b1"
     },
     {
       "Name": "Bag",
       "Transform": {
         "posX": -19.3722782,
-        "posY": 0.7749866,
+        "posY": 0.7749871,
         "posZ": -7.4927206,
         "rotX": 2.61470359E-05,
         "rotY": 44.99987,
@@ -12141,170 +12129,6 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993743,
-        "g": 0.701,
-        "b": 0.167993724
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "1f8040"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": -1.90080488,
-        "posY": 0.93,
-        "posZ": -23.82,
-        "rotX": -2.64211366E-07,
-        "rotY": 4.714536E-08,
-        "rotZ": -3.23966958E-07,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.856,
-        "g": 0.09999309,
-        "b": 0.0939930752
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "fb9353"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": 1.83530664,
-        "posY": 0.929999948,
-        "posZ": -23.82,
-        "rotX": -2.936628E-07,
-        "rotY": 4.19839523E-08,
-        "rotZ": -2.50247126E-07,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.117993407,
-        "g": 0.53,
-        "b": 1.0
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "c1770b"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": 5.57141733,
-        "posY": 0.930000067,
-        "posZ": -23.82,
-        "rotX": -3.79595519E-07,
-        "rotY": 3.83565038E-08,
-        "rotZ": -4.76861466E-08,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.905,
-        "g": 0.898,
-        "b": 0.171993732
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "459a2c"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": 18.0399437,
-        "posY": 0.929999948,
-        "posZ": -23.82,
-        "rotX": -7.284871E-08,
-        "rotY": -2.42486E-09,
-        "rotZ": -2.0941728E-07,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
         "r": 0.191993713,
         "g": 0.701,
         "b": 0.1679937
@@ -12326,7 +12150,166 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
-      "XmlUI": "",
+      "GUID": "1f8040"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": -1.90080488,
+        "posY": 0.93,
+        "posZ": -23.82,
+        "rotX": -2.64211366E-07,
+        "rotY": 4.714536E-08,
+        "rotZ": -3.23966958E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.856,
+        "g": 0.09999306,
+        "b": 0.0939930454
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
+      "LuaScriptState": "",
+      "GUID": "fb9353"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": 1.83530664,
+        "posY": 0.929999948,
+        "posZ": -23.82,
+        "rotX": -2.936628E-07,
+        "rotY": 4.19839523E-08,
+        "rotZ": -2.50247126E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.117993377,
+        "g": 0.53,
+        "b": 1.0
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
+      "LuaScriptState": "",
+      "GUID": "c1770b"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": 5.57141733,
+        "posY": 0.93,
+        "posZ": -23.82,
+        "rotX": -3.79595519E-07,
+        "rotY": 3.83565038E-08,
+        "rotZ": -4.76861466E-08,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.905,
+        "g": 0.898,
+        "b": 0.1719937
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
+      "LuaScriptState": "",
+      "GUID": "459a2c"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": 18.0399437,
+        "posY": 0.929999948,
+        "posZ": -23.82,
+        "rotX": -7.284871E-08,
+        "rotY": -2.42486E-09,
+        "rotZ": -2.0941728E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.191993684,
+        "g": 0.701,
+        "b": 0.167993665
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
+      "LuaScriptState": "",
       "GUID": "a5dbc1"
     },
     {
@@ -12348,7 +12331,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.1719937
+        "b": 0.171993673
       },
       "Locked": true,
       "Grid": true,
@@ -12367,7 +12350,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "47fd33"
     },
     {
@@ -12387,7 +12369,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993377,
+        "r": 0.117993347,
         "g": 0.53,
         "b": 1.0
       },
@@ -12408,18 +12390,97 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "71a860"
     },
     {
       "Name": "Counter",
       "Transform": {
         "posX": 21.787075,
-        "posY": 0.93,
+        "posY": 0.930000067,
         "posZ": -23.82,
         "rotX": -2.37986431E-08,
         "rotY": 1.02428677E-09,
         "rotZ": -1.41181062E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.856,
+        "g": 0.09999303,
+        "b": 0.093993
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
+      "LuaScriptState": "",
+      "GUID": "a25fe5"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": -18.0513458,
+        "posY": 0.930000067,
+        "posZ": 23.78,
+        "rotX": 6.80831E-08,
+        "rotY": 180.0,
+        "rotZ": -2.12970434E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 0.191993713,
+        "g": 0.701,
+        "b": 0.1679937
+      },
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "Counter": {
+        "value": 0
+      },
+      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
+      "LuaScriptState": "",
+      "GUID": "a96046"
+    },
+    {
+      "Name": "Counter",
+      "Transform": {
+        "posX": -21.7805653,
+        "posY": 0.930000067,
+        "posZ": 23.78,
+        "rotX": -1.21913928E-07,
+        "rotY": 180.0,
+        "rotZ": -3.161277E-07,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -12449,89 +12510,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "a25fe5"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": -18.0513458,
-        "posY": 0.930000067,
-        "posZ": 23.78,
-        "rotX": 6.80831E-08,
-        "rotY": 180.0,
-        "rotZ": -2.12970434E-07,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.191993743,
-        "g": 0.701,
-        "b": 0.167993724
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "a96046"
-    },
-    {
-      "Name": "Counter",
-      "Transform": {
-        "posX": -21.7805653,
-        "posY": 0.93,
-        "posZ": 23.78,
-        "rotX": -1.21913928E-07,
-        "rotY": 180.0,
-        "rotZ": -3.161277E-07,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.856,
-        "g": 0.09999309,
-        "b": 0.0939930752
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "Counter": {
-        "value": 0
-      },
-      "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
-      "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "bd8eaf"
     },
     {
@@ -12551,7 +12529,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993407,
+        "r": 0.117993377,
         "g": 0.53,
         "b": 1.0
       },
@@ -12572,7 +12550,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "6e9b7a"
     },
     {
@@ -12594,7 +12571,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993732
+        "b": 0.1719937
       },
       "Locked": true,
       "Grid": true,
@@ -12613,7 +12590,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "aebd0f"
     },
     {
@@ -12633,9 +12609,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993713,
+        "r": 0.191993684,
         "g": 0.701,
-        "b": 0.1679937
+        "b": 0.167993665
       },
       "Locked": true,
       "Grid": true,
@@ -12654,7 +12630,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "4fb894"
     },
     {
@@ -12675,8 +12650,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999306,
-        "b": 0.0939930454
+        "g": 0.09999303,
+        "b": 0.093993
       },
       "Locked": true,
       "Grid": true,
@@ -12695,7 +12670,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "0c8f6c"
     },
     {
@@ -12715,7 +12689,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993377,
+        "r": 0.117993347,
         "g": 0.53,
         "b": 1.0
       },
@@ -12736,7 +12710,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "8c8f8a"
     },
     {
@@ -12758,7 +12731,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.1719937
+        "b": 0.171993673
       },
       "Locked": true,
       "Grid": true,
@@ -12777,7 +12750,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "f4a616"
     },
     {
@@ -12797,9 +12769,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993713,
+        "r": 0.191993684,
         "g": 0.701,
-        "b": 0.1679937
+        "b": 0.167993665
       },
       "Locked": true,
       "Grid": true,
@@ -12818,14 +12790,13 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "ef3306"
     },
     {
       "Name": "Counter",
       "Transform": {
         "posX": 25.5081348,
-        "posY": 0.93,
+        "posY": 0.930000067,
         "posZ": 23.78,
         "rotX": -1.14565324E-07,
         "rotY": 180.0,
@@ -12839,8 +12810,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999306,
-        "b": 0.0939930454
+        "g": 0.09999303,
+        "b": 0.093993
       },
       "Locked": true,
       "Grid": true,
@@ -12859,7 +12830,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "8b236d"
     },
     {
@@ -12879,7 +12849,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993377,
+        "r": 0.117993347,
         "g": 0.53,
         "b": 1.0
       },
@@ -12900,7 +12870,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "5c3330"
     },
     {
@@ -12922,7 +12891,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.1719937
+        "b": 0.171993673
       },
       "Locked": true,
       "Grid": true,
@@ -12941,7 +12910,6 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
-      "XmlUI": "",
       "GUID": "c0a132"
     },
     {
@@ -12950,9 +12918,9 @@
         "posX": -13.0999527,
         "posY": 1.83963525,
         "posZ": -7.427027,
-        "rotX": -8.775544E-06,
+        "rotX": -4.769291E-06,
         "rotY": 179.973236,
-        "rotZ": 2.67780024E-07,
+        "rotZ": 1.09892376E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -13727,12 +13695,12 @@
         {
           "Name": "Card",
           "Transform": {
-            "posX": -13.0999479,
-            "posY": 1.94127071,
-            "posZ": -7.42702532,
-            "rotX": -0.00166724867,
-            "rotY": 179.973282,
-            "rotZ": 0.00240326324,
+            "posX": -13.1013622,
+            "posY": 1.95074487,
+            "posZ": -7.425451,
+            "rotX": 0.000814505736,
+            "rotY": 179.973236,
+            "rotZ": 0.00108684192,
             "scaleX": 1.40263629,
             "scaleY": 1.0,
             "scaleZ": 1.37437212
@@ -13784,9 +13752,9 @@
         "posX": -5.88573027,
         "posY": 1.83963513,
         "posZ": -7.419715,
-        "rotX": -1.00145771E-05,
+        "rotX": -1.19441884E-05,
         "rotY": 179.99765,
-        "rotZ": 5.5279753E-07,
+        "rotZ": 3.5747874E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -14616,11 +14584,11 @@
       "Name": "Deck",
       "Transform": {
         "posX": 13.0991554,
-        "posY": 1.79149449,
+        "posY": 1.79149461,
         "posZ": -7.3819747,
-        "rotX": -6.5428535E-06,
+        "rotX": -6.58439831E-06,
         "rotY": 180.029465,
-        "rotZ": -2.76629521E-07,
+        "rotZ": 7.67597669E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -14932,9 +14900,9 @@
         "posX": 13.12837,
         "posY": 1.79149115,
         "posZ": 2.485506,
-        "rotX": -1.088828E-05,
+        "rotX": -1.29698356E-05,
         "rotY": 180.000092,
-        "rotZ": 4.90629645E-07,
+        "rotZ": 5.83355131E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -15246,9 +15214,9 @@
         "posX": 13.1220541,
         "posY": 1.79148924,
         "posZ": 7.44023,
-        "rotX": -1.49771595E-05,
+        "rotX": -1.49694606E-05,
         "rotY": 179.9657,
-        "rotZ": -1.049242E-07,
+        "rotZ": 9.083538E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -15560,9 +15528,9 @@
         "posX": -9.503929,
         "posY": 1.83963525,
         "posZ": -7.42998552,
-        "rotX": -1.39590547E-05,
+        "rotX": -1.6635E-05,
         "rotY": 179.998459,
-        "rotZ": 3.19630544E-07,
+        "rotZ": 3.43165226E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -16394,9 +16362,9 @@
         "posX": 13.1043005,
         "posY": 1.79149282,
         "posZ": -2.43843913,
-        "rotX": -7.826914E-06,
+        "rotX": -7.925133E-06,
         "rotY": 180.024567,
-        "rotZ": 2.76235539E-07,
+        "rotZ": 1.43778425E-06,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -16708,9 +16676,9 @@
         "posX": -2.30286884,
         "posY": 1.83963513,
         "posZ": -7.40706825,
-        "rotX": -8.816138E-06,
+        "rotX": -1.46313951E-05,
         "rotY": 179.998138,
-        "rotZ": 7.3998666E-07,
+        "rotZ": 5.977542E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -17542,9 +17510,9 @@
         "posX": 20.3644543,
         "posY": 1.12849164,
         "posZ": -1.919132,
-        "rotX": 3.88428667E-08,
+        "rotX": 8.68760637E-08,
         "rotY": 270.0006,
-        "rotZ": 5.22189657E-06,
+        "rotZ": 4.984495E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -18896,9 +18864,9 @@
         "posX": 20.37382,
         "posY": 1.1525619,
         "posZ": 5.822511,
-        "rotX": 2.162767E-07,
-        "rotY": 270.000763,
-        "rotZ": 4.85396E-06,
+        "rotX": 4.39280932E-08,
+        "rotY": 270.0008,
+        "rotZ": 4.91869469E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -20510,9 +20478,9 @@
         "posX": 20.3550911,
         "posY": 1.12849164,
         "posZ": -5.794636,
-        "rotX": 8.588678E-08,
+        "rotX": 5.13896232E-08,
         "rotY": 270.002075,
-        "rotZ": 5.19104424E-06,
+        "rotZ": 4.98457575E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -21864,9 +21832,9 @@
         "posX": 20.3738174,
         "posY": 1.12849164,
         "posZ": 1.94700921,
-        "rotX": 6.343604E-09,
+        "rotX": 2.62250737E-08,
         "rotY": 270.000061,
-        "rotZ": 5.096446E-06,
+        "rotZ": 5.125314E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -23289,9 +23257,9 @@
         "posX": 7.380114,
         "posY": 2.09931636,
         "posZ": -5.57471657,
-        "rotX": 1.68072056E-05,
-        "rotY": -0.0009975492,
-        "rotZ": -2.90815979E-06,
+        "rotX": 1.247861E-05,
+        "rotY": -0.0009975757,
+        "rotZ": -3.175966E-06,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23302,7 +23270,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171999484
+        "b": 0.171999425
       },
       "Locked": false,
       "Grid": true,
@@ -23347,9 +23315,9 @@
         "posX": 6.178725,
         "posY": 2.0993166,
         "posZ": -5.546938,
-        "rotX": 1.61839616E-05,
+        "rotX": 1.66774353E-05,
         "rotY": 359.987274,
-        "rotZ": -1.20473885E-06,
+        "rotZ": -1.29820762E-06,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23358,7 +23326,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117999546,
+        "r": 0.117999487,
         "g": 0.53,
         "b": 1.0
       },
@@ -23405,9 +23373,9 @@
         "posX": 4.984279,
         "posY": 2.0993166,
         "posZ": -5.526104,
-        "rotX": 1.59928841E-05,
+        "rotX": 1.77807269E-05,
         "rotY": 359.982635,
-        "rotZ": 6.90896854E-07,
+        "rotZ": 6.997361E-07,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23417,8 +23385,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999954,
-        "b": 0.09399951
+        "g": 0.099999465,
+        "b": 0.09399945
       },
       "Locked": false,
       "Grid": true,
@@ -23463,9 +23431,9 @@
         "posX": 3.78289127,
         "posY": 2.0993166,
         "posZ": -5.51221657,
-        "rotX": 1.37609268E-05,
-        "rotY": 0.004810759,
-        "rotZ": -4.23550375E-07,
+        "rotX": 1.32589967E-05,
+        "rotY": 0.004810765,
+        "rotZ": -6.159629E-07,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23474,9 +23442,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.1919992,
+        "r": 0.191999137,
         "g": 0.701,
-        "b": 0.167999178
+        "b": 0.167999119
       },
       "Locked": false,
       "Grid": true,
