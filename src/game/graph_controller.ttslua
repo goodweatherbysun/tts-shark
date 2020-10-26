@@ -165,6 +165,11 @@ function GraphController_onZoomInClick(object, player_color, alt_click)
 end
 
 function GraphController_onClearClick(object, player_color, alt_click)
+    if not Player[player_color].admin then
+        broadcastToColor('Only admins can clear graphs!', player_color)
+        return
+    end
+
     local graph = GraphController.instance
 
     graph:clear()
