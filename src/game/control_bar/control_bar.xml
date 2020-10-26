@@ -47,6 +47,15 @@
                     />
                 </Cell>
             </Row>
+                <Row id="Row#controlBar.lookAtGraphButton" class="controlBar">
+                    <Cell>
+                        <Button
+                            class="controlBar"
+                            onClick="onControlBarlookAtGraphClick"
+                            text="Show Graph"
+                        />
+                    </Cell>
+                </Row>
             <Row class="controlBar" visibility="Admin">
                 <Cell>
                     <Toggle

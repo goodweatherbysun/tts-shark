@@ -1,11 +1,17 @@
+local set = require('shark/util/set')
+
 local ControlBarController = {}
 ControlBarController.__index = ControlBarController
 
-function ControlBarController.init(asset_counters, leaderboard)
+-- players on the "top" side of the table
+local top_players = set.new{ 'Yellow', 'Green', 'Blue' }
+
+function ControlBarController.init(asset_counters, leaderboard, graph_objects)
     local instance = {
         enable_leaderboard_value = false,
         asset_counters = asset_counters,
         leaderboard = leaderboard,
+        graph_objects = graph_objects,
     }
 
     setmetatable(instance, ControlBarController)
@@ -21,6 +27,10 @@ function onControlBarLeaderboardClick(player)
     ControlBarController.instance:toggleLeaderboard(player.color)
 end
 
+function onControlBarlookAtGraphClick(player)
+    ControlBarController.instance:lookAtGraph(player)
+end
+
 function onControlBarEnableLeaderboardChange(player, value)
     ControlBarController.instance:setEnableLeaderboardValue(value == 'True')
 end
@@ -33,6 +43,25 @@ end
 
 function ControlBarController:toggleLeaderboard(player_color)
     self.leaderboard:toggle(player_color)
+end
+
+function ControlBarController:lookAtGraph(player)
+    local graph_object
+    if set.contains(top_players, player.color) then
+        graph_object = self.graph_objects[1]
+    else
+        graph_object = self.graph_objects[2]
+    end
+
+    local position = graph_object.getPosition()
+    local rotation = graph_object.getRotation()
+
+    player.lookAt({
+        position = position,
+        pitch = rotation.x + 90,
+        yaw  = rotation.y,
+        distance = 20,
+    })
 end
 
 function ControlBarController:setEnableLeaderboardValue(value, update_ui)

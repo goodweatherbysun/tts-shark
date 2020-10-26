@@ -184,7 +184,7 @@ local PLAYER_SHARE_DEPOSITS = {
 local LAST_TURN_TIME = nil
 local LAST_TURN_COOLDOWN = 180 -- 3 minutes
 
-local NOTES = string.rep('\n', 11) .. [=[
+local NOTES = string.rep('\n', 10) .. [=[
 [b]Hotkeys[/b]
 
 Bind hotkeys via [i]Options[/i] > [i]Game Keys[/i].
@@ -308,7 +308,11 @@ function onLoad(saved_state_json)
 
     LeaderboardController.init(ui_dom, GAME, SEAT_COLORS)
     AssetCountersController.init(ui_dom, GAME, SEAT_COLORS)
-    ControlBarController.init(AssetCountersController.instance, LeaderboardController.instance)
+    ControlBarController.init(
+        AssetCountersController.instance,
+        LeaderboardController.instance,
+        OBJECTS.graph_boards
+    )
 
     UI.setXmlTable(ui_dom.xml_table)
 
