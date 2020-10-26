@@ -1,7 +1,7 @@
 {
   "SaveName": "Shark v5",
   "GameMode": "Shark",
-  "Date": "10/26/2020 11:33:58 PM",
+  "Date": "10/26/2020 11:34:40 PM",
   "Gravity": 0.5,
   "PlayArea": 0.5,
   "GameType": "",
@@ -75,9 +75,9 @@
           "rotX": 0.0,
           "rotY": 179.8,
           "rotZ": 0.0,
-          "scaleX": 15.3508282,
+          "scaleX": 15.3509035,
           "scaleY": 11.8970528,
-          "scaleZ": 6.36186838
+          "scaleZ": 6.361898
         }
       },
       {
@@ -131,9 +131,9 @@
           "rotX": 0.0,
           "rotY": 179.800049,
           "rotZ": 0.0,
-          "scaleX": 15.3508463,
+          "scaleX": 15.3509207,
           "scaleY": 11.8970528,
-          "scaleZ": 6.36156
+          "scaleZ": 6.36158657
         }
       },
       {
@@ -12004,77 +12004,6 @@
       "LuaScriptState": "",
       "XmlUI": "",
       "GUID": "4053a7"
-    },
-    {
-      "Name": "Custom_Board",
-      "Transform": {
-        "posX": -6.724158,
-        "posY": 7.174221,
-        "posZ": 17.7657318,
-        "rotX": 322.650024,
-        "rotY": -0.000380034238,
-        "rotZ": 7.20949129E-06,
-        "scaleX": 0.418819338,
-        "scaleY": 1.00381064,
-        "scaleZ": 0.4176524
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 0.7867647,
-        "g": 0.7867647,
-        "b": 0.7867647
-      },
-      "Locked": true,
-      "Grid": true,
-      "Snap": false,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "CustomImage": {
-        "ImageURL": "http://cloud-3.steamusercontent.com/ugc/1035211763833202970/8A4FDFD13D2770738B0CE4822D00CD09F91903E0/",
-        "ImageSecondaryURL": "",
-        "ImageScalar": 1.0,
-        "WidthScale": 1.52623212
-      },
-      "LuaScript": "",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "d8b4ea",
-      "AttachedVectorLines": [
-        {
-          "points3": [
-            {
-              "x": -6.723476,
-              "y": 0.59,
-              "z": 6.632
-            },
-            {
-              "x": -6.723476,
-              "y": 0.59,
-              "z": -6.76464
-            },
-            {
-              "x": 6.632,
-              "y": 0.59,
-              "z": -6.76464
-            }
-          ],
-          "color": {
-            "r": 1.0,
-            "g": 1.0,
-            "b": 1.0
-          },
-          "thickness": 0.25
-        }
-      ]
     },
     {
       "Name": "Custom_Board",
