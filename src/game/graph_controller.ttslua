@@ -3,9 +3,11 @@ local set = require("shark/util/set")
 local GraphController = {
     padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },
     scale = Vector(8.29, 0.59, 8.29),
-    curve_displacement = 0.05,
+    curve_displacement = 0.075,
     min_visible_turns = 15,
-    default_visible_turns = 15,
+    default_visible_turns = 30,
+    visible_turns_zoomed_in = 30,
+    zoom_toggle_button_index = 0,
     scroll_factor = 1 / 3,
     scale_factor = 2,
 }
@@ -38,67 +40,22 @@ function GraphController.init(objects, game)
 
     setmetatable(instance, GraphController)
 
-    instance:clear()
-
     for _, object in ipairs(objects) do
         instance.objects_data[object.guid] = {
             turn_offset = 0,
             visible_turns = instance.default_visible_turns,
+            zoom_state = 'zoomed_in',
         }
 
         object.createButton({
-            label = '<',
-            click_function = 'GraphController_onScrollLeftClick',
-            position = { 4, 0.25, -11.5 },
+            label = "Zoom\nOut",
+            click_function = 'GraphController_onZoomToggleClick',
+            position = { -11.5, 0.25, 7 },
             scale = { 2, 2, 2 },
             rotation = { 0, 180, 0 },
             width = 800,
             height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
-            label = '>',
-            click_function = 'GraphController_onScrollRightClick',
-            position = { 0, 0.25, -11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
-            label = '>|',
-            click_function = 'GraphController_onScrollEndClick',
-            position = { -4, 0.25, -11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
-            label = '+',
-            click_function = 'GraphController_onZoomInClick',
-            position = { 2, 0.25, 11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
-        })
-
-        object.createButton({
-            label = '-',
-            click_function = 'GraphController_onZoomOutClick',
-            position = { -2, 0.25, 11.5 },
-            scale = { 2, 2, 2 },
-            rotation = { 0, 180, 0 },
-            width = 800,
-            height = 800,
-            font_size = 500,
+            font_size = 250,
         })
 
         object.createButton({
@@ -109,9 +66,13 @@ function GraphController.init(objects, game)
             rotation = { 0, 180, 0 },
             width = 800,
             height = 800,
-            font_size = 200,
+            font_size = 250,
+            font_color = { 1, 1, 1 },
+            color = { 0.8, 0.2, 0.2, },
         })
     end
+
+    instance:clear()
 
     -- -- DEBUG
     -- for i = 1, 69 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)
@@ -162,6 +123,31 @@ function GraphController_onScrollEndClick(object, player_color, alt_click)
     end
 end
 
+function GraphController_onZoomToggleClick(object, player_color, alt_click)
+    local graph = GraphController.instance
+    local zoom_state = graph.objects_data[object.guid].zoom_state
+
+    if zoom_state == 'zoomed_in' then
+        if graph:zoomOut(object.guid) then
+            graph:render(object)
+        end
+
+        object.editButton({
+            index = GraphController.zoom_toggle_button_index,
+            label = 'Zoom\nIn',
+        })
+    elseif zoom_state == 'zoomed_out' then
+        if graph:zoomIn(object.guid) then
+            graph:render(object)
+        end
+
+        object.editButton({
+            index = GraphController.zoom_toggle_button_index,
+            label = 'Zoom\nOut',
+        })
+    end
+end
+
 function GraphController_onZoomOutClick(object, player_color, alt_click)
     local graph = GraphController.instance
 
@@ -179,8 +165,11 @@ function GraphController_onZoomInClick(object, player_color, alt_click)
 end
 
 function GraphController_onClearClick(object, player_color, alt_click)
-    GraphController.instance:clear()
-    GraphController.instance:renderAll()
+    local graph = GraphController.instance
+
+    graph:clear()
+    graph:renderAll()
+    graph.game.state_machine.state = 'initial'
 end
 
 -- methods
@@ -222,31 +211,25 @@ function GraphController:isRightmost(object_guid)
     return turn_offset >= rightmost
 end
 
+function GraphController:getZoomState(object_guid)
+    return self.objects_data[object_guid].zoom_state
+end
+
 function GraphController:clear()
     for _, company in ipairs(self.game.companies) do
         self.data[company] = { 0 }
     end
+
+    self:updateZoom()
 end
 
 function GraphController:push(data)
-    local rightmost = set.new{}
-
-    -- memorize rightmost objects
-    for object_guid, object_data in pairs(self.objects_data) do
-        if self:isRightmost(object_guid) then
-            set.add(rightmost, object_guid)
-        end
-    end
-
     -- insert data
     for company, share_price in pairs(data) do
         table.insert(self.data[company], share_price)
     end
 
-    -- scroll objects to the right that were rightmost previously
-    for object_guid in set.each(rightmost) do
-        self:scrollBy(object_guid, 1)
-    end
+    self:updateZoom()
 end
 
 function GraphController:updateLast(data)
@@ -288,10 +271,53 @@ function GraphController:scrollTo(object_guid, turn_offset)
     return false
 end
 
+function GraphController:scrollToStart(object_guid)
+    return self:scrollTo(object_guid, self:getLeftmostTurn(object_guid))
+end
+
+function GraphController:scrollToEnd(object_guid)
+    return self:scrollTo(object_guid, self:getRightmostTurn(object_guid))
+end
+
 function GraphController:scrollBy(object_guid, delta)
     local turn_offset = self:getTurnOffset(object_guid) + delta
 
     return self:scrollTo(object_guid, turn_offset)
+end
+
+function GraphController:zoomOut(object_guid)
+    local object_data = self.objects_data[object_guid]
+    local turns = self:getTurns()
+    local old_visible_turns = object_data.visible_turns
+
+    object_data.zoom_state = 'zoomed_out'
+    object_data.visible_turns = math.max(self.visible_turns_zoomed_in, turns)
+
+    return self:scrollToStart(object_guid)
+        or old_visible_turns ~= object_data.visible_turns
+end
+
+function GraphController:zoomIn(object_guid)
+    local object_data = self.objects_data[object_guid]
+    local old_visible_turns = object_data.visible_turns
+
+    object_data.zoom_state = 'zoomed_in'
+    object_data.visible_turns = self.visible_turns_zoomed_in
+
+    return self:scrollToEnd(object_guid)
+        or old_visible_turns ~= object_data.visible_turns
+end
+
+function GraphController:updateZoom()
+    for object_guid, object_data in pairs(self.objects_data) do
+        local zoom_state = object_data.zoom_state
+
+        if zoom_state == 'zoomed_in' then
+            self:zoomIn(object_guid)
+        elseif zoom_state == 'zoomed_out' then
+            self:zoomOut(object_guid)
+        end
+    end
 end
 
 -- Returns whether the view has actually been changed.
@@ -361,10 +387,11 @@ function GraphController:render(object)
     -- axes
     table.insert(vector_lines, {
         points = self:projectDataPoints({
-            { 0, self.game.share_price.max },
-            { 0, 0 },
-            { 0 + visible_turns - 1, 0 }
-        }, object.guid)
+            { -0.2, self.game.share_price.max + 0 },
+            { -0.2, -0.15 },
+            { visible_turns - 1, -0.15 }
+        }, object.guid),
+        thickness = 0.25
     })
 
     -- company share price curves
@@ -380,6 +407,7 @@ function GraphController:render(object)
         table.insert(vector_lines, 1, {
             points = self:projectDataPoints(points, object.guid),
             color = self.game.company_colors[company],
+            thickness = 0.15,
         })
     end
 

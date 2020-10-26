@@ -286,6 +286,7 @@ function onLoad(saved_state_json)
 
     if saved_state and saved_state.graph_data then
         GraphController.instance.data = saved_state.graph_data
+        GraphController.instance:updateZoom()
     end
 
     GraphController.instance:renderAll()
