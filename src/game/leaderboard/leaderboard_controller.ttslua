@@ -62,6 +62,13 @@ function LeaderboardController:updateData(data_changes)
     end
 end
 
+function LeaderboardController:updateAll()
+    for _, player_color in pairs(self.player_colors) do
+        self:updatePlayerShareValue(player_color)
+        self:updatePlayerMoney(player_color)
+    end
+end
+
 function LeaderboardController:updateAllPlayerShares()
     for _, player_color in pairs(self.player_colors) do
         self:updatePlayerShareValue(player_color)

@@ -315,7 +315,21 @@ function onLoad(saved_state_json)
 
     -- update UI in next frame
     Wait.frames(function ()
+        for _, hand_zone in pairs(OBJECTS.hand_zones) do
+            getModel(hand_zone):count()
+        end
+
+        for _, player_share_card_zone in pairs(OBJECTS.player_share_card_zones) do
+            getModel(player_share_card_zone):count()
+        end
+
+        for _, drop_zone in pairs(OBJECTS.drop_zones) do
+            getModel(drop_zone):countMoneyAndShares()
+        end
+
+        LeaderboardController.instance:updateAll()
         LeaderboardController.instance:render()
+
         AssetCountersController.instance:updateAll()
     end, 1)
 end
