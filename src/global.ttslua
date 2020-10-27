@@ -20,8 +20,6 @@ local AssetCountersController = require("shark/game/asset_counters/asset_counter
 local ControlBarController = require("shark/game/control_bar/control_bar_controller")
 local GraphController = require("shark/game/graph_controller")
 
-local SAVED_STATE_VERSION = 1
-
 local SEAT_COLORS = {
     'White',
     'Red',
@@ -369,7 +367,6 @@ end
 
 function onSave()
     local state = {
-        version = SAVED_STATE_VERSION,
         state_machine_state = GAME.state_machine.state,
         graph_data = GraphController.instance.data,
     }
