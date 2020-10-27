@@ -512,6 +512,11 @@ function onObjectLeaveScriptingZone(zone, leave_object)
 end
 
 function onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)
+    -- guard against weird situation where no object is given ¯\_(ツ)_/¯
+    if not enter_object and not leave_object then
+        return
+    end
+
     local zone_kind = zone.getVar('kind')
     local object_kind = getKind(enter_object or leave_object)
 
