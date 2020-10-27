@@ -391,12 +391,12 @@ function GraphController:render(object)
 
     -- axes
     table.insert(vector_lines, {
-        points = self:projectDataPoints({
-            { -0.2, self.game.share_price.max + 0 },
-            { -0.2, -0.15 },
-            { visible_turns - 1, -0.15 }
-        }, object.guid),
-        thickness = 0.25
+        points = {
+            self.ref_1 + Vector(-0.15, 0, self.ref_delta.z),
+            self.ref_1 + Vector(-0.15, 0, -0.15),
+            self.ref_1 + Vector(self.ref_delta.x, 0, -0.15),
+        },
+        thickness = 0.25,
     })
 
     -- company share price curves
