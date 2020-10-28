@@ -419,7 +419,7 @@ function onScriptingButtonUp(index, player_color)
     if index == SCRIPTING_BUTTON_BUY_SHARE then
         local object = Player[player_color].getHoverObject()
 
-        handlePlayerTakeShareCard(player_color, object)
+        handlePlayerTakeShareCard(player_color, object, 1)
     elseif index == SCRIPTING_BUTTON_DEBUG then
         -- DEBUG
         local object = Player[player_color].getHoverObject()
@@ -430,8 +430,12 @@ end
 
 function onTakeShareCardHotkey(player_color, object, position, key_up)
     if key_up then
-        handlePlayerTakeShareCard(player_color, object)
+        handlePlayerTakeShareCard(player_color, object, 1)
     end
+end
+
+function onObjectNumberTyped(object, player_color, number)
+    return handlePlayerTakeShareCard(player_color, object, number)
 end
 
 function onObjectDestroy(object)
@@ -658,39 +662,58 @@ end
 
 -- handlers
 
-function handlePlayerTakeShareCard(player_color, object)
-    if not set.contains(SEAT_COLOR_SET, player_color) or not object then
-        return
-    end
+-- Returns true if card was taken
+function handlePlayerTakeShareCard(player_color, object, number)
+    local kind = getKind(object)
 
-    if object.tag == 'Deck' then
-        if object.getQuantity() == 0 then
-            return
-        end
+    if kind == 'shark_share_card' and set.contains(SEAT_COLOR_SET, player_color) then
+        local properties
+        local dealt_count
 
-        local card = wrapBaggedObject(object.getObjects()[1])
-        local kind = card.getVar('kind')
-        local properties = card.getTable('share')
-        local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
+        if object.tag == 'Deck' then
+            local quantity = object.getQuantity()
+            local card = wrapBaggedObject(object.getObjects()[1])
+            properties = card.getTable('share')
+            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
 
-        if deposit then
-            object.takeObject({
-                position = deposit.position,
-                rotation = deposit.rotation,
-            })
+            if number == 1 then
+                object.takeObject({
+                    position = deposit.position,
+                    rotation = deposit.rotation,
+                })
+            elseif quantity <= number then
+                object.setPositionSmooth(deposit.position, false, false)
+                object.setRotationSmooth(deposit.rotation, false, false)
+            elseif quantity == number + 1 then
+                object.takeObject({
+                    position = object.getPosition() + Vector(0, 2, 0),
+                    top = false
+                })
 
-            AssetCountersController.instance:increaseBoughtShares(player_color, properties.stock_options)
-        end
-    elseif object.tag == 'Card' then
-        local kind = object.getVar('kind')
-        local properties = object.getTable('share')
-        local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
+                object.setPositionSmooth(deposit.position, false, false)
+                object.setRotationSmooth(deposit.rotation, false, false)
+            else -- quantity >= number + 2
+                local upper_deck = object.cut(number)[2]
 
-        if deposit then
+                upper_deck.setPositionSmooth(deposit.position, false, false)
+                upper_deck.setRotationSmooth(deposit.rotation, false, false)
+            end
+
+            dealt_count = math.min(quantity, number)
+        elseif object.tag == 'Card' then
+            properties = object.getTable('share')
+            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
+
             object.setPositionSmooth(deposit.position, false, false)
             object.setRotationSmooth(deposit.rotation, false, false)
 
-            AssetCountersController.instance:increaseBoughtShares(player_color, properties.stock_options)
+            dealt_count = 1
+        else
+            return -- should not happen
         end
+
+        AssetCountersController.instance:increaseBoughtShares(player_color, dealt_count * properties.stock_options)
+
+        return true
     end
 end
