@@ -84,7 +84,7 @@ end
 function AssetCountersController:updatePlayerMoney(player_color)
     local money_amount = self.game:getPlayerMoney(player_color)
     local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'
-    local formatted_string = 'Cash: FT ' .. util.separate_thousands(money_amount * 1000)
+    local formatted_string = util.separate_thousands(money_amount * 1000)
 
     UI.setValue(element_id, formatted_string)
 end
@@ -92,7 +92,7 @@ end
 function AssetCountersController:updatePlayerShareValue(player_color)
     local share_value = self.game:getPlayerShareValue(player_color)
     local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'
-    local formatted_string = 'Shares: FT ' .. util.separate_thousands(share_value * 1000)
+    local formatted_string = util.separate_thousands(share_value * 1000)
 
     UI.setValue(element_id, formatted_string)
 end
