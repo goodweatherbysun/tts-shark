@@ -1,7 +1,7 @@
 {
   "SaveName": "Shark v5",
   "GameMode": "Shark",
-  "Date": "10/29/2020 10:50:53 PM",
+  "Date": "10/30/2020 8:15:31 PM",
   "Gravity": 0.5,
   "PlayArea": 0.5,
   "GameType": "",
@@ -75,9 +75,9 @@
           "rotX": 0.0,
           "rotY": 179.8,
           "rotZ": 0.0,
-          "scaleX": 15.3531914,
+          "scaleX": 15.3539286,
           "scaleY": 11.8970528,
-          "scaleZ": 6.36278152
+          "scaleZ": 6.36306572
         }
       },
       {
@@ -131,9 +131,9 @@
           "rotX": 0.0,
           "rotY": 179.800049,
           "rotZ": 0.0,
-          "scaleX": 15.3532085,
+          "scaleX": 15.3539457,
           "scaleY": 11.8970528,
-          "scaleZ": 6.362422
+          "scaleZ": 6.36270666
         }
       },
       {
@@ -244,9 +244,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993535,
+        "r": 0.191993475,
         "g": 0.701,
-        "b": 0.167993516
+        "b": 0.167993456
       },
       "Locked": true,
       "Grid": true,
@@ -265,6 +265,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "559d33"
     },
     {
@@ -285,8 +286,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999288,
-        "b": 0.09399285
+        "g": 0.09999282,
+        "b": 0.09399279
       },
       "Locked": true,
       "Grid": true,
@@ -305,6 +306,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "d8c62b"
     },
     {
@@ -324,7 +326,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.1179932,
+        "r": 0.117993124,
         "g": 0.53,
         "b": 1.0
       },
@@ -345,6 +347,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "b64a3a"
     },
     {
@@ -366,7 +369,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993524
+        "b": 0.171993464
       },
       "Locked": true,
       "Grid": true,
@@ -385,6 +388,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "ad2218"
     },
     {
@@ -586,11 +590,11 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.3849945,
-        "posY": 0.7747359,
+        "posY": 0.7747377,
         "posZ": 2.1279583,
-        "rotX": 3.07817618E-06,
-        "rotY": 75.00002,
-        "rotZ": -3.93391638E-05,
+        "rotX": 2.22308836E-06,
+        "rotY": 74.99999,
+        "rotZ": -4.08024061E-05,
         "scaleX": 1.0,
         "scaleY": 1.0,
         "scaleZ": 1.0
@@ -599,7 +603,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993258,
+        "r": 0.1179932,
         "g": 0.53,
         "b": 1.0
       },
@@ -2752,7 +2756,7 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.3540916,
-        "posY": 0.774350762,
+        "posY": 0.774342656,
         "posZ": -1.561869,
         "rotX": -3.917719E-05,
         "rotY": 345.000122,
@@ -2767,7 +2771,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993583
+        "b": 0.171993524
       },
       "Locked": true,
       "Grid": true,
@@ -4918,7 +4922,7 @@
       "Name": "Bag",
       "Transform": {
         "posX": -19.5779514,
-        "posY": 0.774855137,
+        "posY": 0.7748542,
         "posZ": 5.85375261,
         "rotX": -3.51356648E-05,
         "rotY": 165.000031,
@@ -4932,8 +4936,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999352,
-        "b": 0.09399349
+        "g": 0.099993445,
+        "b": 0.09399343
       },
       "Locked": true,
       "Grid": true,
@@ -7097,9 +7101,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.1919936,
+        "r": 0.191993535,
         "g": 0.701,
-        "b": 0.167993575
+        "b": 0.167993516
       },
       "Locked": true,
       "Grid": true,
@@ -9252,7 +9256,7 @@
         "posX": 20.8791,
         "posY": 1.31000018,
         "posZ": -8.83146,
-        "rotX": 1.30514661E-06,
+        "rotX": -2.04665056E-07,
         "rotY": 150.439,
         "rotZ": 180.0,
         "scaleX": 1.0,
@@ -10766,111 +10770,14 @@
       ]
     },
     {
-      "Name": "Custom_Dice",
-      "Transform": {
-        "posX": 19.63514,
-        "posY": 1.29020011,
-        "posZ": -9.968305,
-        "rotX": 8.53773656E-07,
-        "rotY": 162.757065,
-        "rotZ": 90.00001,
-        "scaleX": 1.0,
-        "scaleY": 1.0,
-        "scaleZ": 1.0
-      },
-      "Nickname": "",
-      "Description": "",
-      "GMNotes": "",
-      "ColorDiffuse": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0
-      },
-      "Locked": false,
-      "Grid": true,
-      "Snap": true,
-      "IgnoreFoW": false,
-      "MeasureMovement": false,
-      "DragSelectable": true,
-      "Autoraise": true,
-      "Sticky": true,
-      "Tooltip": true,
-      "GridProjection": false,
-      "HideWhenFaceDown": false,
-      "Hands": false,
-      "CustomImage": {
-        "ImageURL": "http://cloud-3.steamusercontent.com/ugc/1001431655185864033/FC67665683A1A7DE18D117EDD6A839884430E992/",
-        "ImageSecondaryURL": "",
-        "ImageScalar": 1.0,
-        "WidthScale": 0.0,
-        "CustomDice": {
-          "Type": 1
-        }
-      },
-      "LuaScript": "",
-      "LuaScriptState": "",
-      "XmlUI": "",
-      "GUID": "336ec9",
-      "RotationValues": [
-        {
-          "Value": 1,
-          "Rotation": {
-            "x": -90.0,
-            "y": 0.0,
-            "z": 0.0
-          }
-        },
-        {
-          "Value": 2,
-          "Rotation": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 0.0
-          }
-        },
-        {
-          "Value": 3,
-          "Rotation": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": -90.0
-          }
-        },
-        {
-          "Value": 4,
-          "Rotation": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 90.0
-          }
-        },
-        {
-          "Value": 5,
-          "Rotation": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": -180.0
-          }
-        },
-        {
-          "Value": 6,
-          "Rotation": {
-            "x": 90.0,
-            "y": 0.0,
-            "z": 0.0
-          }
-        }
-      ]
-    },
-    {
       "Name": "Custom_PDF",
       "Transform": {
         "posX": -49.183403,
-        "posY": 0.9652237,
+        "posY": 0.965223849,
         "posZ": 9.61712551,
-        "rotX": -1.99113082E-09,
+        "rotX": -1.25332988E-07,
         "rotY": 179.84935,
-        "rotZ": 2.80779027E-08,
+        "rotZ": -8.961703E-09,
         "scaleX": 2.99246836,
         "scaleY": 1.0,
         "scaleZ": 2.99246836
@@ -10911,10 +10818,10 @@
       "Transform": {
         "posX": -49.3113976,
         "posY": 0.9652237,
-        "posZ": -3.48589,
-        "rotX": 6.45038423E-09,
+        "posZ": -3.48588943,
+        "rotX": 5.5805307E-09,
         "rotY": 179.973724,
-        "rotZ": 2.34886741E-08,
+        "rotZ": -4.085221E-08,
         "scaleX": 2.99173284,
         "scaleY": 1.0,
         "scaleZ": 2.99173284
@@ -10953,12 +10860,12 @@
     {
       "Name": "BlockSquare",
       "Transform": {
-        "posX": 0.773180246,
+        "posX": 0.773176253,
         "posY": 2.246514,
-        "posZ": 6.89007425,
-        "rotX": 0.0179136675,
-        "rotY": 180.013885,
-        "rotZ": 359.985535,
+        "posZ": 6.89008045,
+        "rotX": 0.0179384518,
+        "rotY": 180.011215,
+        "rotZ": 359.985565,
         "scaleX": 0.1,
         "scaleY": 1.0,
         "scaleZ": 0.1
@@ -11026,6 +10933,7 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "e75804"
     },
     {
@@ -11144,14 +11052,15 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "eae4e9"
     },
     {
       "Name": "3DText",
       "Transform": {
-        "posX": -40.1738129,
-        "posY": 0.9599975,
-        "posZ": 3.576279E-06,
+        "posX": -40.1738,
+        "posY": 0.959997,
+        "posZ": 6.91413925E-06,
         "rotX": 90.0,
         "rotY": 270.0,
         "rotZ": 0.0,
@@ -11196,9 +11105,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": -38.36624,
-        "posY": 0.961106837,
-        "posZ": 1.78813953E-05,
+        "posX": -38.3662262,
+        "posY": 0.9611064,
+        "posZ": 2.169609E-05,
         "rotX": 90.0,
         "rotY": 270.0,
         "rotZ": 0.0,
@@ -11243,9 +11152,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": 43.784996,
-        "posY": 0.9610761,
-        "posZ": 3.33786E-06,
+        "posX": 43.7851372,
+        "posY": 0.9610756,
+        "posZ": 7.152558E-06,
         "rotX": 90.0,
         "rotY": 90.0,
         "rotZ": 0.0,
@@ -11290,9 +11199,9 @@
     {
       "Name": "3DText",
       "Transform": {
-        "posX": 41.9508858,
-        "posY": 0.961107552,
-        "posZ": 1.97887439E-05,
+        "posX": 41.951046,
+        "posY": 0.9611071,
+        "posZ": 2.26497668E-05,
         "rotX": 90.0,
         "rotY": 90.0,
         "rotZ": 0.0,
@@ -11372,6 +11281,7 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "057382"
     },
     {
@@ -11412,6 +11322,7 @@
       },
       "LuaScript": "----#include <shark/game/drop_zone/money_counter>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_money_counter',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/money_counter>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "05926f"
     },
     {
@@ -11449,6 +11360,7 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "228165"
     },
     {
@@ -11486,6 +11398,7 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "67aaf1"
     },
     {
@@ -11523,6 +11436,7 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "20dacd"
     },
     {
@@ -11560,13 +11474,14 @@
       "Hands": false,
       "LuaScript": "----#include <shark/game/drop_zone/return_button_object>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_drop_zone_return_button_object',\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\n    Global.call('registerObject', self)\r\nend\r\n\nend\n----#include <shark/game/drop_zone/return_button_object>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "2ee7b1"
     },
     {
       "Name": "Bag",
       "Transform": {
         "posX": -19.3722782,
-        "posY": 0.774990439,
+        "posY": 0.7749914,
         "posZ": -7.4927206,
         "rotX": 2.61470359E-05,
         "rotY": 44.99987,
@@ -12129,9 +12044,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.1919935,
+        "r": 0.191993445,
         "g": 0.701,
-        "b": 0.167993486
+        "b": 0.167993426
       },
       "Locked": true,
       "Grid": true,
@@ -12150,6 +12065,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "1f8040"
     },
     {
@@ -12170,8 +12086,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999285,
-        "b": 0.09399282
+        "g": 0.09999279,
+        "b": 0.09399278
       },
       "Locked": true,
       "Grid": true,
@@ -12190,6 +12106,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "fb9353"
     },
     {
@@ -12209,7 +12126,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993169,
+        "r": 0.117993094,
         "g": 0.53,
         "b": 1.0
       },
@@ -12230,6 +12147,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "c1770b"
     },
     {
@@ -12251,7 +12169,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.1719935
+        "b": 0.171993434
       },
       "Locked": true,
       "Grid": true,
@@ -12270,6 +12188,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "459a2c"
     },
     {
@@ -12289,9 +12208,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993475,
+        "r": 0.191993415,
         "g": 0.701,
-        "b": 0.167993456
+        "b": 0.1679934
       },
       "Locked": true,
       "Grid": true,
@@ -12310,6 +12229,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "a5dbc1"
     },
     {
@@ -12331,7 +12251,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993464
+        "b": 0.1719934
       },
       "Locked": true,
       "Grid": true,
@@ -12350,6 +12270,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "47fd33"
     },
     {
@@ -12369,7 +12290,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993124,
+        "r": 0.117993064,
         "g": 0.53,
         "b": 1.0
       },
@@ -12390,6 +12311,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "71a860"
     },
     {
@@ -12410,8 +12332,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999282,
-        "b": 0.09399279
+        "g": 0.09999276,
+        "b": 0.09399275
       },
       "Locked": true,
       "Grid": true,
@@ -12430,6 +12352,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "a25fe5"
     },
     {
@@ -12449,9 +12372,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.1919935,
+        "r": 0.191993445,
         "g": 0.701,
-        "b": 0.167993486
+        "b": 0.167993426
       },
       "Locked": true,
       "Grid": true,
@@ -12470,6 +12393,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "a96046"
     },
     {
@@ -12490,8 +12414,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999285,
-        "b": 0.09399282
+        "g": 0.09999279,
+        "b": 0.09399278
       },
       "Locked": true,
       "Grid": true,
@@ -12510,6 +12434,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "bd8eaf"
     },
     {
@@ -12529,7 +12454,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993169,
+        "r": 0.117993094,
         "g": 0.53,
         "b": 1.0
       },
@@ -12550,6 +12475,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "6e9b7a"
     },
     {
@@ -12571,7 +12497,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.1719935
+        "b": 0.171993434
       },
       "Locked": true,
       "Grid": true,
@@ -12590,6 +12516,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "aebd0f"
     },
     {
@@ -12609,9 +12536,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993475,
+        "r": 0.191993415,
         "g": 0.701,
-        "b": 0.167993456
+        "b": 0.1679934
       },
       "Locked": true,
       "Grid": true,
@@ -12630,6 +12557,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "4fb894"
     },
     {
@@ -12650,8 +12578,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999282,
-        "b": 0.09399279
+        "g": 0.09999276,
+        "b": 0.09399275
       },
       "Locked": true,
       "Grid": true,
@@ -12670,6 +12598,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "0c8f6c"
     },
     {
@@ -12689,7 +12618,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993124,
+        "r": 0.117993064,
         "g": 0.53,
         "b": 1.0
       },
@@ -12710,6 +12639,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "8c8f8a"
     },
     {
@@ -12731,7 +12661,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993464
+        "b": 0.1719934
       },
       "Locked": true,
       "Grid": true,
@@ -12750,6 +12680,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "f4a616"
     },
     {
@@ -12769,9 +12700,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.191993475,
+        "r": 0.191993415,
         "g": 0.701,
-        "b": 0.167993456
+        "b": 0.1679934
       },
       "Locked": true,
       "Grid": true,
@@ -12790,6 +12721,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/green>\ndo\n-- Green 5 Share Card\r\n\r\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'green',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/green>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "ef3306"
     },
     {
@@ -12810,8 +12742,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999282,
-        "b": 0.09399279
+        "g": 0.09999276,
+        "b": 0.09399275
       },
       "Locked": true,
       "Grid": true,
@@ -12830,6 +12762,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/red>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'red',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/red>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "8b236d"
     },
     {
@@ -12849,7 +12782,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.117993124,
+        "r": 0.117993064,
         "g": 0.53,
         "b": 1.0
       },
@@ -12870,6 +12803,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/blue>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'blue',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/blue>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "5c3330"
     },
     {
@@ -12891,7 +12825,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171993464
+        "b": 0.1719934
       },
       "Locked": true,
       "Grid": true,
@@ -12910,6 +12844,7 @@
       },
       "LuaScript": "----#include <shark/game/player_share_card_zone/share_counters/yellow>\ndo\nDEFAULT_STATE = {\r\n    vars = {\r\n        kind = 'shark_share_counter',\r\n    },\r\n    tables = {\r\n        share_counter = {\r\n            company = 'yellow',\r\n        },\r\n    },\r\n}\r\n\r\nfunction onLoad(save_state)\r\n    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })\r\nend\r\n\nend\n----#include <shark/game/player_share_card_zone/share_counters/yellow>",
       "LuaScriptState": "",
+      "XmlUI": "",
       "GUID": "c0a132"
     },
     {
@@ -12918,9 +12853,9 @@
         "posX": -13.0999527,
         "posY": 1.83963525,
         "posZ": -7.427027,
-        "rotX": -8.020896E-06,
+        "rotX": -8.026376E-06,
         "rotY": 179.973236,
-        "rotZ": 6.923585E-07,
+        "rotZ": 7.88592E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -13752,9 +13687,9 @@
         "posX": -5.88573265,
         "posY": 1.83963513,
         "posZ": -7.41971445,
-        "rotX": -1.05714489E-05,
+        "rotX": -1.60698419E-05,
         "rotY": 179.99765,
-        "rotZ": 2.782673E-07,
+        "rotZ": 2.46183333E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -14586,9 +14521,9 @@
         "posX": 13.0991554,
         "posY": 1.79149449,
         "posZ": -7.3819747,
-        "rotX": -7.714104E-06,
+        "rotX": -7.699402E-06,
         "rotY": 180.029465,
-        "rotZ": 9.41871747E-07,
+        "rotZ": 1.00503587E-06,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -14900,9 +14835,9 @@
         "posX": 13.12837,
         "posY": 1.79149115,
         "posZ": 2.485506,
-        "rotX": -1.28882211E-05,
+        "rotX": -1.56357455E-05,
         "rotY": 180.000092,
-        "rotZ": 7.430864E-07,
+        "rotZ": 5.85676332E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -15214,9 +15149,9 @@
         "posX": 13.1220541,
         "posY": 1.79148924,
         "posZ": 7.44023,
-        "rotX": -2.27737346E-05,
+        "rotX": -2.28704757E-05,
         "rotY": 179.9657,
-        "rotZ": 1.0733113E-06,
+        "rotZ": 6.617886E-08,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -15528,9 +15463,9 @@
         "posX": -9.503929,
         "posY": 1.83963525,
         "posZ": -7.429986,
-        "rotX": -9.647391E-06,
+        "rotX": -1.04309311E-05,
         "rotY": 179.998459,
-        "rotZ": 6.564356E-07,
+        "rotZ": 6.592856E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -16362,9 +16297,9 @@
         "posX": 13.1043,
         "posY": 1.79149282,
         "posZ": -2.438439,
-        "rotX": -9.402277E-06,
+        "rotX": -9.429137E-06,
         "rotY": 180.024582,
-        "rotZ": 1.2875816E-07,
+        "rotZ": 2.350217E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -16676,9 +16611,9 @@
         "posX": -2.30286932,
         "posY": 1.83963513,
         "posZ": -7.40706825,
-        "rotX": -1.17053278E-05,
+        "rotX": -1.09952425E-05,
         "rotY": 179.998138,
-        "rotZ": 2.81945E-07,
+        "rotZ": 7.93605238E-07,
         "scaleX": 1.40263629,
         "scaleY": 1.0,
         "scaleZ": 1.37437212
@@ -17509,10 +17444,10 @@
       "Transform": {
         "posX": 20.3644543,
         "posY": 1.12849164,
-        "posZ": -1.91913211,
-        "rotX": 1.83381729E-07,
+        "posZ": -1.919132,
+        "rotX": 4.732523E-08,
         "rotY": 270.0006,
-        "rotZ": 4.92364E-06,
+        "rotZ": 4.71828434E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -18864,9 +18799,9 @@
         "posX": 20.37382,
         "posY": 1.1525619,
         "posZ": 5.822513,
-        "rotX": -8.426363E-08,
+        "rotX": -5.16473229E-08,
         "rotY": 270.000763,
-        "rotZ": 4.66596475E-06,
+        "rotZ": 5.20438061E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -20478,9 +20413,9 @@
         "posX": 20.3551083,
         "posY": 1.12849164,
         "posZ": -5.79462576,
-        "rotX": -1.39885785E-07,
+        "rotX": -1.74531749E-07,
         "rotY": 270.0021,
-        "rotZ": 5.17934268E-06,
+        "rotZ": 5.123931E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -21831,10 +21766,10 @@
       "Transform": {
         "posX": 20.3738155,
         "posY": 1.12849164,
-        "posZ": 1.94700754,
-        "rotX": 8.796875E-08,
+        "posZ": 1.94700742,
+        "rotX": 1.03673059E-07,
         "rotY": 270.000031,
-        "rotZ": 5.111823E-06,
+        "rotZ": 4.96232042E-06,
         "scaleX": 1.58859241,
         "scaleY": 1.0,
         "scaleZ": 1.58859241
@@ -23257,9 +23192,9 @@
         "posX": 7.380114,
         "posY": 2.09931636,
         "posZ": -5.57471657,
-        "rotX": 1.67837388E-05,
-        "rotY": -0.0009942754,
-        "rotZ": -3.101242E-06,
+        "rotX": 1.53439978E-05,
+        "rotY": -0.0009944427,
+        "rotZ": -1.9495441E-07,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23270,7 +23205,7 @@
       "ColorDiffuse": {
         "r": 0.905,
         "g": 0.898,
-        "b": 0.171999007
+        "b": 0.171998888
       },
       "Locked": false,
       "Grid": true,
@@ -23315,9 +23250,9 @@
         "posX": 6.178725,
         "posY": 2.0993166,
         "posZ": -5.546938,
-        "rotX": 1.6045853E-05,
+        "rotX": 1.61422E-05,
         "rotY": 359.987274,
-        "rotZ": 1.17760067E-06,
+        "rotZ": -3.4088373E-06,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23326,7 +23261,7 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.11799904,
+        "r": 0.11799892,
         "g": 0.53,
         "b": 1.0
       },
@@ -23373,9 +23308,9 @@
         "posX": 4.984279,
         "posY": 2.0993166,
         "posZ": -5.526104,
-        "rotX": 2.263146E-05,
+        "rotX": 1.73051467E-05,
         "rotY": 359.982635,
-        "rotZ": -1.82066879E-06,
+        "rotZ": -1.53000178E-06,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23385,8 +23320,8 @@
       "GMNotes": "",
       "ColorDiffuse": {
         "r": 0.856,
-        "g": 0.09999905,
-        "b": 0.09399905
+        "g": 0.09999894,
+        "b": 0.09399892
       },
       "Locked": false,
       "Grid": true,
@@ -23431,9 +23366,9 @@
         "posX": 3.78289127,
         "posY": 2.0993166,
         "posZ": -5.51221657,
-        "rotX": 1.85918361E-05,
-        "rotY": 0.00481129158,
-        "rotZ": 1.20937671E-06,
+        "rotX": 1.655703E-05,
+        "rotY": 0.00481146574,
+        "rotZ": 1.14476711E-06,
         "scaleX": 0.450000465,
         "scaleY": 0.450000465,
         "scaleZ": 0.450000465
@@ -23442,9 +23377,9 @@
       "Description": "",
       "GMNotes": "",
       "ColorDiffuse": {
-        "r": 0.19199872,
+        "r": 0.1919986,
         "g": 0.701,
-        "b": 0.1679987
+        "b": 0.167998582
       },
       "Locked": false,
       "Grid": true,
@@ -23482,6 +23417,103 @@
       "LuaScriptState": "",
       "XmlUI": "",
       "GUID": "8a020b"
+    },
+    {
+      "Name": "Custom_Dice",
+      "Transform": {
+        "posX": 19.7811813,
+        "posY": 1.29019976,
+        "posZ": -9.869898,
+        "rotX": -6.83018925E-06,
+        "rotY": 249.843262,
+        "rotZ": 89.99999,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "http://cloud-3.steamusercontent.com/ugc/1673610911187498421/42A2143EAEEFF0AC5A8697B4BF3302B1919A0BE1/",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomDice": {
+          "Type": 1
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "GUID": "336ec9",
+      "RotationValues": [
+        {
+          "Value": 1,
+          "Rotation": {
+            "x": -90.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        {
+          "Value": 2,
+          "Rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        {
+          "Value": 3,
+          "Rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -90.0
+          }
+        },
+        {
+          "Value": 4,
+          "Rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 90.0
+          }
+        },
+        {
+          "Value": 5,
+          "Rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -180.0
+          }
+        },
+        {
+          "Value": 6,
+          "Rotation": {
+            "x": 90.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      ]
     }
   ],
   "LuaScript": "-- Bundled by luabundle {\"version\":\"1.6.0\"}\nlocal __bundle_require, __bundle_loaded, __bundle_register, __bundle_modules = (function(superRequire)\n\tlocal loadingPlaceholder = {[{}] = true}\n\n\tlocal register\n\tlocal modules = {}\n\n\tlocal require\n\tlocal loaded = {}\n\n\tregister = function(name, body)\n\t\tif not modules[name] then\n\t\t\tmodules[name] = body\n\t\tend\n\tend\n\n\trequire = function(name)\n\t\tlocal loadedModule = loaded[name]\n\n\t\tif loadedModule then\n\t\t\tif loadedModule == loadingPlaceholder then\n\t\t\t\treturn nil\n\t\t\tend\n\t\telse\n\t\t\tif not modules[name] then\n\t\t\t\tif not superRequire then\n\t\t\t\t\tlocal identifier = type(name) == 'string' and '\\\"' .. name .. '\\\"' or tostring(name)\n\t\t\t\t\terror('Tried to require ' .. identifier .. ', but no such module has been registered')\n\t\t\t\telse\n\t\t\t\t\treturn superRequire(name)\n\t\t\t\tend\n\t\t\tend\n\n\t\t\tloaded[name] = loadingPlaceholder\n\t\t\tloadedModule = modules[name](require, loaded, register, modules)\n\t\t\tloaded[name] = loadedModule\n\t\tend\n\n\t\treturn loadedModule\n\tend\n\n\treturn require, loaded, register, modules\nend)(nil)\n__bundle_register(\"__root\", function(require, _LOADED, __bundle_register, __bundle_modules)\n----#include <shark/global>\ndo\nlocal set = require(\"shark/util/set\")\r\nlocal util = require(\"shark/util/util\")\r\n\r\nlocal wrapBaggedObject = require(\"shark/tts/wrap_bagged_object\")\r\nlocal UiDom = require(\"shark/tts/ui_dom\")\r\n\r\n-- DEBUG\r\nlocal debug = require(\"shark/util/debug\")\r\n\r\nlocal Game = require(\"shark/game\")\r\n\r\nlocal DropZoneModel = require(\"shark/game/drop_zone/drop_zone_model\")\r\nlocal DropZoneReturnButtonModel = require(\"shark/game/drop_zone/return_button_model\")\r\nlocal MoneyCounterModel = require(\"shark/game/drop_zone/money_counter_model\")\r\nlocal PlayerShareCardZoneModel = require(\"shark/game/player_share_card_zone/player_share_card_zone_model\")\r\nlocal HandZoneModel = require(\"shark/game/hand_zone_model\")\r\n\r\nlocal LeaderboardController = require(\"shark/game/leaderboard/leaderboard_controller\")\r\nlocal AssetCountersController = require(\"shark/game/asset_counters/asset_counters_controller\")\r\nlocal ControlBarController = require(\"shark/game/control_bar/control_bar_controller\")\r\nlocal GraphController = require(\"shark/game/graph_controller\")\r\n\r\nlocal SEAT_COLORS = {\r\n    'White',\r\n    'Red',\r\n    'Yellow',\r\n    'Green',\r\n    'Blue',\r\n    'Purple',\r\n}\r\n\r\nlocal SEAT_COLOR_SET = set.new(SEAT_COLORS)\r\n\r\nlocal SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG\r\n\r\nlocal GUIDS = {\r\n    board = '12bb20',\r\n\r\n    numbered_die = '5248eb',\r\n\r\n    money_deposit_markers = {\r\n        [1] = 'cb10ca',\r\n        [5] = 'c6fff2',\r\n        [10] = '6396b9',\r\n        [50] = 'd9c185',\r\n    },\r\n\r\n    building_bags = {\r\n        green = '062411',\r\n        red = '16b065',\r\n        blue = 'bd55ee',\r\n        yellow = 'c47da9',\r\n    },\r\n\r\n    discarded_building_bag = '47b9a5',\r\n\r\n    indicators = {\r\n        green = '8a020b',\r\n        red = '1e0110',\r\n        blue = '455b41',\r\n        yellow = '19e5ef',\r\n    },\r\n\r\n    drop_zones = {\r\n        '558917',\r\n        '2dc3c1',\r\n    },\r\n\r\n    player_share_card_zones = {\r\n        White = '64d891',\r\n        Red = '9dae36',\r\n        Yellow = '0356a0',\r\n        Green = 'a1d77d',\r\n        Blue = '51fa09',\r\n        Purple = '9d30f7',\r\n    },\r\n\r\n    -- These are actually scripting zones on top of the real hand zones.\r\n    hand_zones = {\r\n        White = '6ce9b9',\r\n        Red = '980351',\r\n        Yellow = '008eed',\r\n        Green = 'f2c6f5',\r\n        Blue = '677e18',\r\n        Purple = '4053a7',\r\n    },\r\n\r\n    graph_boards = {\r\n        'a86554',\r\n        'fe56ea',\r\n    },\r\n}\r\n\r\nlocal MIN_DICE_ROLL_VELOCITY_SQUARED = 64 -- 8^2\r\n\r\n-- z values are relative to the board. Translating, scaling, or rotating the\r\n-- board has no effect on these values.\r\nlocal SHARE_PRICE_TRANSFORM = {\r\n    value_1 = 1,\r\n    value_2 = 15,\r\n    z_1 = 3.6954,\r\n    z_2 = -7.0907,\r\n}\r\nSHARE_PRICE_TRANSFORM.value_delta = SHARE_PRICE_TRANSFORM.value_2 - SHARE_PRICE_TRANSFORM.value_1\r\nSHARE_PRICE_TRANSFORM.z_delta = SHARE_PRICE_TRANSFORM.z_2 - SHARE_PRICE_TRANSFORM.z_1\r\n\r\nlocal SHARE_PRICE_SCALE_BOUNDS = {\r\n    x1 = -4.2186,\r\n    x2 = -1.9203,\r\n    z1 = -7.3828,\r\n    z2 = 5.4881,\r\n}\r\n\r\nlocal WORLD_MAP_BOUNDS = {\r\n    x1 = 0.2625,\r\n    x2 = 8.1033,\r\n    z1 = -7.9578,\r\n    z2 = 1.7061,\r\n}\r\n\r\n-- relative to board\r\nlocal SHARE_DEPOSIT_POSITIONS = {\r\n    green = {\r\n        [1] = { x = 7.1, y = 2, z = 6.0 },\r\n        [5] = { x = -7.1, y = 2, z = -6.0 },\r\n    },\r\n    red = {\r\n        [1] = { x = 5.1, y = 2, z = 6.0 },\r\n        [5] = { x = -7.1, y = 2, z = -2.0 },\r\n    },\r\n    blue = {\r\n        [1] = { x = 3.2, y = 2, z = 6.0 },\r\n        [5] = { x = -7.1, y = 2, z = 2 },\r\n    },\r\n    yellow = {\r\n        [1] = { x = 1.3, y = 2, z = 6.0 },\r\n        [5] = { x = -7.1, y = 2, z = 6.0 },\r\n    },\r\n}\r\n\r\nlocal PLAYER_SHARE_DEPOSITS = {\r\n    -- obsolute deposit positions of the 5 green share for each player\r\n    absolute_positions = {\r\n        White = { x = -5.6, y = 2, z = -14.6 },\r\n        Red = { x = -29.2, y = 2, z = -14.6 },\r\n        Yellow = { x = -18.0, y = 2, z = 14.6 },\r\n        Green = { x = 5.6, y = 2, z = 14.6 },\r\n        Blue = { x = 29.2, y = 2, z = 14.6 },\r\n        Purple = { x = 18.0, y = 2, z = -14.6 },\r\n    },\r\n\r\n    rotation_y = {\r\n        White = math.pi,\r\n        Red = math.pi,\r\n        Yellow = 0,\r\n        Green = 0,\r\n        Blue = 0,\r\n        Purple = math.pi,\r\n    },\r\n\r\n    relative_positions = {\r\n        green = {\r\n            [1] = { x = 0, y = 0, z = 5.3 },\r\n            [5] = { x = 0, y = 0, z = 0 },\r\n        },\r\n        red = {\r\n            [1] = { x = -3.7, y = 0, z = 5.3 },\r\n            [5] = { x = -3.7, y = 0, z = 0 },\r\n        },\r\n        blue = {\r\n            [1] = { x = -7.4, y = 0, z = 5.3 },\r\n            [5] = { x = -7.4, y = 0, z = 0 },\r\n        },\r\n        yellow = {\r\n            [1] = { x = -11.2, y = 0, z = 5.3 },\r\n            [5] = { x = -11.2, y = 0, z = 0 },\r\n        },\r\n    }\r\n}\r\n\r\nlocal LAST_TURN_TIME = nil\r\nlocal LAST_TURN_COOLDOWN = 180 -- 3 minutes\r\n\r\nlocal OBJECTS = {}\r\n\r\nlocal GAME = nil\r\n\r\nlocal MODELS = {}\r\n\r\n-- DEBUG\r\nfunction onDebug(player_color, object, position, key_up)\r\n    if not key_up then\r\n        return\r\n    end\r\n\r\n    print('#################################################')\r\n\r\n    if object then\r\n        debug.dumpVector(object.positionToLocal(position))\r\n    end\r\n\r\n    print(GAME.state_machine.state)\r\nend\r\n\r\nfunction onLoad(saved_state_json)\r\n    -- invoke afterLoad after all objects have called onLoad\r\n    Wait.frames(afterLoad, 0)\r\n\r\n    local saved_state = nil\r\n\r\n    if saved_state_json ~= '' then\r\n        saved_state = JSON.decode(saved_state_json)\r\n    end\r\n\r\n    GAME = Game.new({\r\n        objects = OBJECTS,\r\n        player_share_deposits = PLAYER_SHARE_DEPOSITS,\r\n        share_deposit_positions = SHARE_DEPOSIT_POSITIONS,\r\n        share_price_transform = SHARE_PRICE_TRANSFORM,\r\n    })\r\n\r\n    if saved_state and saved_state.state_machine_state then\r\n        GAME.state_machine.state = saved_state.state_machine_state\r\n    end\r\n\r\n    -- discover objects\r\n\r\n    OBJECTS.board = getObjectFromGUID(GUIDS.board)\r\n\r\n    OBJECTS.numbered_die = discoverObjects({ GUIDS.numbered_die }, function (die)\r\n        die.setVar('kind', 'shark_numbered_die')\r\n    end)\r\n\r\n    OBJECTS.indicators = discoverObjects(GUIDS.indicators, function (indicator, company)\r\n        indicator.setVar('kind', 'shark_share_price_indicator')\r\n        indicator.setTable('share_price_indicator', { company = company })\r\n    end)\r\n\r\n    OBJECTS.money_deposit_markers = discoverObjects(GUIDS.money_deposit_markers)\r\n\r\n    OBJECTS.building_bags = discoverObjects(GUIDS.building_bags, function (bag, company)\r\n        bag.setVar('kind', 'shark_building_bag')\r\n        bag.setTable('building_bag', { company = company })\r\n    end)\r\n\r\n    OBJECTS.discarded_building_bag = discoverObjects({ GUIDS.discarded_building_bag }, function (bag)\r\n        bag.setVar('kind', 'shark_discarded_building_bag')\r\n    end)\r\n\r\n    OBJECTS.drop_zones = discoverObjects(GUIDS.drop_zones, function (zone)\r\n        zone.setVar('kind', 'shark_drop_zone')\r\n        addModel(zone, DropZoneModel.new(zone, GAME))\r\n    end)\r\n\r\n    OBJECTS.player_share_card_zones = discoverObjects(GUIDS.player_share_card_zones, function (zone, color)\r\n        zone.setVar('kind', 'shark_player_share_card_zone')\r\n        zone.setTable('player_share_card_zone', { color = color })\r\n\r\n        addModel(zone, PlayerShareCardZoneModel.new(zone, GAME.companies))\r\n    end)\r\n\r\n    OBJECTS.hand_zones = discoverObjects(GUIDS.hand_zones, function (zone, color)\r\n        zone.setVar('kind', 'hand_zone')\r\n        zone.setTable('hand_zone', { color = color })\r\n        addModel(zone, HandZoneModel.new(zone))\r\n    end)\r\n\r\n    OBJECTS.graph_boards = discoverObjects(GUIDS.graph_boards)\r\n\r\n    -- init graphs\r\n\r\n    GraphController.init(OBJECTS.graph_boards, GAME)\r\n\r\n    if saved_state and saved_state.graph_data then\r\n        GraphController.instance.data = saved_state.graph_data\r\n        GraphController.instance:updateZoom()\r\n    end\r\n\r\n    GraphController.instance:renderAll()\r\n\r\n    -- hotkeys\r\n\r\n    -- DEBUG\r\n    addHotkey('Debug', onDebug, true)\r\n\r\n    -- initialize UI\r\n\r\n    local xml_table = UI.getXmlTable()\r\n    local ui_dom = UiDom.new(xml_table)\r\n\r\n    LeaderboardController.init(ui_dom, GAME, SEAT_COLORS)\r\n    AssetCountersController.init(ui_dom, GAME, SEAT_COLORS)\r\n    ControlBarController.init(\r\n        AssetCountersController.instance,\r\n        LeaderboardController.instance,\r\n        OBJECTS.graph_boards\r\n    )\r\n\r\n    UI.setXmlTable(ui_dom.xml_table)\r\n\r\n    -- update UI in next frame\r\n    Wait.frames(function ()\r\n        for _, hand_zone in pairs(OBJECTS.hand_zones) do\r\n            getModel(hand_zone):count()\r\n        end\r\n\r\n        for _, player_share_card_zone in pairs(OBJECTS.player_share_card_zones) do\r\n            getModel(player_share_card_zone):count()\r\n        end\r\n\r\n        for _, drop_zone in pairs(OBJECTS.drop_zones) do\r\n            getModel(drop_zone):countMoneyAndShares()\r\n        end\r\n\r\n        LeaderboardController.instance:updateAll()\r\n        LeaderboardController.instance:render()\r\n\r\n        AssetCountersController.instance:updateAll()\r\n    end, 1)\r\nend\r\n\r\nfunction discoverObjects(guids, callback)\r\n    local result = {}\r\n\r\n    for key, guid in pairs(guids) do\r\n        local object = getObjectFromGUID(guid)\r\n\r\n        result[key] = object\r\n\r\n        if callback then\r\n            callback(object, key)\r\n        end\r\n    end\r\n\r\n    return result\r\nend\r\n\r\nfunction afterLoad()\r\n    for _, zone in ipairs(OBJECTS.drop_zones) do\r\n        for _, zone_object in ipairs(zone.getObjects()) do\r\n            local kind = zone_object.getVar('kind')\r\n\r\n            if kind == 'shark_money_counter' then\r\n                getModel(zone_object).zone = zone\r\n            elseif kind == 'shark_drop_zone_return_button_object' then\r\n                getModel(zone_object).zone = zone\r\n            end\r\n        end\r\n    end\r\nend\r\n\r\nfunction onSave()\r\n    local state = {\r\n        state_machine_state = GAME.state_machine.state,\r\n        graph_data = GraphController.instance.data,\r\n    }\r\n\r\n    return JSON.encode(state)\r\nend\r\n\r\nfunction onPlayerTurn(player)\r\n    AssetCountersController.instance:setBoughtShares(player.color, 0, true)\r\n\r\n    GAME.state_machine:emitTurnStarted()\r\nend\r\n\r\n-- Triggers last turn only once within LAST_TURN_COOLDOWN seconds.\r\n--\r\n-- This will prevent multiple invocations of onLastTurn. The reasoning here is,\r\n-- that players may trigger this function more than once. For instance, by\r\n-- dropping the last building multiple times the last building.\r\nfunction triggerLastTurn()\r\n    local time = Time.time\r\n\r\n    if not LAST_TURN_TIME or time - LAST_TURN_TIME >= LAST_TURN_COOLDOWN then\r\n        LAST_TURN_TIME = time\r\n\r\n        onLastTurn()\r\n    end\r\nend\r\n\r\nfunction onLastTurn()\r\n    if not ControlBarController.instance.enable_leaderboard_value then\r\n        UI.show('Panel#lastTurnDialog')\r\n    end\r\nend\r\n\r\nfunction onEnableLeaderboardClick()\r\n    UI.hide('Panel#lastTurnDialog')\r\n\r\n    ControlBarController.instance:setEnableLeaderboardValue(true, true)\r\nend\r\n\r\nfunction onDismissLastTurnDialogClick()\r\n    UI.hide('Panel#lastTurnDialog')\r\nend\r\n\r\nfunction onPlayerChangeColor(player_color)\r\n    LeaderboardController.instance:render()\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if index == SCRIPTING_BUTTON_DEBUG then\r\n        -- DEBUG\r\n        local object = Player[player_color].getHoverObject()\r\n\r\n        print(object)\r\n    end\r\nend\r\n\r\nfunction onObjectNumberTyped(object, player_color, number)\r\n    local kind = getKind(object)\r\n\r\n    if kind == 'shark_share_card' and set.contains(SEAT_COLOR_SET, player_color) then\r\n        local properties\r\n        local dealt_count\r\n\r\n        if object.tag == 'Deck' then\r\n            local quantity = object.getQuantity()\r\n            local card = wrapBaggedObject(object.getObjects()[1])\r\n            properties = card.getTable('share')\r\n            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })\r\n\r\n            if number == 1 then\r\n                object.takeObject({\r\n                    position = deposit.position,\r\n                    rotation = deposit.rotation,\r\n                })\r\n            elseif quantity <= number then\r\n                object.setPositionSmooth(deposit.position, false, false)\r\n                object.setRotationSmooth(deposit.rotation, false, false)\r\n            elseif quantity == number + 1 then\r\n                object.takeObject({\r\n                    position = object.getPosition() + Vector(0, 2, 0),\r\n                    top = false\r\n                })\r\n\r\n                object.setPositionSmooth(deposit.position, false, false)\r\n                object.setRotationSmooth(deposit.rotation, false, false)\r\n            else -- quantity >= number + 2\r\n                local upper_deck = object.cut(number)[2]\r\n\r\n                upper_deck.setPositionSmooth(deposit.position, false, false)\r\n                upper_deck.setRotationSmooth(deposit.rotation, false, false)\r\n            end\r\n\r\n            dealt_count = math.min(quantity, number)\r\n        elseif object.tag == 'Card' then\r\n            properties = object.getTable('share')\r\n            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })\r\n\r\n            object.setPositionSmooth(deposit.position, false, false)\r\n            object.setRotationSmooth(deposit.rotation, false, false)\r\n\r\n            dealt_count = 1\r\n        else\r\n            return -- should not happen\r\n        end\r\n\r\n        AssetCountersController.instance:increaseBoughtShares(player_color, dealt_count * properties.stock_options)\r\n\r\n        return true\r\n    end\r\nend\r\n\r\nfunction onObjectDestroy(object)\r\n    removeModel(object)\r\nend\r\n\r\nfunction onObjectDrop(color, dropped_object)\r\n    local kind = dropped_object.getVar('kind')\r\n\r\n    if kind == 'shark_share_price_indicator' then\r\n        for _, zone in pairs(OBJECTS.drop_zones) do\r\n            getModel(zone):countMoneyAndShares()\r\n        end\r\n\r\n        LeaderboardController.instance:updateAllPlayerShares()\r\n        LeaderboardController.instance:render()\r\n\r\n        AssetCountersController.instance:updateAllPlayerShareValues()\r\n\r\n        local properties = dropped_object.getTable('share_price_indicator')\r\n\r\n        if withinBoundsOnBoard(dropped_object, SHARE_PRICE_SCALE_BOUNDS) then\r\n            GAME.state_machine:emitIndicatorPlaced()\r\n        end\r\n\r\n        if GAME:isAtMaxSharePrice(properties.company) then\r\n            Wait.frames(triggerLastTurn, 0)\r\n        end\r\n    elseif kind == 'shark_building' then\r\n        local properties = dropped_object.getTable('building')\r\n\r\n        if withinBoundsOnBoard(dropped_object, WORLD_MAP_BOUNDS) then\r\n            GAME.state_machine:emitBuildingPlaced()\r\n        end\r\n\r\n        if GAME:isBuildingBagDepleted(properties.company) then\r\n            Wait.frames(triggerLastTurn, 0)\r\n        end\r\n    elseif kind == 'shark_numbered_die' then\r\n        local velocity = dropped_object.getVelocity()\r\n\r\n        -- interpret dropped die as rolled if x-z velocity is high enough\r\n        if velocity.x * velocity.x + velocity.z * velocity.z >= MIN_DICE_ROLL_VELOCITY_SQUARED then\r\n            GAME.state_machine:emitDiceRolled()\r\n        end\r\n    end\r\n\r\n    -- DEBUG\r\n    if dropped_object.guid == 'fd701d' then\r\n        Wait.time(function()\r\n            -- local position = Vector(dropped_object.getPosition())\r\n            -- local position = Vector(dropped_object.getPosition()) - Vector{ x = 5.5956, y = 1.46, z = 14.5975 }\r\n            local position = OBJECTS.board.positionToLocal(dropped_object.getPosition())\r\n\r\n            local x = math.round(position.x, 4)\r\n            local y = math.round(position.y, 4)\r\n            local z = math.round(position.z, 4)\r\n\r\n            Notes.setNotes('{ x = ' .. x .. ', y = ' .. y .. ', z = ' .. z .. ' }')\r\n        end, 2)\r\n    end\r\nend\r\n\r\nfunction onObjectRandomize(randomize_object, player_color)\r\n    local kind = randomize_object.getVar('kind')\r\n\r\n    if kind == 'shark_numbered_die' then\r\n        GAME.state_machine:emitDiceRolled()\r\n    end\r\nend\r\n\r\nfunction onObjectEnterScriptingZone(zone, enter_object)\r\n    onObjectEnterOrLeaveScriptingZone(zone, enter_object, nil)\r\nend\r\n\r\nfunction onObjectLeaveScriptingZone(zone, leave_object)\r\n    onObjectEnterOrLeaveScriptingZone(zone, nil, leave_object)\r\nend\r\n\r\nfunction onObjectEnterOrLeaveScriptingZone(zone, enter_object, leave_object)\r\n    -- guard against weird situation where no object is given ¯\\_(ツ)_/¯\r\n    if not enter_object and not leave_object then\r\n        return\r\n    end\r\n\r\n    local zone_kind = zone.getVar('kind')\r\n    local object_kind = getKind(enter_object or leave_object)\r\n\r\n    if zone_kind == 'shark_player_share_card_zone' then\r\n        if object_kind == 'shark_share_card' then\r\n            local zone_model = getModel(zone)\r\n            local player_color = zone_model:getPlayerColor()\r\n\r\n            zone_model:count(enter_object)\r\n\r\n            LeaderboardController.instance:updatePlayerShareValue(player_color)\r\n            LeaderboardController.instance:render()\r\n\r\n            AssetCountersController.instance:updatePlayerShareCounters(player_color)\r\n            AssetCountersController.instance:updatePlayerShareValue(player_color)\r\n        end\r\n    elseif zone_kind == 'shark_drop_zone' then\r\n        if object_kind == 'shark_money' or object_kind == 'shark_share_card' then\r\n            getModel(zone):countMoneyAndShares(enter_object)\r\n        end\r\n    elseif zone_kind == 'hand_zone' then\r\n        if object_kind == 'shark_money' then\r\n            local zone_model = getModel(zone)\r\n            local player_color = zone_model:getPlayerColor()\r\n\r\n            zone_model:count(enter_object)\r\n\r\n            LeaderboardController.instance:updatePlayerMoney(zone_model:getPlayerColor())\r\n            LeaderboardController.instance:render()\r\n\r\n            AssetCountersController.instance:updatePlayerMoney(player_color)\r\n        end\r\n    end\r\nend\r\n\r\nfunction filterObjectEnterContainer(container, object)\r\n    local container_kind = getKind(container)\r\n    local object_kind = getKind(object)\r\n\r\n    if container.tag == 'Bag' then\r\n        if container_kind == 'shark_building_bag' then\r\n            if object_kind ~= 'shark_building' then\r\n                return false\r\n            end\r\n\r\n            container_company = container.getTable('building_bag').company\r\n            object_company = object.getTable('building').company\r\n\r\n            return container_company == object_company\r\n        elseif container_kind == 'shark_discarded_building_bag' then\r\n            return object_kind == 'shark_building'\r\n        end\r\n    elseif container.tag == 'Deck' or container.tag == 'Card' then\r\n        return container_kind == object_kind\r\n    end\r\n\r\n    -- default behavior for all other containers\r\n    return true\r\nend\r\n\r\nfunction getSeatedPlayers()\r\n    local players = {}\r\n\r\n    for _, color in ipairs(SEAT_COLORS) do\r\n        local player = Player[color]\r\n\r\n        if player.seated then\r\n            table.insert(players, player)\r\n        end\r\n    end\r\n\r\n    return players\r\nend\r\n\r\nfunction getKind(object)\r\n    local kind = object.getVar('kind')\r\n\r\n    -- for decks determine kind by contained cards if unspecified\r\n    if object.tag == 'Deck' and not kind and object.getQuantity() > 0 then\r\n        bagged_object = wrapBaggedObject(object.getObjects()[1])\r\n        kind = bagged_object.getVar('kind')\r\n    end\r\n\r\n    return kind\r\nend\r\n\r\nfunction withinBoundsOnBoard(object, bounds)\r\n    local position = object.getPosition()\r\n    local board_position = OBJECTS.board.positionToLocal(position)\r\n\r\n    return\r\n        util.between(board_position.x, bounds.x1, bounds.x2) and\r\n        util.between(board_position.z, bounds.z1, bounds.z2)\r\nend\r\n\r\nfunction initObjectState(params)\r\n    local object = params.object\r\n    local state = params.state\r\n\r\n    for var_name, value in pairs(state.vars or {}) do\r\n        object.setVar(var_name, value)\r\n    end\r\n\r\n    for table_name, value in pairs(state.tables or {}) do\r\n        object.setTable(table_name, value)\r\n    end\r\nend\r\n\r\nfunction registerObject(object)\r\n    local kind = object.getVar('kind')\r\n\r\n    if kind == 'shark_money_counter' then\r\n        return addModel(object, MoneyCounterModel.new(object))\r\n    elseif kind == 'shark_drop_zone_return_button_object' then\r\n        return addModel(object, DropZoneReturnButtonModel.new(object))\r\n    end\r\nend\r\n\r\n-- Model Management\r\n\r\n-- Models implement the behavior of game objects in the game. I prefer to put\r\n-- the behavior in the global script rather than in the object scripts since I\r\n-- have a lot of duplicated game objects (cards, houses, counters) which share\r\n-- the same behavior.\r\n\r\nfunction getModel(object)\r\n    return MODELS[object.guid]\r\nend\r\n\r\nfunction removeModel(object)\r\n    MODELS[object.guid] = nil\r\nend\r\n\r\nfunction addModel(object, model)\r\n    MODELS[object.guid] = model\r\nend\r\n\r\n-- Model Management end\r\n\nend\n----#include <shark/global>\nend)\n__bundle_register(\"shark/game/graph_controller\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal set = require(\"shark/util/set\")\r\n\r\nlocal GraphController = {\r\n    padding = { left = 0.1, right = 0.1, top = 0.1, bottom = 0.1 },\r\n    scale = Vector(8.29, 0.59, 8.29),\r\n    curve_displacement = 0.075,\r\n    min_visible_turns = 15,\r\n    default_visible_turns = 20,\r\n    visible_turns_zoomed_in = 20,\r\n    zoom_toggle_button_index = 0,\r\n    scroll_factor = 1 / 3,\r\n    scale_factor = 2,\r\n}\r\n\r\nlocal helpers = {}\r\n\r\nGraphController.ref_1 = Vector{\r\n    x = -1 + 2 * GraphController.padding.left,\r\n    y = 1,\r\n    z = -1 + 2 * GraphController.padding.bottom,\r\n}:scale(GraphController.scale)\r\n\r\nGraphController.ref_2 = Vector{\r\n    x = 1 - 2 * GraphController.padding.right,\r\n    y = 1,\r\n    z = 1 - 2 * GraphController.padding.top,\r\n}:scale(GraphController.scale)\r\n\r\nGraphController.ref_delta = GraphController.ref_2 - GraphController.ref_1\r\n\r\nGraphController.__index = GraphController\r\n\r\nfunction GraphController.init(objects, game)\r\n    local instance = {\r\n        objects = objects,\r\n        game = game,\r\n        data = {},\r\n        objects_data = {},\r\n    }\r\n\r\n    setmetatable(instance, GraphController)\r\n\r\n    for _, object in ipairs(objects) do\r\n        instance.objects_data[object.guid] = {\r\n            turn_offset = 0,\r\n            visible_turns = instance.default_visible_turns,\r\n            zoom_state = 'zoomed_in',\r\n        }\r\n\r\n        object.createButton({\r\n            label = \"Zoom\\nOut\",\r\n            click_function = 'GraphController_onZoomToggleClick',\r\n            position = { -11.5, 0.25, 7 },\r\n            scale = { 2, 2, 2 },\r\n            rotation = { 0, 180, 0 },\r\n            width = 800,\r\n            height = 800,\r\n            font_size = 250,\r\n        })\r\n\r\n        object.createButton({\r\n            label = \"Clear\",\r\n            click_function = 'GraphController_onClearClick',\r\n            position = { -11.5, 0.25, -7 },\r\n            scale = { 2, 2, 2 },\r\n            rotation = { 0, 180, 0 },\r\n            width = 800,\r\n            height = 800,\r\n            font_size = 250,\r\n            font_color = { 1, 1, 1 },\r\n            color = { 0.8, 0.2, 0.2, },\r\n        })\r\n    end\r\n\r\n    instance:clear()\r\n\r\n    -- -- DEBUG\r\n    -- for i = 1, 69 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)\r\n    --     local profit_company = game.companies[math.random(#game.companies)]\r\n    --\r\n    --     for _, company in ipairs(game.companies) do\r\n    --         if company == profit_company then\r\n    --             instance.data[company][i + 1] = instance.data[company][i] + 1\r\n    --         else\r\n    --             instance.data[company][i + 1] = instance.data[company][i]\r\n    --         end\r\n    --     end\r\n    -- end\r\n\r\n    GraphController.instance = instance\r\n\r\n    return instance\r\nend\r\n\r\n-- events\r\n\r\nfunction GraphController_onScrollLeftClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n    local visible_turns = graph:getVisibleTurns(object.guid)\r\n    local delta = -math.round(visible_turns * graph.scroll_factor)\r\n\r\n    if graph:scrollBy(object.guid, delta) then\r\n        graph:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController_onScrollRightClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n    local visible_turns = graph:getVisibleTurns(object.guid)\r\n    local delta = math.round(visible_turns * graph.scroll_factor)\r\n\r\n    if graph:scrollBy(object.guid, delta) then\r\n        graph:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController_onScrollEndClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n    local rightmost = graph:getRightmostTurn(object.guid)\r\n\r\n    if graph:scrollTo(object.guid, rightmost) then\r\n        graph:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController_onZoomToggleClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n    local zoom_state = graph.objects_data[object.guid].zoom_state\r\n\r\n    if zoom_state == 'zoomed_in' then\r\n        if graph:zoomOut(object.guid) then\r\n            graph:render(object)\r\n        end\r\n\r\n        object.editButton({\r\n            index = GraphController.zoom_toggle_button_index,\r\n            label = 'Zoom\\nIn',\r\n        })\r\n    elseif zoom_state == 'zoomed_out' then\r\n        if graph:zoomIn(object.guid) then\r\n            graph:render(object)\r\n        end\r\n\r\n        object.editButton({\r\n            index = GraphController.zoom_toggle_button_index,\r\n            label = 'Zoom\\nOut',\r\n        })\r\n    end\r\nend\r\n\r\nfunction GraphController_onZoomOutClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n\r\n    if graph:scaleBy(object.guid, 1 / graph.scale_factor) then\r\n        graph:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController_onZoomInClick(object, player_color, alt_click)\r\n    local graph = GraphController.instance\r\n\r\n    if graph:scaleBy(object.guid, graph.scale_factor) then\r\n        graph:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController_onClearClick(object, player_color, alt_click)\r\n    if not Player[player_color].admin then\r\n        broadcastToColor('Only admins can clear graphs!', player_color)\r\n        return\r\n    end\r\n\r\n    local graph = GraphController.instance\r\n\r\n    graph:clear()\r\n    graph:renderAll()\r\n    graph.game.state_machine.state = 'initial'\r\nend\r\n\r\n-- methods\r\n\r\nfunction GraphController:getTurns()\r\n    return #self.data[self.game.companies[1]]\r\nend\r\n\r\nfunction GraphController:getTurnOffset(object_guid)\r\n    return self.objects_data[object_guid].turn_offset\r\nend\r\n\r\nfunction GraphController:getVisibleTurns(object_guid)\r\n    return self.objects_data[object_guid].visible_turns\r\nend\r\n\r\nfunction GraphController:getLeftmostTurn(object_guid)\r\n    return 0\r\nend\r\n\r\nfunction GraphController:getRightmostTurn(object_guid)\r\n    local visible_turns = self:getVisibleTurns(object_guid)\r\n    local turns = self:getTurns()\r\n\r\n    return math.max(0, turns - visible_turns)\r\nend\r\n\r\nfunction GraphController:isLeftmost(object_guid)\r\n    local turn_offset = self:getVisibleTurns(object_guid)\r\n    local leftmost = self:getLeftmostTurn(object_guid)\r\n\r\n    return turn_offset <= leftmost\r\nend\r\n\r\nfunction GraphController:isRightmost(object_guid)\r\n    local turn_offset = self:getTurnOffset(object_guid)\r\n    local rightmost = self:getRightmostTurn(object_guid)\r\n\r\n    return turn_offset >= rightmost\r\nend\r\n\r\nfunction GraphController:getZoomState(object_guid)\r\n    return self.objects_data[object_guid].zoom_state\r\nend\r\n\r\nfunction GraphController:clear()\r\n    for _, company in ipairs(self.game.companies) do\r\n        self.data[company] = { 0 }\r\n    end\r\n\r\n    self:updateZoom()\r\nend\r\n\r\nfunction GraphController:push(data)\r\n    -- insert data\r\n    for company, share_price in pairs(data) do\r\n        table.insert(self.data[company], share_price)\r\n    end\r\n\r\n    self:updateZoom()\r\nend\r\n\r\nfunction GraphController:updateLast(data)\r\n    local index = self:getTurns()\r\n\r\n    for company, share_price in pairs(data) do\r\n        self.data[company][index] = share_price\r\n    end\r\nend\r\n\r\n-- Returns whether the view has actually been changed.\r\nfunction GraphController:scrollTo(object_guid, turn_offset)\r\n    local object_data = self.objects_data[object_guid]\r\n\r\n    if turn_offset < object_data.turn_offset then\r\n        local leftmost = self:getLeftmostTurn(object_guid)\r\n\r\n        if leftmost >= object_data.turn_offset then\r\n            return false\r\n        end\r\n\r\n        object_data.turn_offset = math.max(turn_offset, leftmost)\r\n\r\n        return true\r\n    elseif turn_offset > object_data.turn_offset then\r\n        local rightmost = self:getRightmostTurn(object_guid)\r\n\r\n        if rightmost <= object_data.turn_offset then\r\n            return false\r\n        end\r\n\r\n        object_data.turn_offset = math.min(turn_offset, rightmost)\r\n\r\n        return true\r\n    end\r\n\r\n    -- no change: turn_offset == object_data.turn_offset\r\n\r\n    return false\r\nend\r\n\r\nfunction GraphController:scrollToStart(object_guid)\r\n    return self:scrollTo(object_guid, self:getLeftmostTurn(object_guid))\r\nend\r\n\r\nfunction GraphController:scrollToEnd(object_guid)\r\n    return self:scrollTo(object_guid, self:getRightmostTurn(object_guid))\r\nend\r\n\r\nfunction GraphController:scrollBy(object_guid, delta)\r\n    local turn_offset = self:getTurnOffset(object_guid) + delta\r\n\r\n    return self:scrollTo(object_guid, turn_offset)\r\nend\r\n\r\nfunction GraphController:zoomOut(object_guid)\r\n    local object_data = self.objects_data[object_guid]\r\n    local turns = self:getTurns()\r\n    local old_visible_turns = object_data.visible_turns\r\n\r\n    object_data.zoom_state = 'zoomed_out'\r\n    object_data.visible_turns = math.max(self.visible_turns_zoomed_in, turns)\r\n\r\n    return self:scrollToStart(object_guid)\r\n        or old_visible_turns ~= object_data.visible_turns\r\nend\r\n\r\nfunction GraphController:zoomIn(object_guid)\r\n    local object_data = self.objects_data[object_guid]\r\n    local old_visible_turns = object_data.visible_turns\r\n\r\n    object_data.zoom_state = 'zoomed_in'\r\n    object_data.visible_turns = self.visible_turns_zoomed_in\r\n\r\n    return self:scrollToEnd(object_guid)\r\n        or old_visible_turns ~= object_data.visible_turns\r\nend\r\n\r\nfunction GraphController:updateZoom()\r\n    for object_guid, object_data in pairs(self.objects_data) do\r\n        local zoom_state = object_data.zoom_state\r\n\r\n        if zoom_state == 'zoomed_in' then\r\n            self:zoomIn(object_guid)\r\n        elseif zoom_state == 'zoomed_out' then\r\n            self:zoomOut(object_guid)\r\n        end\r\n    end\r\nend\r\n\r\n-- Returns whether the view has actually been changed.\r\nfunction GraphController:scaleBy(object_guid, delta)\r\n    -- This scales the turns axis up or down. We try to zoom in or out from the\r\n    -- middle. However, we still want to ensure to not get off the scale.\r\n    --\r\n    -- Tbh, this is way over-engineered. It probably would have sufficed to have\r\n    -- two zoom settings for a closer and an overall view. However, this\r\n    -- realization came after doing the math and implementation. And now I don't\r\n    -- have the heart to replace it. So ... there you go :P\r\n\r\n    local T = self:getTurns()\r\n    local x_0 = self:getTurnOffset(object_guid)\r\n    -- \\Delta x := x_1 - x_0, where x_1 is the rightmost visible turn on the axis\r\n    local x_delta = self:getVisibleTurns(object_guid)\r\n    -- \\Delta x_{min}\r\n    local x_delta_min = self.min_visible_turns\r\n    -- \\Delta x_{max} := \\max(\\Delta x_{min}, T)\r\n    local x_delta_max = math.max(x_delta_min, T)\r\n\r\n    -- check if scale will change\r\n    if (delta == 1)\r\n        or (delta < 1 and x_delta >= x_delta_max)\r\n        or (delta > 1 and x_delta <= x_delta_min)\r\n    then\r\n        return false\r\n    end\r\n\r\n    local delta_inv = 1 / delta\r\n\r\n    -- determine \\Delta x' (aka visible_turns):\r\n    -- Ensure \\Delta x' \\in [\\Delta x_{min}, \\Delta x_{max}]\r\n    local x_delta_new = helpers.confine(\r\n        math.round(x_delta * delta_inv), x_delta_min, x_delta_max\r\n    )\r\n\r\n    -- determine x'_0 (aka turn_offset):\r\n    -- We want x'_p \\overset{!}{=} x_p where x_p = x_0 + \\frac{\\Delta x}{2}\r\n    -- Choose x'_0 accordingly. However, x'_0 \\in [0, \\max(0, T - \\Delta x')]\r\n    -- takes precedence:\r\n    local x_0_new = helpers.confine(\r\n        math.round(x_0 + x_delta * (1 - delta_inv) / 2), 0, math.max(0, T - x_delta_new)\r\n    )\r\n\r\n    local object_data = self.objects_data[object_guid]\r\n\r\n    object_data.turn_offset = x_0_new\r\n    object_data.visible_turns = x_delta_new\r\n\r\n    return true\r\nend\r\n\r\nfunction GraphController:renderAll()\r\n    for _, object in ipairs(self.objects) do\r\n        self:render(object)\r\n    end\r\nend\r\n\r\nfunction GraphController:render(object)\r\n    local object_data = self.objects_data[object.guid]\r\n    local turn_offset = object_data.turn_offset\r\n    local visible_turns = object_data.visible_turns\r\n\r\n    local vector_lines = {}\r\n\r\n    -- axes\r\n    table.insert(vector_lines, {\r\n        points = {\r\n            self.ref_1 + Vector(-0.15, 0, self.ref_delta.z),\r\n            self.ref_1 + Vector(-0.15, 0, -0.15),\r\n            self.ref_1 + Vector(self.ref_delta.x, 0, -0.15),\r\n        },\r\n        thickness = 0.25,\r\n    })\r\n\r\n    -- company share price curves\r\n    for i, company in ipairs(self.game.companies) do\r\n        local displacement = i * self.curve_displacement\r\n        local points = table.collect(self.data[company], function (share_price, j)\r\n            local x = j - 1 - turn_offset\r\n            local y = share_price + displacement\r\n\r\n            return { x, y }\r\n        end, turn_offset + 1, turn_offset + visible_turns)\r\n\r\n        table.insert(vector_lines, 1, {\r\n            points = self:projectDataPoints(points, object.guid),\r\n            color = self.game.company_colors[company],\r\n            thickness = 0.15,\r\n        })\r\n    end\r\n\r\n    object.setVectorLines(vector_lines)\r\nend\r\n\r\nfunction GraphController:projectDataPoints(points, object_guid)\r\n    local object_data = self.objects_data[object_guid]\r\n    local visible_turns = object_data.visible_turns\r\n\r\n    return table.collect(points, function (point)\r\n        local temp = Vector(point[1] / (visible_turns - 1), 1, point[2] / self.game.share_price.max)\r\n        return self.ref_1 + temp:scale(self.ref_delta)\r\n    end)\r\nend\r\n\r\n-- helpers\r\n\r\nfunction helpers.confine(value, min, max)\r\n    if value <= min then\r\n        return min\r\n    elseif value >= max then\r\n        return max\r\n    else\r\n        return value\r\n    end\r\nend\r\n\r\nreturn GraphController\r\n\nend)\n__bundle_register(\"shark/util/set\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal set = {}\r\n\r\nfunction set.new(list)\r\n    local instance = {}\r\n\r\n    for _, value in ipairs(list) do\r\n        instance[value] = true\r\n    end\r\n\r\n    return instance\r\nend\r\n\r\nfunction set.add(instance, item)\r\n    instance[item] = true\r\nend\r\n\r\nfunction set.remove(instance, item)\r\n    instance[item] = nil\r\nend\r\n\r\nfunction set.contains(instance, item)\r\n    return instance[item] ~= nil\r\nend\r\n\r\nfunction set.empty(instance, item)\r\n    return next(instance, nil) == nil\r\nend\r\n\r\nfunction set.list(instance)\r\n    local list = {}\r\n\r\n    local i = 0\r\n    for item in set.each(instance) do\r\n        i = i + 1\r\n        list[i] = item\r\n    end\r\n\r\n    return list\r\nend\r\n\r\nfunction set.iterator(instance, last_item)\r\n    local item, _ = next(instance, last_item)\r\n    return item\r\nend\r\n\r\nfunction set.each(instance)\r\n    return set.iterator, instance, nil\r\nend\r\n\r\nreturn set\r\n\nend)\n__bundle_register(\"shark/game/control_bar/control_bar_controller\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal set = require(\"shark/util/set\")\r\n\r\nlocal ControlBarController = {}\r\nControlBarController.__index = ControlBarController\r\n\r\n-- players on the \"top\" side of the table\r\nlocal top_players = set.new{ 'Yellow', 'Green', 'Blue' }\r\n\r\nfunction ControlBarController.init(asset_counters, leaderboard, graph_objects)\r\n    local instance = {\r\n        enable_leaderboard_value = false,\r\n        asset_counters = asset_counters,\r\n        leaderboard = leaderboard,\r\n        graph_objects = graph_objects,\r\n    }\r\n\r\n    setmetatable(instance, ControlBarController)\r\n\r\n    ControlBarController.instance = instance\r\n\r\n    return instance\r\nend\r\n\r\n-- ControlBarController events\r\n\r\nfunction onControlBarLeaderboardClick(player)\r\n    ControlBarController.instance:toggleLeaderboard(player.color)\r\nend\r\n\r\nfunction onControlBarlookAtGraphClick(player)\r\n    ControlBarController.instance:lookAtGraph(player)\r\nend\r\n\r\nfunction onControlBarEnableLeaderboardChange(player, value)\r\n    ControlBarController.instance:setEnableLeaderboardValue(value == 'True')\r\nend\r\n\r\nfunction onControlBarShowAssetCountersChange(player, value)\r\n    ControlBarController.instance:setAssetCountersVisibility(player.color, value == 'True')\r\nend\r\n\r\n-- ControlBarController methods\r\n\r\nfunction ControlBarController:toggleLeaderboard(player_color)\r\n    self.leaderboard:toggle(player_color)\r\nend\r\n\r\nfunction ControlBarController:lookAtGraph(player)\r\n    local graph_object\r\n    if set.contains(top_players, player.color) then\r\n        graph_object = self.graph_objects[1]\r\n    else\r\n        graph_object = self.graph_objects[2]\r\n    end\r\n\r\n    local position = graph_object.getPosition()\r\n    local rotation = graph_object.getRotation()\r\n\r\n    player.lookAt({\r\n        position = position,\r\n        pitch = rotation.x + 90,\r\n        yaw  = rotation.y,\r\n        distance = 20,\r\n    })\r\nend\r\n\r\nfunction ControlBarController:setEnableLeaderboardValue(value, update_ui)\r\n    self.enable_leaderboard_value = value\r\n\r\n    UI.setAttribute('Row#controlBar.leaderboardButton', 'active', value)\r\n\r\n    if not value then\r\n        self.leaderboard:closeAll()\r\n    end\r\n\r\n    if update_ui then\r\n        UI.setAttribute('Toggle#controlBar.enableLeaderboard', 'isOn', value)\r\n    end\r\nend\r\n\r\nfunction ControlBarController:setAssetCountersVisibility(player_color, value)\r\n    if value then\r\n        self.asset_counters:open(player_color)\r\n    else\r\n        self.asset_counters:close(player_color)\r\n    end\r\nend\r\n\r\nreturn ControlBarController\r\n\nend)\n__bundle_register(\"shark/game/asset_counters/asset_counters_controller\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal util = require(\"shark/util/util\")\r\nlocal UiClosable = require(\"shark/tts/ui_closable\")\r\n\r\nlocal AssetCountersController = { element_id = 'Panel#assetCounters' }\r\nAssetCountersController.__index = setmetatable(AssetCountersController, UiClosable)\r\n\r\nfunction AssetCountersController.init(ui_dom, game, player_colors)\r\n    local instance = {\r\n        game = game,\r\n        player_colors = player_colors,\r\n        bought_shares_amount = 0,\r\n        bought_shares_player_color = 'Gray',\r\n    }\r\n\r\n    setmetatable(instance, AssetCountersController)\r\n    UiClosable.init(instance)\r\n\r\n    instance:open(table.unpack(player_colors))\r\n    instance:generate(ui_dom)\r\n\r\n    AssetCountersController.instance = instance\r\n\r\n    return instance\r\nend\r\n\r\n-- events\r\n\r\nfunction AssetCounters_onBoughtSharesResetClick(player)\r\n    AssetCountersController.instance:setBoughtShares(player.color, 0)\r\nend\r\n\r\nfunction AssetCounters_onBoughtSharesIncreaseClick(player, amount)\r\n    AssetCountersController.instance:increaseBoughtShares(player.color, tonumber(amount))\r\nend\r\n\r\nfunction AssetCounters_onBoughtSharesChange(player, amount)\r\n    AssetCountersController.instance:setBoughtShares(player.color, tonumber(amount))\r\nend\r\n\r\n-- methods\r\n\r\nfunction AssetCountersController:generate(ui_dom)\r\n    for _, player_color in ipairs(self.player_colors) do\r\n        ui_dom:appendChild('Cell#assetCounters.money.cash', {\r\n            tag = 'Text',\r\n            attributes = {\r\n                id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']',\r\n                class='assetCounters.money',\r\n                visibility = player_color,\r\n            },\r\n        })\r\n\r\n        ui_dom:appendChild('Cell#assetCounters.money.shareValue', {\r\n            tag = 'Text',\r\n            attributes = {\r\n                id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']',\r\n                class='assetCounters.money',\r\n                visibility = player_color,\r\n            },\r\n        })\r\n\r\n        for _, company in ipairs(self.game.companies) do\r\n            ui_dom:appendChild('Cell#assetCounters.shares.companies[' .. company .. ']', {\r\n                tag = 'Text',\r\n                attributes = {\r\n                    id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']',\r\n                    class = 'assetCounters.shares',\r\n                    visibility = player_color,\r\n                    color = '#' .. self.game.company_colors[company]:toHex(),\r\n                },\r\n            })\r\n        end\r\n    end\r\nend\r\n\r\nfunction AssetCountersController:updateAll()\r\n    for _, player_color in ipairs(self.player_colors) do\r\n        self:updatePlayerShareCounters(player_color)\r\n        self:updatePlayerMoney(player_color)\r\n        self:updatePlayerShareValue(player_color)\r\n    end\r\nend\r\n\r\nfunction AssetCountersController:updatePlayerMoney(player_color)\r\n    local money_amount = self.game:getPlayerMoney(player_color)\r\n    local element_id = 'Text#assetCounters.money.cash.players[' .. player_color .. ']'\r\n    local formatted_string = util.separate_thousands(money_amount * 1000)\r\n\r\n    UI.setValue(element_id, formatted_string)\r\nend\r\n\r\nfunction AssetCountersController:updatePlayerShareValue(player_color)\r\n    local share_value = self.game:getPlayerShareValue(player_color)\r\n    local element_id = 'Text#assetCounters.money.shareValue.players[' .. player_color .. ']'\r\n    local formatted_string = util.separate_thousands(share_value * 1000)\r\n\r\n    UI.setValue(element_id, formatted_string)\r\nend\r\n\r\nfunction AssetCountersController:updateAllPlayerShareValues()\r\n    for _, player_color in ipairs(self.player_colors) do\r\n        self:updatePlayerShareValue(player_color)\r\n    end\r\nend\r\n\r\nfunction AssetCountersController:updatePlayerShareCounters(player_color)\r\n    local stock_options = self.game:getPlayerStockOptions(player_color)\r\n\r\n    -- for company, count in pairs(zone_model.stock_options) do\r\n    for company, count in pairs(stock_options) do\r\n        local element_id = 'Text#assetCounters.shares.companies[' .. company .. '].players[' .. player_color .. ']'\r\n\r\n        UI.setValue(element_id, count)\r\n    end\r\nend\r\n\r\nfunction AssetCountersController:setBoughtShares(player_color, amount)\r\n    self.bought_shares_amount = amount\r\n\r\n    -- onPlayerTurn may be invoked with player.color == '' if no seated players\r\n    -- are present.\r\n    if player_color == '' then\r\n        self.bought_shares_player_color = 'Gray'\r\n    else\r\n        self.bought_shares_player_color = player_color\r\n    end\r\n\r\n    UI.setAttributes('InputField#assetCounters.boughtShares', {\r\n        text = self.bought_shares_amount,\r\n        color = self.bought_shares_player_color,\r\n    })\r\nend\r\n\r\nfunction AssetCountersController:increaseBoughtShares(player_color, delta_amount)\r\n    local amount\r\n    if player_color ~= self.bought_shares_player_color then\r\n        amount = delta_amount\r\n    else\r\n        amount = self.bought_shares_amount + delta_amount\r\n    end\r\n\r\n    self:setBoughtShares(player_color, amount)\r\nend\r\n\r\nreturn AssetCountersController\r\n\nend)\n__bundle_register(\"shark/tts/ui_closable\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal set = require(\"shark/util/set\")\r\n\r\nlocal UiClosable = {}\r\nUiClosable.__index = UiClosable\r\n\r\nfunction UiClosable:init()\r\n    self.active_player_colors = set.new{}\r\nend\r\n\r\nfunction UiClosable:toggle(player_color)\r\n    if set.contains(self.active_player_colors, player_color) then\r\n        self:close(player_color)\r\n    else\r\n        self:open(player_color)\r\n    end\r\nend\r\n\r\nfunction UiClosable:open(...)\r\n    for _, player_color in ipairs{...} do\r\n        set.add(self.active_player_colors, player_color)\r\n    end\r\n\r\n    self:updateVisibility()\r\nend\r\n\r\nfunction UiClosable:close(...)\r\n    for _, player_color in ipairs{...} do\r\n        set.remove(self.active_player_colors, player_color)\r\n    end\r\n\r\n    self:updateVisibility()\r\nend\r\n\r\nfunction UiClosable:closeAll()\r\n    self.active_player_colors = set.new{}\r\n\r\n    self:updateVisibility()\r\nend\r\n\r\nfunction UiClosable:updateVisibility()\r\n    local visibility_list = table.concat(set.list(self.active_player_colors), '|')\r\n\r\n    UI.setAttribute(self.element_id, 'visibility', visibility_list)\r\n    UI.setAttribute(self.element_id, 'active', not set.empty(self.active_player_colors))\r\nend\r\n\r\nreturn UiClosable\r\n\nend)\n__bundle_register(\"shark/util/util\", function(require, _LOADED, __bundle_register, __bundle_modules)\n\r\nlocal module = {}\r\n\r\nif not math.round then\r\n    function math.round(number, digits)\r\n        if not digits or digits == 0 then\r\n            return math.floor(number + 0.5)\r\n        else\r\n            local shift_factor = 10^digits\r\n            return math.floor(shift_factor * number + 0.5) / shift_factor\r\n        end\r\n    end\r\nend\r\n\r\nif not table.collect then\r\n    function table.collect(list, member_or_func, from, to)\r\n        local result = {}\r\n\r\n        if type(member_or_func) == 'function' then\r\n            for i, item in module.ipairs_slice(list, from, to) do\r\n                table.insert(result, member_or_func(item, i))\r\n            end\r\n        else\r\n            for _, item in module.ipairs_slice(list, from, to) do\r\n                table.insert(result, item[member_or_func])\r\n            end\r\n        end\r\n\r\n        return result\r\n    end\r\nend\r\n\r\nif not table.move then\r\n    -- from https://github.com/Validark/Lua-table-functions\r\n\r\n    -- MIT License\r\n    --\r\n    -- Copyright (c) 2018 Validark\r\n    --\r\n    -- Permission is hereby granted, free of charge, to any person obtaining a copy\r\n    -- of this software and associated documentation files (the \"Software\"), to deal\r\n    -- in the Software without restriction, including without limitation the rights\r\n    -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\n    -- copies of the Software, and to permit persons to whom the Software is\r\n    -- furnished to do so, subject to the following conditions:\r\n    --\r\n    -- The above copyright notice and this permission notice shall be included in all\r\n    -- copies or substantial portions of the Software.\r\n    --\r\n    -- THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\n    -- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\n    -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\n    -- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\n    -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\n    -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\n    -- SOFTWARE.\r\n\r\n    function table.move(a1, f, e, t, a2)\r\n    \ta2 = a2 or a1\r\n    \tt = t + e\r\n\r\n    \tfor i = e, f, -1 do\r\n    \t\tt = t - 1\r\n    \t\ta2[t] = a1[i]\r\n    \tend\r\n\r\n    \treturn a2\r\n    end\r\nend\r\n\r\nif not table.append then\r\n    function table.append(list, other_list)\r\n        return table.move(other_list, 1, #other_list, #list + 1, list)\r\n    end\r\nend\r\n\r\nif not table.values then\r\n    function table.values(list)\r\n        local values = {}\r\n\r\n        for _, value in pairs(list) do\r\n            table.insert(values, value)\r\n        end\r\n\r\n        return values\r\n    end\r\nend\r\n\r\nlocal function ipairs_iterator(state, last_index)\r\n    if last_index >= state.to then\r\n        return\r\n    end\r\n\r\n    local current_index = last_index + 1\r\n    local value = state.list[current_index]\r\n\r\n    if value then\r\n        return current_index, value\r\n    end\r\nend\r\n\r\nfunction module.ipairs_slice(list, from, to)\r\n    if not from or from < 1 then\r\n        from = 1\r\n    end\r\n\r\n    if not to then\r\n        to = #list\r\n    end\r\n\r\n    if from == 1 and to == #list then\r\n        return ipairs(list)\r\n    end\r\n\r\n    state = { list = list, to = to }\r\n\r\n    return ipairs_iterator, state, from - 1\r\nend\r\n\r\nfunction module.equal(lhs, rhs)\r\n    if lhs == rhs then\r\n        return true\r\n    end\r\n\r\n    if type(lhs) ~= type(rhs) then\r\n        return false\r\n    end\r\n\r\n    if type(lhs) == 'table' and #lhs == #rhs then\r\n        for key, value in pairs(lhs) do\r\n            if not module.equal(value, rhs[key]) then\r\n                return false\r\n            end\r\n        end\r\n\r\n        return true\r\n    end\r\n\r\n    return false\r\nend\r\n\r\nfunction module.separate_thousands(number)\r\n    local MIN_LENGTH = 5\r\n    local GROUP_LENGTH = 3\r\n    local GROUP_SEPARATOR = ','\r\n\r\n    local number_string = tostring(number)\r\n    local length = string.len(number_string)\r\n\r\n    if length < MIN_LENGTH then\r\n        return number_string\r\n    end\r\n\r\n    local groups = {}\r\n    local number_of_groups = math.ceil(length / GROUP_LENGTH)\r\n    local offset = (-length) % GROUP_LENGTH\r\n\r\n    for i = 1, number_of_groups do\r\n        local first_index = (i - 1) * GROUP_LENGTH + 1 - offset\r\n        local last_index = first_index + GROUP_LENGTH - 1\r\n\r\n        local substring = string.sub(number_string, math.max(1, first_index), last_index)\r\n\r\n        table.insert(groups, substring)\r\n    end\r\n\r\n    return table.concat(groups, GROUP_SEPARATOR)\r\nend\r\n\r\nlocal ORDINAL_SUFFIXES = {\r\n    [0] = 'th',\r\n    [1] = 'st',\r\n    [2] = 'nd',\r\n    [3] = 'rd',\r\n    [4] = 'th',\r\n}\r\n\r\nfunction module.format_ordinal(number)\r\n    local suffix_index = math.min(#ORDINAL_SUFFIXES, number % 10)\r\n    local suffix = ORDINAL_SUFFIXES[suffix_index]\r\n\r\n    return tostring(number)..suffix\r\nend\r\n\r\nlocal DEGREES_PER_RADIAN = 180 / math.pi\r\n\r\nfunction module.rad2deg(number)\r\n    return number * DEGREES_PER_RADIAN\r\nend\r\n\r\nfunction module.between(number, min, max)\r\n    return number >= min and number < max\r\nend\r\n\r\nreturn module\r\n\nend)\n__bundle_register(\"shark/game/leaderboard/leaderboard_controller\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal util = require(\"shark/util/util\")\r\nlocal UiClosable = require(\"shark/tts/ui_closable\")\r\n\r\nlocal LeaderboardController = { element_id = 'Panel#leaderboard' }\r\nLeaderboardController.__index = setmetatable(LeaderboardController, UiClosable)\r\n\r\nfunction LeaderboardController.init(ui_dom, game, player_colors)\r\n    local instance = {\r\n        game = game,\r\n        player_colors = player_colors,\r\n        data = {},\r\n    }\r\n\r\n    setmetatable(instance, LeaderboardController)\r\n\r\n    UiClosable.init(instance)\r\n\r\n    for _, color in ipairs(player_colors) do\r\n        instance.data[color] = { shares = 0, money = 0, total = 0 }\r\n    end\r\n\r\n    instance:generate(ui_dom)\r\n\r\n    LeaderboardController.instance = instance\r\n\r\n    return instance\r\nend\r\n\r\n-- events\r\n\r\nfunction Leaderboard_onCloseClick(player)\r\n    LeaderboardController.instance:close(player.color)\r\nend\r\n\r\n-- methods\r\n\r\nfunction LeaderboardController:generate(ui_dom)\r\n    for i = 1, #self.player_colors do\r\n        ui_dom:appendChild('TableLayout#leaderboard', {\r\n            tag = 'Row',\r\n            attributes = { id = 'Row#leaderboard.rows[' .. i .. ']', class = 'leaderboard' },\r\n            children = {\r\n                { tag = 'Cell', children = { tag = 'Text', attributes = { class = 'leaderboardData' }, value = util.format_ordinal(i) } },\r\n                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.player', class = 'leaderboardData leaderboardPlayer' } } },\r\n                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.money', class = 'leaderboardData number' } } },\r\n                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.shares', class = 'leaderboardData number' } } },\r\n                { tag = 'Cell', children = { tag = 'Text', attributes = { id = 'Text#leaderboard.rows[' .. i .. ']' .. '.total', class = 'leaderboardData number' } } },\r\n            }\r\n        })\r\n    end\r\nend\r\n\r\nfunction LeaderboardController:updateData(data_changes)\r\n    for player_color, player_data_changes in pairs(data_changes) do\r\n        local player_data = self.data[player_color]\r\n\r\n        for attribute, value in pairs(player_data_changes) do\r\n            player_data[attribute] = value\r\n        end\r\n\r\n        player_data.total = player_data.shares + player_data.money\r\n    end\r\nend\r\n\r\nfunction LeaderboardController:updateAll()\r\n    for _, player_color in pairs(self.player_colors) do\r\n        self:updatePlayerShareValue(player_color)\r\n        self:updatePlayerMoney(player_color)\r\n    end\r\nend\r\n\r\nfunction LeaderboardController:updateAllPlayerShares()\r\n    for _, player_color in pairs(self.player_colors) do\r\n        self:updatePlayerShareValue(player_color)\r\n    end\r\nend\r\n\r\nfunction LeaderboardController:updatePlayerShareValue(player_color)\r\n    local share_value = self.game:getPlayerShareValue(player_color)\r\n\r\n    self:updateData({ [player_color] = { shares = share_value } })\r\nend\r\n\r\nfunction LeaderboardController:updatePlayerMoney(player_color)\r\n    local money_amount = self.game:getPlayerMoney(player_color)\r\n\r\n    self:updateData({ [player_color] = { money = money_amount } })\r\nend\r\n\r\nfunction LeaderboardController:render()\r\n    local players = getSeatedPlayers()\r\n\r\n    -- sort players by their totals\r\n    table.sort(players, |a, b| self.data[a.color].total > self.data[b.color].total)\r\n\r\n    for i = 1, #self.player_colors do\r\n        if i <= #players then\r\n            local player = players[i]\r\n            local player_data = self.data[player.color]\r\n\r\n            UI.setAttributes('Row#leaderboard.rows[' .. i .. ']', {\r\n                active = true,\r\n                color = player.color,\r\n            })\r\n\r\n            UI.setValue('Text#leaderboard.rows[' .. i .. '].player', player.steam_name)\r\n\r\n            for _, attribute in ipairs{ 'shares', 'money', 'total' } do\r\n                local formatted_string =  'FT ' .. util.separate_thousands(player_data[attribute] * 1000)\r\n                UI.setValue('Text#leaderboard.rows[' .. i .. '].' .. attribute, formatted_string)\r\n            end\r\n        else\r\n            UI.setAttribute('Row#leaderboard.rows[' .. i .. ']', 'active', false)\r\n        end\r\n    end\r\nend\r\n\r\nreturn LeaderboardController\r\n\nend)\n__bundle_register(\"shark/game/hand_zone_model\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal unbaggedObjects = require(\"shark/tts/unbagged_objects\")\r\n\r\nlocal HandZoneModel = {}\r\n\r\nHandZoneModel.__index = HandZoneModel\r\n\r\nfunction HandZoneModel.new(object)\r\n    local instance = {\r\n        object = object,\r\n        money_amount = 0,\r\n    }\r\n\r\n    setmetatable(instance, HandZoneModel)\r\n\r\n    return instance\r\nend\r\n\r\nfunction HandZoneModel:getPlayerColor()\r\n    return self.object.getTable('hand_zone').color\r\nend\r\n\r\nfunction HandZoneModel:count(enter_object)\r\n    -- We retrieve the objects from the scripting zone instead of from the hand.\r\n    -- Accurately tracking the objects in hand is tricky, since the enter and\r\n    -- leave events are triggered by the scripting zone.\r\n    --\r\n    -- Note, that it is actually possible to have objects in the scripting zone,\r\n    -- but not in the  hand (decks for example), which may be a downside.\r\n    local objects = self.object.getObjects()\r\n\r\n    if enter_object then\r\n        table.insert(objects, enter_object)\r\n    end\r\n\r\n    self.money_amount = 0\r\n\r\n    for object in unbaggedObjects(objects) do\r\n        local kind = object.getVar('kind')\r\n\r\n        if kind == 'shark_money' then\r\n            self.money_amount = self.money_amount + object.getTable('money').amount\r\n        end\r\n    end\r\nend\r\n\r\nreturn HandZoneModel\r\n\nend)\n__bundle_register(\"shark/tts/unbagged_objects\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal set = require(\"shark/util/set\")\r\nlocal wrapBaggedObject = require(\"shark/tts/wrap_bagged_object\")\r\n\r\n-- Iterates over given objects except for decks. Instead it will iterate over\r\n-- the deck's cards.\r\nlocal function unbaggedObjects(objects)\r\n    -- We will track visited objects by their GUID and ensure that each one is\r\n    -- yielded only once.\r\n    --\r\n    -- Background: There is a weird behavior when grouping cards into a deck:\r\n    -- One card will appear both as a singular card but also inside the deck for\r\n    -- a brief time.\r\n    local visited_guids = set.new{}\r\n\r\n    local i = 1 -- object index\r\n    local j = 1 -- card index for decks\r\n    local bagged_objects = nil -- cache bagged objects\r\n\r\n    -- returns whether object has not been visited before\r\n    local function visit(object)\r\n        local unvisited = not set.contains(visited_guids, object.guid)\r\n        if unvisited then\r\n            set.add(visited_guids, object.guid)\r\n        end\r\n        return unvisited\r\n    end\r\n\r\n    return function ()\r\n        while i <= #objects do\r\n            local object = objects[i]\r\n\r\n            if object.tag == 'Deck' then\r\n                -- getObjects is suprisingly costly when iterating over a lot of\r\n                -- cards in a deck. Therefore, cache objects for the current\r\n                -- deck.\r\n                if not bagged_objects then\r\n                    bagged_objects = object.getObjects()\r\n                end\r\n\r\n                while j <= #bagged_objects do\r\n                    local bagged_object = bagged_objects[j]\r\n                    j = j + 1\r\n\r\n                    if visit(bagged_object) then\r\n                        return wrapBaggedObject(bagged_object)\r\n                    end\r\n                end\r\n\r\n                i = i + 1\r\n                j = 1\r\n                bagged_objects = nil\r\n            else\r\n                i = i + 1\r\n\r\n                if visit(object) then\r\n                    return object\r\n                end\r\n            end\r\n        end\r\n    end\r\nend\r\n\r\nreturn unbaggedObjects\r\n\nend)\n__bundle_register(\"shark/tts/wrap_bagged_object\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal function wrapBaggedObject(bagged_object)\r\n    local object = {\r\n        guid = bagged_object.guid,\r\n    }\r\n\r\n    local state = JSON.decode(bagged_object.lua_script_state)\r\n    local vars = {}\r\n    local tables = {}\r\n\r\n    if type(state) == 'table' then\r\n        if type(state.vars) == 'table' then\r\n            vars = state.vars\r\n        end\r\n\r\n        if type(state.tables) == 'table' then\r\n            tables = state.tables\r\n        end\r\n    end\r\n\r\n    function object.getVar(name)\r\n        return vars[name]\r\n    end\r\n\r\n    function object.setVar(name, value)\r\n        vars[name] = value\r\n    end\r\n\r\n    function object.getTable(name)\r\n        return tables[name]\r\n    end\r\n\r\n    function object.setTable(name, value)\r\n        tables[name] = value\r\n    end\r\n\r\n    return object\r\nend\r\n\r\nreturn wrapBaggedObject\r\n\nend)\n__bundle_register(\"shark/game/player_share_card_zone/player_share_card_zone_model\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal unbaggedObjects = require(\"shark/tts/unbagged_objects\")\r\n\r\nlocal PlayerShareCardZoneModel = {}\r\n\r\nPlayerShareCardZoneModel.__index = PlayerShareCardZoneModel\r\n\r\nfunction PlayerShareCardZoneModel.new(object, companies)\r\n    local instance = {\r\n        object = object,\r\n        companies = companies,\r\n        stock_options = {},\r\n    }\r\n\r\n    setmetatable(instance, PlayerShareCardZoneModel)\r\n\r\n    instance:reset()\r\n\r\n    return instance\r\nend\r\n\r\nfunction PlayerShareCardZoneModel:getPlayerColor()\r\n    return self.object.getTable('player_share_card_zone').color\r\nend\r\n\r\nfunction PlayerShareCardZoneModel:reset()\r\n    for _, company in ipairs(self.companies) do\r\n        self.stock_options[company] = 0\r\n    end\r\nend\r\n\r\nfunction PlayerShareCardZoneModel:count(enter_object)\r\n    local objects = self.object.getObjects()\r\n\r\n    if enter_object then\r\n        table.insert(objects, enter_object)\r\n    end\r\n\r\n    self:reset()\r\n\r\n    local share_counters = {}\r\n    local stock_options = self.stock_options\r\n\r\n    for object in unbaggedObjects(objects) do\r\n        local kind = object.getVar('kind')\r\n\r\n        if kind == 'shark_share_card' then\r\n            local share = object.getTable('share')\r\n            local company = share.company\r\n            local share_stock_options = share.stock_options\r\n\r\n            stock_options[company] = stock_options[company] + share_stock_options\r\n        elseif kind == 'shark_share_counter' and object.tag == 'Counter' then\r\n            local share_counter = object.getTable('share_counter')\r\n            local company = share_counter.company\r\n\r\n            share_counters[company] = object\r\n        end\r\n    end\r\n\r\n    for company, share_counter in pairs(share_counters) do\r\n        local company_stock_options = stock_options[company]\r\n\r\n        share_counter.setValue(company_stock_options)\r\n    end\r\nend\r\n\r\nreturn PlayerShareCardZoneModel\r\n\nend)\n__bundle_register(\"shark/game/drop_zone/money_counter_model\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal MoneyCounterModel = {}\r\n\r\nMoneyCounterModel.__index = MoneyCounterModel\r\n\r\nfunction MoneyCounterModel.new(object)\r\n    local instance = {\r\n        object = object,\r\n        zone = nil,\r\n        forced_sale_mode = false,\r\n    }\r\n\r\n    setmetatable(instance, MoneyCounterModel)\r\n\r\n    object.createButton({\r\n        click_function = 'MoneyCounterModel_onToggleForcedSaleClick',\r\n        position = { 0, 0.01, -0.75 },\r\n        rotation = { 0, 180, 0 },\r\n        height = 150,\r\n        width = 1000,\r\n        tooltip = 'Enabling Forced Sale will count shares at 50% of their regular price.',\r\n    })\r\n\r\n    instance:handleForcedSaleModeChange()\r\n\r\n    return instance\r\nend\r\n\r\nfunction MoneyCounterModel_onToggleForcedSaleClick(money_counter, player_color, alt_click)\r\n    local money_counter = getModel(money_counter)\r\n    local zone = money_counter.zone\r\n\r\n    money_counter:toggleForcedSaleMode()\r\n\r\n    if zone then\r\n        getModel(zone):countMoneyAndShares()\r\n    end\r\nend\r\n\r\nfunction MoneyCounterModel:toggleForcedSaleMode()\r\n    self.forced_sale_mode = not self.forced_sale_mode\r\n    self:handleForcedSaleModeChange()\r\nend\r\n\r\nfunction MoneyCounterModel:handleForcedSaleModeChange()\r\n    if self.forced_sale_mode then\r\n        self.object.setColorTint({ 0.25, 0.25, 0.25 })\r\n        self.object.editButton({\r\n            label = 'Disable Forced Sale',\r\n            color = { 1, 0, 0 },\r\n            font_color = { 1, 1, 1 },\r\n        })\r\n    else\r\n        -- Color tint is almost perfect white. For some reason actual white\r\n        -- (#FFFFFF) appears only white to the host. But for all others it is\r\n        -- displayed in black.\r\n        self.object.setColorTint({ 254/255, 254/255, 254/255 })\r\n        self.object.editButton({\r\n            label = 'Enable Forced Sale',\r\n            color = { 1, 1, 1 },\r\n            font_color = { 0, 0, 0 },\r\n        })\r\n    end\r\nend\r\n\r\nreturn MoneyCounterModel\r\n\nend)\n__bundle_register(\"shark/game/drop_zone/return_button_model\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal DropZoneReturnButtonModel = {}\r\nDropZoneReturnButtonModel.__index = DropZoneReturnButtonModel\r\n\r\nfunction DropZoneReturnButtonModel.new(object)\r\n    local instance = {\r\n        object = object,\r\n        zone = nil,\r\n    }\r\n\r\n    setmetatable(instance, DropZoneReturnButtonModel)\r\n\r\n    object.createButton({\r\n        click_function = 'DropZoneReturnButton_onClick',\r\n        position = { 0, 0.5, 0 },\r\n        rotation = { 0, 180, 0 },\r\n        height = 1000,\r\n        width = 1800,\r\n        font_size = 300,\r\n        label = 'Return',\r\n        tooltip = 'Returns money and shares to their designated deposit areas.'\r\n    })\r\n\r\n    return instance\r\nend\r\n\r\nfunction DropZoneReturnButton_onClick(button_object, player_color, alt_click)\r\n    local button_model = getModel(button_object)\r\n    local zone_model = getModel(button_model.zone)\r\n\r\n    zone_model:returnObjects()\r\nend\r\n\r\nreturn DropZoneReturnButtonModel\r\n\nend)\n__bundle_register(\"shark/game/drop_zone/drop_zone_model\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal bind = require(\"shark/util/bind\")\r\n\r\nlocal unbaggedObjects = require(\"shark/tts/unbagged_objects\")\r\nlocal ObjectReturner = require(\"shark/tts/object_returner\")\r\n\r\nlocal DropZoneModel = {}\r\n\r\nDropZoneModel.__index = DropZoneModel\r\n\r\nfunction DropZoneModel.new(object, game)\r\n    local instance = {\r\n        object = object,\r\n        game = game,\r\n        state = 'normal',\r\n    }\r\n\r\n    setmetatable(instance, DropZoneModel)\r\n\r\n    return instance\r\nend\r\n\r\nfunction DropZoneModel:returnObjects()\r\n    if self.state == 'returning' then\r\n        return\r\n    end\r\n\r\n    self.state = 'returning'\r\n\r\n    local zone_objects = self.object.getObjects()\r\n    local getDepositTarget = bind(self.game.getDepositTarget, self.game)\r\n    local object_returner = ObjectReturner.new(zone_objects, getDepositTarget, || self:finishObjectReturn())\r\n\r\n    object_returner:loop()\r\nend\r\n\r\nfunction DropZoneModel:finishObjectReturn()\r\n    self.state = 'normal'\r\n    self:countMoneyAndShares()\r\nend\r\n\r\nfunction DropZoneModel:countMoneyAndShares(enter_object)\r\n    if self.state == 'returning' then\r\n        -- Counting money while a return operation is in progress is too laggy.\r\n        return\r\n    end\r\n\r\n    local objects = self.object.getObjects()\r\n\r\n    if enter_object then\r\n        table.insert(objects, enter_object)\r\n    end\r\n\r\n    local money_counters = {}\r\n    local money_sum = 0\r\n    local share_sum = 0\r\n\r\n    local share_prices = self.game:getSharePrices()\r\n\r\n    for object in unbaggedObjects(objects) do\r\n        local kind = object.getVar('kind')\r\n\r\n        if kind == 'shark_share_card' then\r\n            local share = object.getTable('share')\r\n            local company = share.company\r\n            local share_stock_options = share.stock_options\r\n            local share_price = share_prices[company]\r\n\r\n            share_sum = share_sum + share_price * share_stock_options\r\n        elseif kind == 'shark_money' then\r\n            local amount = object.getTable('money').amount\r\n\r\n            money_sum = money_sum + amount\r\n        elseif kind == 'shark_money_counter' and object.tag == 'Counter' then\r\n            table.insert(money_counters, object)\r\n        end\r\n    end\r\n\r\n    for _, money_counter in ipairs(money_counters) do\r\n        local model = getModel(money_counter)\r\n\r\n        local counter_share_sum\r\n        if model.forced_sale_mode then\r\n            counter_share_sum = math.floor(share_sum / 2)\r\n        else\r\n            counter_share_sum = share_sum\r\n        end\r\n\r\n        money_counter.setValue(money_sum + counter_share_sum)\r\n    end\r\nend\r\n\r\nreturn DropZoneModel\r\n\nend)\n__bundle_register(\"shark/tts/object_returner\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal DeckDecomposer = require(\"shark/tts/deck_decomposer\")\r\n\r\nlocal ObjectReturner = {}\r\nObjectReturner.__index = ObjectReturner\r\n\r\nfunction ObjectReturner.new(objects, getDepositTarget, callback)\r\n    -- We want to return objects from top to bottom. Sorting by Y will avoid\r\n    -- accidential deck merges.\r\n    table.sort(objects, |a, b| a.getPosition().y < b.getPosition().y)\r\n\r\n    local instance = {\r\n        object_guids = table.collect(objects, 'guid'),\r\n        getDepositTarget = getDepositTarget,\r\n        callback = callback,\r\n    }\r\n\r\n    setmetatable(instance, ObjectReturner)\r\n\r\n    return instance\r\nend\r\n\r\nfunction ObjectReturner:loop()\r\n    local continue = false\r\n\r\n    if #self.object_guids > 0 then\r\n        continue = self:step()\r\n    end\r\n\r\n    if #self.object_guids == 0 then\r\n        self.callback()\r\n    elseif continue then\r\n        -- continue loop in next frame for better performance\r\n        Wait.frames(|| self:loop(), 1)\r\n    end\r\nend\r\n\r\n-- Returns true if loop should be continued. Otherwise, the loop should be\r\n-- paused.\r\nfunction ObjectReturner:step()\r\n    local object_guid = table.remove(self.object_guids)\r\n    local object = getObjectFromGUID(object_guid)\r\n\r\n    -- object might have been destroyed in the meantime\r\n    if not object then\r\n        return true\r\n    end\r\n\r\n    local kind = object.getVar('kind')\r\n\r\n    if kind == 'shark_share_card' then\r\n        local properties = { share = object.getTable('share') }\r\n        local deposit = self.getDepositTarget(kind, properties)\r\n\r\n        object.setPositionSmooth(deposit.position, false, false)\r\n        object.setRotationSmooth(deposit.rotation, false, false)\r\n    elseif kind == 'shark_money' then\r\n        local properties = { money = object.getTable('money') }\r\n        local deposit = self.getDepositTarget(kind, properties)\r\n\r\n        object.setPositionSmooth(deposit.position, false, false)\r\n        object.setRotationSmooth(deposit.rotation, false, false)\r\n    elseif object.tag == 'Deck' then\r\n        DeckDecomposer.new(object, self.getDepositTarget, || self:loop()):loop()\r\n\r\n        return false\r\n    end\r\n\r\n    return true\r\nend\r\n\r\nreturn ObjectReturner\r\n\nend)\n__bundle_register(\"shark/tts/deck_decomposer\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal eachChunk = require(\"shark/tts/each_chunk\")\r\n\r\nlocal DeckDecomposer = {}\r\nDeckDecomposer.__index = DeckDecomposer\r\n\r\nfunction DeckDecomposer.new(deck, getDepositTarget, callback)\r\n    local instance = {\r\n        deck_guid = deck.guid,\r\n        getDepositTarget = getDepositTarget,\r\n        callback = callback,\r\n    }\r\n\r\n    setmetatable(instance, DeckDecomposer)\r\n\r\n    return instance\r\nend\r\n\r\nfunction DeckDecomposer:loop()\r\n    local continue = self:step()\r\n\r\n    if continue then\r\n        -- continue loop in next frame for better performance\r\n        Wait.frames(|| self:loop(), 1)\r\n    else\r\n        -- enqueue callback\r\n        Wait.frames(self.callback, 0)\r\n    end\r\nend\r\n\r\nfunction DeckDecomposer:step()\r\n    local deck = getObjectFromGUID(self.deck_guid)\r\n\r\n    -- deck might have been destroyed in the meantime\r\n    if not deck then\r\n        return false\r\n    end\r\n\r\n    local nextChunk = eachChunk(deck)\r\n    local chunk = nextChunk()\r\n    local top_size = chunk.size\r\n    local bottom_size = deck.getQuantity() - top_size\r\n    local deposit = self.getDepositTarget(chunk.kind, chunk.properties)\r\n\r\n    -- The cases below ensure the following:\r\n    -- - Only cut into valid decks (a deck consists of at least two cards).\r\n    -- - Otherwise take card from top or bottom.\r\n    -- - Move deck itself if it consists only of one chunk.\r\n\r\n    if top_size > 1 and bottom_size > 1 then\r\n        local cut_decks = deck.cut(chunk.size)\r\n        local bottom = cut_decks[1]\r\n        local top = cut_decks[2]\r\n\r\n        top.setPositionSmooth(deposit.position, false, false)\r\n        top.setRotationSmooth(deposit.rotation, false, false)\r\n\r\n        self.deck_guid = bottom.guid\r\n\r\n        -- signal to continue\r\n        return true\r\n    elseif top_size == 1 and bottom_size > 1 then\r\n        deck.takeObject({\r\n            position = deposit.position,\r\n            rotation = deposit.rotation,\r\n        })\r\n\r\n        -- signal to continue\r\n        return true\r\n    elseif top_size > 1 and bottom_size == 1 then\r\n        local next_chunk = nextChunk()\r\n        local next_deposit = self.getDepositTarget(next_chunk.kind, next_chunk.properties)\r\n\r\n        -- draw card from bottom\r\n        deck.takeObject({\r\n            top = false,\r\n            position = next_deposit.position,\r\n            rotation = next_deposit.rotation,\r\n        })\r\n\r\n        -- The only chunk remaining should be the current chunk.\r\n        -- Therefore, return the entire remaining deck.\r\n        deck.setPositionSmooth(deposit.position, false, false)\r\n        deck.setRotationSmooth(deposit.rotation, false, false)\r\n\r\n        -- signal to stop\r\n        return false\r\n    elseif top_size == 1 and bottom_size == 1 then\r\n        deck.takeObject({\r\n            position = deposit.position,\r\n            rotation = deposit.rotation,\r\n        })\r\n\r\n        local next_chunk = nextChunk()\r\n        local next_deposit = self.getDepositTarget(next_chunk.kind, next_chunk.properties)\r\n\r\n        -- draw last card\r\n        deck.takeObject({\r\n            position = next_deposit.position,\r\n            rotation = next_deposit.rotation,\r\n        })\r\n\r\n        -- signal to stop\r\n        return false\r\n    else -- bottom_size == 0\r\n        deck.setPositionSmooth(deposit.position, false, false)\r\n        deck.setRotationSmooth(deposit.rotation, false, false)\r\n\r\n        -- signal to stop\r\n        return false\r\n    end\r\nend\r\n\r\nreturn DeckDecomposer\r\n\nend)\n__bundle_register(\"shark/tts/each_chunk\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal util = require(\"shark/util/util\")\r\nlocal wrapBaggedObject = require(\"shark/tts/wrap_bagged_object\")\r\n\r\nlocal function eachChunk(deck)\r\n    local chunk = nil\r\n    local bagged_objects = deck.getObjects()\r\n    local i = 0\r\n\r\n    return function ()\r\n        while i < #bagged_objects do\r\n            i = i + 1\r\n\r\n            local card = wrapBaggedObject(bagged_objects[#bagged_objects - i + 1])\r\n            local kind = card.getVar('kind')\r\n            local properties = {}\r\n\r\n            if kind == 'shark_share_card' then\r\n                properties.share = card.getTable('share')\r\n            elseif kind == 'shark_money' then\r\n                properties.money = card.getTable('money')\r\n            end\r\n\r\n            if chunk and kind == chunk.kind and util.equal(properties, chunk.properties) then\r\n                chunk.size = chunk.size + 1\r\n            else\r\n                local last_chunk = chunk\r\n                chunk = { size = 1, kind = kind, properties = properties }\r\n\r\n                if last_chunk then\r\n                    return last_chunk\r\n                end\r\n            end\r\n        end\r\n\r\n        last_chunk = chunk\r\n        chunk = nil\r\n\r\n        return last_chunk\r\n    end\r\nend\r\n\r\nreturn eachChunk\r\n\nend)\n__bundle_register(\"shark/util/bind\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal function bind(func, context)\r\n    return function (...)\r\n        return func(context, table.unpack{ ... })\r\n    end\r\nend\r\n\r\nreturn bind\r\n\nend)\n__bundle_register(\"shark/game\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal util = require(\"shark/util/util\")\r\nlocal SharkStateMachine = require(\"shark/game/shark_state_machine\")\r\n\r\nlocal Game = {\r\n    companies = {\r\n        'green',\r\n        'red',\r\n        'blue',\r\n        'yellow',\r\n    },\r\n    company_colors = {\r\n        green = Color(95 / 255, 171 / 255, 70 / 255),\r\n        red = Color(228 / 255, 49 / 255, 46 / 255),\r\n        blue = Color(123 / 255, 190 / 255, 187 / 255),\r\n        yellow = Color(251 / 255, 193 / 255, 51 / 255),\r\n    },\r\n    share_price = {\r\n        min = 0,\r\n        max = 15,\r\n    }\r\n}\r\n\r\nGame.__index = Game\r\n\r\nfunction Game.new(scene_data)\r\n    local instance = {\r\n        objects = scene_data.objects,\r\n        player_share_deposits = scene_data.player_share_deposits,\r\n        share_deposit_positions = scene_data.share_deposit_positions,\r\n        share_price_transform = scene_data.share_price_transform,\r\n    }\r\n\r\n    instance.state_machine = SharkStateMachine.new(instance)\r\n\r\n    setmetatable(instance, Game)\r\n\r\n    return instance\r\nend\r\n\r\nfunction Game:getSharePrice(company)\r\n    local transform = self.share_price_transform\r\n    local indicator = self.objects.indicators[company]\r\n    local indicator_position = indicator.getPosition()\r\n    local local_indicator_position = self.objects.board.positionToLocal(indicator_position)\r\n\r\n    local share_price = transform.value_1 + transform.value_delta * (local_indicator_position.z - transform.z_1) / transform.z_delta\r\n\r\n    if share_price <= self.share_price.min then\r\n        return self.share_price.min\r\n    elseif share_price >= self.share_price.max then\r\n        return self.share_price.max\r\n    else\r\n        return math.round(share_price)\r\n    end\r\nend\r\n\r\nfunction Game:getSharePrices()\r\n    local share_prices = {}\r\n\r\n    for _, company in ipairs(self.companies) do\r\n        share_prices[company] = self:getSharePrice(company)\r\n    end\r\n\r\n    return share_prices\r\nend\r\n\r\nfunction Game:getDepositTarget(deposit_kind, deposit_properties)\r\n    local position, rotation_y\r\n\r\n    if deposit_kind == 'shark_share_card' then\r\n        local share = deposit_properties.share\r\n        local localPosition = self.share_deposit_positions[share.company][share.stock_options]\r\n\r\n        position = self.objects.board.positionToWorld(localPosition)\r\n        rotation_y = self.objects.board.getRotation().y\r\n    elseif deposit_kind == 'shark_money' then\r\n        local marker = self.objects.money_deposit_markers[deposit_properties.money.amount]\r\n\r\n        position = marker.getPosition()\r\n        rotation_y = marker.getRotation().y\r\n    else\r\n        return\r\n    end\r\n\r\n    position.y = 3\r\n\r\n    return {\r\n        position = position,\r\n        rotation = { x = 0, y = rotation_y, z = 0 },\r\n    }\r\nend\r\n\r\nfunction Game:getPlayerDepositTarget(player_color, deposit_kind, deposit_properties)\r\n    if deposit_kind ~= 'shark_share_card' then\r\n        return\r\n    end\r\n\r\n    local share = deposit_properties.share\r\n\r\n    local absolute_position = self.player_share_deposits.absolute_positions[player_color]\r\n    local relative_position = self.player_share_deposits.relative_positions[share.company][share.stock_options]\r\n    local rotation_y = self.player_share_deposits.rotation_y[player_color]\r\n\r\n    local cos_theta = math.cos(rotation_y)\r\n    local sin_theta = math.sin(rotation_y)\r\n\r\n    return {\r\n        position = Vector(absolute_position) + Vector{\r\n            x = cos_theta * relative_position.x - sin_theta * relative_position.z,\r\n            y = relative_position.y,\r\n            z = sin_theta * relative_position.x + cos_theta * relative_position.z,\r\n        },\r\n        rotation = { x = 0, y = util.rad2deg(rotation_y), z = 0 },\r\n    }\r\nend\r\n\r\nfunction Game:getPlayerStockOptions(player_color)\r\n    local zone = self.objects.player_share_card_zones[player_color]\r\n    return getModel(zone).stock_options\r\nend\r\n\r\nfunction Game:getPlayerShareValue(player_color)\r\n    local zone = self.objects.player_share_card_zones[player_color]\r\n    local zone_model = getModel(zone)\r\n    local share_prices = self:getSharePrices()\r\n\r\n    local sum = 0\r\n    for company, company_stock_options in pairs(zone_model.stock_options) do\r\n        sum = sum + company_stock_options * share_prices[company]\r\n    end\r\n\r\n    return sum\r\nend\r\n\r\nfunction Game:getPlayerMoney(player_color)\r\n    local zone = self.objects.hand_zones[player_color]\r\n    return getModel(zone).money_amount\r\nend\r\n\r\nfunction Game:isBuildingBagDepleted(company)\r\n    return self.objects.building_bags[company].getQuantity() == 0\r\nend\r\n\r\nfunction Game:isAtMaxSharePrice(company)\r\n    return self:getSharePrice(company) == self.share_price.max\r\nend\r\n\r\nfunction Game:getPlayerMoney(player_color)\r\n    local zone = self.objects.hand_zones[player_color]\r\n    return getModel(zone).money_amount\r\nend\r\n\r\nreturn Game\r\n\nend)\n__bundle_register(\"shark/game/shark_state_machine\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal GraphController = require(\"shark/game/graph_controller\")\r\n\r\nlocal SharkStateMachine = {}\r\n\r\nSharkStateMachine.__index = SharkStateMachine\r\n\r\nfunction SharkStateMachine.new(game)\r\n    local instance = {\r\n        game = game,\r\n        state = 'initial',\r\n    }\r\n\r\n    setmetatable(instance, SharkStateMachine)\r\n\r\n    return instance\r\nend\r\n\r\nfunction SharkStateMachine:emitTurnStarted()\r\n    if self.state == 'uncertain_new_turn' then\r\n        self:pushSharePrices()\r\n    end\r\n\r\n    self.state = 'new_turn'\r\nend\r\n\r\nfunction SharkStateMachine:emitDiceRolled()\r\n    if Turns.enable then\r\n        return\r\n    end\r\n\r\n    if self.state == 'building_placed' then\r\n        self.state = 'uncertain_new_turn'\r\n    elseif self.state ~= 'uncertain_new_turn' then\r\n        self.state = 'new_turn'\r\n    end\r\nend\r\n\r\nfunction SharkStateMachine:emitBuildingPlaced()\r\n    if self.state == 'new_turn' then\r\n        self.state = 'building_placed'\r\n    elseif self.state == 'uncertain_new_turn' then\r\n        self:pushSharePrices()\r\n        self.state = 'building_placed'\r\n    end\r\nend\r\n\r\nfunction SharkStateMachine:emitIndicatorPlaced()\r\n    if self.state == 'new_turn' or self.state == 'indicator_placed' then\r\n        self:updateSharePrices()\r\n    elseif self.state == 'building_placed' or self.state == 'uncertain_new_turn' then\r\n        self:pushSharePrices()\r\n        self.state = 'indicator_placed'\r\n    end\r\nend\r\n\r\nfunction SharkStateMachine:pushSharePrices()\r\n    local data = self.game:getSharePrices()\r\n    GraphController.instance:push(data)\r\n    GraphController.instance:renderAll()\r\nend\r\n\r\nfunction SharkStateMachine:updateSharePrices()\r\n    local data = self.game:getSharePrices()\r\n    GraphController.instance:updateLast(data)\r\n    GraphController.instance:renderAll()\r\nend\r\n\r\nreturn SharkStateMachine\r\n\nend)\n__bundle_register(\"shark/util/debug\", function(require, _LOADED, __bundle_register, __bundle_modules)\n\r\nlocal module = {}\r\n\r\nfunction module.inspect(...)\r\n    local strings = {}\r\n\r\n    for i, arg in ipairs{ ... } do\r\n        strings[i] = JSON.encode(arg)\r\n    end\r\n\r\n    print(table.concat(strings, ' '))\r\nend\r\n\r\nfunction module.dumpVector(vector)\r\n    local x = math.round(vector.x, 3)\r\n    local y = math.round(vector.y, 3)\r\n    local z = math.round(vector.z, 3)\r\n\r\n    Notes.setNotes('{ x = ' .. x .. ', y = ' .. y .. ', z = ' .. z .. ' }')\r\nend\r\n\r\nreturn module\r\n\nend)\n__bundle_register(\"shark/tts/ui_dom\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal list = require(\"shark/util/list\")\r\n\r\nlocal function registerIds(id_lookup, iterator)\r\n    for xml_node in iterator do\r\n        local id = (xml_node.attributes or {}).id\r\n\r\n        if id then\r\n            id_lookup[id] = xml_node\r\n        end\r\n    end\r\nend\r\n\r\n-- Returns an iterator which iterates through all nodes\r\nlocal function traverseNode(xml_node)\r\n    local stack = list.new({ { xml_node }, 1 }, list.empty_list())\r\n\r\n    return function ()\r\n        -- The idea here is to avoid unnecessary operations. An outer loop might\r\n        -- discontinue an iteration at any moment. However, since this is a\r\n        -- tree, we need a stack to track the iteration's state. The algorithm\r\n        -- below uses a functional list (or singly-linked list) in a way where\r\n        -- we don't push childrens one by one into a new array. Instead we store\r\n        -- the children array directly and track indices.\r\n\r\n        while not list.empty(stack) do\r\n            local entry =  list.first(stack)\r\n            local children = entry[1]\r\n            local index = entry[2]\r\n\r\n            if index <= #children then\r\n                -- increment index for next iteration\r\n                entry[2] = index + 1\r\n\r\n                local node = children[index]\r\n                local node_children = node.children\r\n\r\n                if node_children and #node_children > 0 then\r\n                    -- push new children to stack\r\n                    stack = list.new({ node_children, 1 }, stack)\r\n                end\r\n\r\n                return children[index]\r\n            else -- all children visited\r\n                -- pop stack\r\n                stack = list.rest(stack)\r\n            end\r\n        end\r\n\r\n        -- no more nodes to visit\r\n        return nil\r\n    end\r\nend\r\n\r\nlocal UiDom = {}\r\nUiDom.__index = UiDom\r\n\r\nfunction UiDom.new(xml_table)\r\n    local instance = {\r\n        xml_table = xml_table,\r\n        id_lookup = {},\r\n    }\r\n\r\n    setmetatable(instance, UiDom)\r\n\r\n    registerIds(instance.id_lookup, instance:traverse())\r\n\r\n    return instance\r\nend\r\n\r\nfunction UiDom:getElementById(id)\r\n    return self.id_lookup[id]\r\nend\r\n\r\nfunction UiDom:appendChild(id, child)\r\n    local xml_node = self:getElementById(id)\r\n\r\n    if not xml_node then\r\n        error('unknown XML node with ID ' .. id)\r\n        return\r\n    end\r\n\r\n    if xml_node.children then\r\n        table.insert(xml_node.children, child)\r\n    else\r\n        xml_node.children = { child }\r\n    end\r\n\r\n    registerIds(self.id_lookup, traverseNode(child))\r\nend\r\n\r\nfunction UiDom:traverse()\r\n    local i = 1\r\n    local node_iterator = nil\r\n\r\n    return function ()\r\n        while i <= #self.xml_table do\r\n            if node_iterator then\r\n                local node = node_iterator()\r\n\r\n                if node then\r\n                    return node\r\n                else\r\n                    -- continue with top level nodes\r\n                    i = i + 1\r\n                    node_iterator = nil\r\n                end\r\n            else\r\n                local top_node = self.xml_table[i]\r\n                node_iterator = traverseNode(top_node)\r\n\r\n                return top_node\r\n            end\r\n        end\r\n\r\n        return nil\r\n    end\r\nend\r\n\r\nreturn UiDom\r\n\nend)\n__bundle_register(\"shark/util/list\", function(require, _LOADED, __bundle_register, __bundle_modules)\nlocal list = {}\r\n\r\nfunction list.empty_list()\r\n    return nil\r\nend\r\n\r\nfunction list.new(first, rest)\r\n    return { first, rest }\r\nend\r\n\r\nfunction list.first(instance)\r\n    return instance[1]\r\nend\r\n\r\nfunction list.rest(instance)\r\n    return instance[2]\r\nend\r\n\r\nfunction list.empty(instance)\r\n    return instance == list.empty_list()\r\nend\r\n\r\nreturn list\r\n\nend)\nreturn __bundle_require(\"__root\")",
