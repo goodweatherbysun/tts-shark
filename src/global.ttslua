@@ -279,14 +279,28 @@ function onLoad(saved_state_json)
 
     -- init graphs
 
-    GraphController.init(OBJECTS.graph_boards, GAME)
+    local graph = GraphController.init(OBJECTS.graph_boards, GAME)
 
     if saved_state and saved_state.graph_data then
-        GraphController.instance.data = saved_state.graph_data
-        GraphController.instance:updateZoom()
+        graph:load(saved_state.graph_data)
+
+        -- -- DEBUG
+        -- for i = 1, 40 do -- 69 is max number of turns (17 + 17 + 17 + 18 = 69)
+        --     local profit_company = GAME.companies[math.random(#GAME.companies)]
+        --
+        --     for _, company in ipairs(GAME.companies) do
+        --         if company == profit_company then
+        --             graph.data[company][i + 1] = graph.data[company][i] + 1
+        --         else
+        --             graph.data[company][i + 1] = graph.data[company][i]
+        --         end
+        --     end
+        -- end
+        -- graph:updateZoom()
+        -- graph:updateZoomButtonVisibility()
     end
 
-    GraphController.instance:renderAll()
+    graph:renderAll()
 
     -- hotkeys
 
