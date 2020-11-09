@@ -419,7 +419,7 @@ function onScriptingButtonUp(index, player_color)
     if index == SCRIPTING_BUTTON_BUY_SHARE then
         local object = Player[player_color].getHoverObject()
 
-        handlePlayerTakeShareCard(player_color, object, 1)
+        dealCard(object, player_color)
     elseif index == SCRIPTING_BUTTON_DEBUG then
         -- DEBUG
         local object = Player[player_color].getHoverObject()
@@ -430,12 +430,17 @@ end
 
 function onTakeShareCardHotkey(player_color, object, position, key_up)
     if key_up then
-        handlePlayerTakeShareCard(player_color, object, 1)
+        dealCard(object, player_color)
     end
 end
 
 function onObjectNumberTyped(object, player_color, number)
-    return handlePlayerTakeShareCard(player_color, object, number)
+    local kind = getKind(object)
+
+    if kind == 'shark_share_card' then
+        dealShareCard(object, player_color, number)
+        return true
+    end
 end
 
 function onObjectDestroy(object)
@@ -662,58 +667,65 @@ end
 
 -- handlers
 
--- Returns true if card was taken
-function handlePlayerTakeShareCard(player_color, object, number)
+function dealCard(object, player_color)
     local kind = getKind(object)
 
-    if kind == 'shark_share_card' and set.contains(SEAT_COLOR_SET, player_color) then
-        local properties
-        local dealt_count
+    if kind == 'shark_share_card' then
+        dealShareCard(object, player_color, 1)
+    elseif kind == 'shark_money' then
+        object.deal(1, player_color)
+    end
+end
 
-        if object.tag == 'Deck' then
-            local quantity = object.getQuantity()
-            local card = wrapBaggedObject(object.getObjects()[1])
-            properties = card.getTable('share')
-            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
+function dealShareCard(object, player_color, number)
+    if not set.contains(SEAT_COLOR_SET, player_color) then
+        return
+    end
 
-            if number == 1 then
-                object.takeObject({
-                    position = deposit.position,
-                    rotation = deposit.rotation,
-                })
-            elseif quantity <= number then
-                object.setPositionSmooth(deposit.position, false, false)
-                object.setRotationSmooth(deposit.rotation, false, false)
-            elseif quantity == number + 1 then
-                object.takeObject({
-                    position = object.getPosition() + Vector(0, 2, 0),
-                    top = false
-                })
+    local properties
+    local dealt_count
 
-                object.setPositionSmooth(deposit.position, false, false)
-                object.setRotationSmooth(deposit.rotation, false, false)
-            else -- quantity >= number + 2
-                local upper_deck = object.cut(number)[2]
+    if object.tag == 'Deck' then
+        local quantity = object.getQuantity()
+        local card = wrapBaggedObject(object.getObjects()[1])
+        properties = card.getTable('share')
+        local deposit = GAME:getPlayerDepositTarget(player_color, 'shark_share_card', { share = properties })
 
-                upper_deck.setPositionSmooth(deposit.position, false, false)
-                upper_deck.setRotationSmooth(deposit.rotation, false, false)
-            end
-
-            dealt_count = math.min(quantity, number)
-        elseif object.tag == 'Card' then
-            properties = object.getTable('share')
-            local deposit = GAME:getPlayerDepositTarget(player_color, kind, { share = properties })
+        if number == 1 then
+            object.takeObject({
+                position = deposit.position,
+                rotation = deposit.rotation,
+            })
+        elseif quantity <= number then
+            object.setPositionSmooth(deposit.position, false, false)
+            object.setRotationSmooth(deposit.rotation, false, false)
+        elseif quantity == number + 1 then
+            object.takeObject({
+                position = object.getPosition() + Vector(0, 2, 0),
+                top = false
+            })
 
             object.setPositionSmooth(deposit.position, false, false)
             object.setRotationSmooth(deposit.rotation, false, false)
+        else -- quantity >= number + 2
+            local upper_deck = object.cut(number)[2]
 
-            dealt_count = 1
-        else
-            return -- should not happen
+            upper_deck.setPositionSmooth(deposit.position, false, false)
+            upper_deck.setRotationSmooth(deposit.rotation, false, false)
         end
 
-        AssetCountersController.instance:increaseBoughtShares(player_color, dealt_count * properties.stock_options)
+        dealt_count = math.min(quantity, number)
+    elseif object.tag == 'Card' then
+        properties = object.getTable('share')
+        local deposit = GAME:getPlayerDepositTarget(player_color, 'shark_share_card', { share = properties })
 
-        return true
+        object.setPositionSmooth(deposit.position, false, false)
+        object.setRotationSmooth(deposit.rotation, false, false)
+
+        dealt_count = 1
+    else -- should not happen
+        return -- skip asset counter increase
     end
+
+    AssetCountersController.instance:increaseBoughtShares(player_color, dealt_count * properties.stock_options)
 end
