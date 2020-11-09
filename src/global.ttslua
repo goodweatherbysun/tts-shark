@@ -4,7 +4,6 @@ local util = require("shark/util/util")
 local wrapBaggedObject = require("shark/tts/wrap_bagged_object")
 local UiDom = require("shark/tts/ui_dom")
 
--- DEBUG
 local debug = require("shark/util/debug")
 
 local Game = require("shark/game")
@@ -20,6 +19,8 @@ local AssetCountersController = require("shark/game/asset_counters/asset_counter
 local ControlBarController = require("shark/game/control_bar/control_bar_controller")
 local GraphController = require("shark/game/graph_controller")
 
+local DEV_MODE = true
+
 local SEAT_COLORS = {
     'White',
     'Red',
@@ -32,9 +33,11 @@ local SEAT_COLORS = {
 local SEAT_COLOR_SET = set.new(SEAT_COLORS)
 
 local SCRIPTING_BUTTON_BUY_SHARE = 10
-local SCRIPTING_BUTTON_DEBUG = 7 -- DEBUG
+local SCRIPTING_BUTTON_DEBUG = 7
 
 local GUIDS = {
+    debug_object = 'fd701d',
+
     board = '12bb20',
 
     numbered_die = '5248eb',
@@ -197,7 +200,6 @@ local GAME = nil
 
 local MODELS = {}
 
--- DEBUG
 function onDebug(player_color, object, position, key_up)
     if not key_up then
         return
@@ -234,6 +236,19 @@ function onLoad(saved_state_json)
     end
 
     -- discover objects
+
+    if DEV_MODE then
+        OBJECTS.debug_block = getObjectFromGUID(GUIDS.debug_object) or spawnObjectJSON({
+            json = JSON.encode({
+                Name = 'BlockSquare',
+                Transform = { scaleZ = 1 },
+                GUID = GUIDS.debug_object,
+            }),
+            position = { 1, 2.246514, 7 },
+            rotation = { 0, 180, 0 },
+            scale = { 0.1, 1.0, 0.1 },
+        })
+    end
 
     OBJECTS.board = getObjectFromGUID(GUIDS.board)
 
@@ -306,12 +321,15 @@ function onLoad(saved_state_json)
 
     addHotkey('Take Share Card', onTakeShareCardHotkey, true)
 
-    -- DEBUG
-    addHotkey('Debug', onDebug, true)
+    if DEV_MODE then
+        addHotkey('Debug', onDebug, true)
+    end
 
     -- notes
 
-    Notes.setNotes(NOTES)
+    if DEV_MODE then
+        Notes.setNotes(NOTES)
+    end
 
     -- initialize UI
 
@@ -434,8 +452,7 @@ function onScriptingButtonUp(index, player_color)
         local object = Player[player_color].getHoverObject()
 
         dealCard(object, player_color)
-    elseif index == SCRIPTING_BUTTON_DEBUG then
-        -- DEBUG
+    elseif DEV_MODE and index == SCRIPTING_BUTTON_DEBUG then
         local object = Player[player_color].getHoverObject()
 
         print(object)
@@ -502,8 +519,7 @@ function onObjectDrop(color, dropped_object)
         end
     end
 
-    -- DEBUG
-    if dropped_object.guid == 'fd701d' then
+    if DEV_MODE and dropped_object.guid == GUIDS.debug_object then
         Wait.time(function()
             -- local position = Vector(dropped_object.getPosition())
             -- local position = Vector(dropped_object.getPosition()) - Vector{ x = 5.5956, y = 1.46, z = 14.5975 }
