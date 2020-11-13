@@ -1,0 +1,56 @@
+
+local COMPANIES = { 'green', 'red', 'blue', 'yellow' }
+local STOCK_OPTIONS = { 1, 5 }
+local MONEY_AMOUNTS = { 1, 5, 10, 50 }
+
+local data = {}
+
+-- buildings
+for _, company in ipairs(COMPANIES) do
+    local data_key = 'shark_building_' .. company
+    data[data_key] = {
+        vars = {
+            kind = 'shark_building',
+        },
+        tables = {
+            building = {
+                company = company,
+            },
+        },
+    }
+end
+
+-- money banknotes
+for _, amount in ipairs(MONEY_AMOUNTS) do
+    local data_key = 'shark_money_' .. amount
+    data[data_key] = {
+        vars = {
+            kind = 'shark_money',
+        },
+        tables = {
+            money = {
+                amount = amount,
+            },
+        },
+    }
+end
+
+-- share cards
+for _, company in ipairs(COMPANIES) do
+    for _, stock_options in ipairs(STOCK_OPTIONS) do
+        local data_key = 'shark_share_card_' .. company .. '_' .. stock_options
+        data[data_key] = {
+            vars = {
+                kind = 'shark_share_card',
+            },
+            tables = {
+                share = {
+                    company = company,
+                    stock_options = stock_options,
+                },
+            },
+        }
+    end
+end
+
+return data

@@ -1,9 +1,21 @@
+require("shark/util/string")
+
+local OBJECTS_DATA = require('shark/game/objects/data')
+local data_key_prefix = 'data_key:'
+
 local function wrapBaggedObject(bagged_object)
     local object = {
         guid = bagged_object.guid,
     }
 
-    local state = JSON.decode(bagged_object.lua_script_state)
+    local state
+    if string.starts_with(bagged_object.lua_script_state, data_key_prefix) then
+        data_key = bagged_object.lua_script_state:sub(#data_key_prefix + 1)
+        state = OBJECTS_DATA[data_key]
+    else
+        state = JSON.decode(bagged_object.lua_script_state)
+    end
+
     local vars = {}
     local tables = {}
 

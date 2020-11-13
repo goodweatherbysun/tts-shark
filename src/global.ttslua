@@ -8,6 +8,8 @@ local debug = require("shark/util/debug")
 
 local Game = require("shark/game")
 
+local OBJECTS_DATA = require('shark/game/objects/data')
+
 local DropZoneModel = require("shark/game/drop_zone/drop_zone_model")
 local DropZoneReturnButtonModel = require("shark/game/drop_zone/return_button_model")
 local MoneyCounterModel = require("shark/game/drop_zone/money_counter_model")
@@ -656,7 +658,7 @@ end
 
 function initObjectState(params)
     local object = params.object
-    local state = params.state
+    local state = params.state or OBJECTS_DATA[params.data_key]
 
     for var_name, value in pairs(state.vars or {}) do
         object.setVar(var_name, value)

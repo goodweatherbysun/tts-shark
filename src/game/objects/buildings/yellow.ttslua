@@ -1,18 +1,9 @@
-DEFAULT_STATE = {
-    vars = {
-        kind = 'shark_building',
-    },
-    tables = {
-        building = {
-            company = 'yellow',
-        },
-    },
-}
+local data_key = 'shark_building_yellow'
 
 function onLoad(save_state)
-    Global.call('initObjectState', { object = self, state = DEFAULT_STATE })
+    Global.call('initObjectState', { object = self, data_key = data_key })
 end
 
 function onSave()
-    return JSON.encode(DEFAULT_STATE)
+    return 'data_key:' .. data_key
 end
