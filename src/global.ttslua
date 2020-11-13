@@ -127,20 +127,20 @@ local WORLD_MAP_BOUNDS = {
 -- relative to board
 local SHARE_DEPOSIT_POSITIONS = {
     green = {
-        [1] = { x = 7.1, y = 2, z = 6.0 },
-        [5] = { x = -7.1, y = 2, z = -6.0 },
+        [1] = { x = 7.12, y = 2, z = 5.99 },
+        [5] = { x = -7.13, y = 2, z = -6.00 },
     },
     red = {
-        [1] = { x = 5.1, y = 2, z = 6.0 },
-        [5] = { x = -7.1, y = 2, z = -2.0 },
+        [1] = { x = 5.17, y = 2, z = 5.99 },
+        [5] = { x = -7.13, y = 2, z = -2.00 },
     },
     blue = {
-        [1] = { x = 3.2, y = 2, z = 6.0 },
-        [5] = { x = -7.1, y = 2, z = 2 },
+        [1] = { x = 3.20, y = 2, z = 5.99 },
+        [5] = { x = -7.13, y = 2, z = 1.97 },
     },
     yellow = {
-        [1] = { x = 1.3, y = 2, z = 6.0 },
-        [5] = { x = -7.1, y = 2, z = 6.0 },
+        [1] = { x = 1.25, y = 2, z = 5.99 },
+        [5] = { x = -7.13, y = 2, z = 5.95 },
     },
 }
 
@@ -211,6 +211,7 @@ function onDebug(player_color, object, position, key_up)
 
     if object then
         debug.dumpVector(object.positionToLocal(position))
+        -- debug.dumpVector(OBJECTS.board.positionToLocal(object.getPosition()))
     end
 
     print(GAME.state_machine.state)
