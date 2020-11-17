@@ -450,6 +450,9 @@ end
 function onScriptingButtonUp(index, player_color)
     if index == SCRIPTING_BUTTON_BUY_SHARE then
         local object = Player[player_color].getHoverObject()
+        if not object then
+            return
+        end
 
         dealCard(object, player_color)
     elseif DEV_MODE and index == SCRIPTING_BUTTON_DEBUG then
@@ -460,7 +463,7 @@ function onScriptingButtonUp(index, player_color)
 end
 
 function onTakeShareCardHotkey(player_color, object, position, key_up)
-    if key_up then
+    if key_up and object then
         dealCard(object, player_color)
     end
 end
